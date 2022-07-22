@@ -10,12 +10,13 @@
 
 <script lang="ts">
 import {isValidButtonType} from "../functions/validation-functions";
+import {generateRandomString} from "lkt-tools";
 
 export default {
     name: "LktButton",
     props: {
         type: {type: String, default: 'button', validator: isValidButtonType},
-        name: {type: String, default: ''},
+        name: {type: String, default: (): string => { return generateRandomString(10); }},
         value: {type: String, default: ''},
         state: {type: String, default: ''},
         disabled: {type: Boolean, default: false}

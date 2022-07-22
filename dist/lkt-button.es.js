@@ -1,9 +1,10 @@
-import { openBlock as d, createElementBlock as i, renderSlot as u } from "vue";
-const r = ["button", "submit", "reset"], c = (t) => r.indexOf(t) !== -1, f = {
+import { generateRandomString as i } from "lkt-tools";
+import { openBlock as r, createElementBlock as d, renderSlot as u } from "vue";
+const c = ["button", "submit", "reset"], f = (t) => c.indexOf(t) !== -1, p = {
   name: "LktButton",
   props: {
-    type: { type: String, default: "button", validator: c },
-    name: { type: String, default: "" },
+    type: { type: String, default: "button", validator: f },
+    name: { type: String, default: () => i(10) },
     value: { type: String, default: "" },
     state: { type: String, default: "" },
     disabled: { type: Boolean, default: !1 }
@@ -13,14 +14,14 @@ const r = ["button", "submit", "reset"], c = (t) => r.indexOf(t) !== -1, f = {
       this.$emit("click", { id: this.name, value: this.value, event: t });
     }
   }
-}, p = (t, n) => {
+}, m = (t, n) => {
   const e = t.__vccOpts || t;
   for (const [o, a] of n)
     e[o] = a;
   return e;
 }, k = ["type", "disabled", "data-state"];
-function m(t, n, e, o, a, s) {
-  return d(), i("button", {
+function y(t, n, e, o, a, s) {
+  return r(), d("button", {
     "data-lkt": "button",
     type: e.type,
     disabled: e.disabled,
@@ -30,11 +31,11 @@ function m(t, n, e, o, a, s) {
     u(t.$slots, "default")
   ], 8, k);
 }
-const y = /* @__PURE__ */ p(f, [["render", m]]), _ = {
+const b = /* @__PURE__ */ m(p, [["render", y]]), g = {
   install: (t, n) => {
-    t.component("LktButton", y);
+    t.component("LktButton", b);
   }
 };
 export {
-  _ as default
+  g as default
 };

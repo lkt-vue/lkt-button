@@ -8,7 +8,7 @@ declare const _default: {
         };
         name: {
             type: StringConstructor;
-            default: string;
+            default: () => string;
         };
         value: {
             type: StringConstructor;
