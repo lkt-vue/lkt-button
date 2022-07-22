@@ -10,11 +10,11 @@ declare const _default: {
             type: StringConstructor;
             default: () => string;
         };
-        value: {
-            type: StringConstructor;
-            default: string;
-        };
         state: {
+            type: StringConstructor;
+            default: () => string;
+        };
+        value: {
             type: StringConstructor;
             default: string;
         };
@@ -24,7 +24,7 @@ declare const _default: {
         };
     };
     methods: {
-        onClick(e: any): void;
+        onClick($event: any): void;
     };
 };
 export default _default;

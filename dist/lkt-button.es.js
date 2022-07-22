@@ -1,41 +1,45 @@
 import { generateRandomString as i } from "lkt-tools";
-import { openBlock as r, createElementBlock as d, renderSlot as u } from "vue";
-const c = ["button", "submit", "reset"], f = (t) => c.indexOf(t) !== -1, p = {
+import { openBlock as u, createElementBlock as d, withModifiers as c, renderSlot as f } from "vue";
+const p = ["button", "submit", "reset"], k = (t) => p.indexOf(t) !== -1;
+class l {
+}
+l.DEFAULT_STATE = "";
+const m = () => l.DEFAULT_STATE, _ = {
   name: "LktButton",
   props: {
-    type: { type: String, default: "button", validator: f },
+    type: { type: String, default: "button", validator: k },
     name: { type: String, default: () => i(10) },
+    state: { type: String, default: () => m() },
     value: { type: String, default: "" },
-    state: { type: String, default: "" },
     disabled: { type: Boolean, default: !1 }
   },
   methods: {
     onClick(t) {
-      this.$emit("click", { id: this.name, value: this.value, event: t });
+      t.lkt = { id: this.name, value: this.value }, this.$emit("click", t);
     }
   }
-}, m = (t, n) => {
+}, y = (t, n) => {
   const e = t.__vccOpts || t;
   for (const [o, a] of n)
     e[o] = a;
   return e;
-}, k = ["type", "disabled", "data-state"];
-function y(t, n, e, o, a, s) {
-  return r(), d("button", {
+}, S = ["type", "disabled", "data-state"];
+function b(t, n, e, o, a, s) {
+  return u(), d("button", {
     "data-lkt": "button",
     type: e.type,
     disabled: e.disabled,
     "data-state": e.state,
-    onClick: n[0] || (n[0] = (...l) => s.onClick && s.onClick(...l))
+    onClick: n[0] || (n[0] = c((...r) => s.onClick && s.onClick(...r), ["stop"]))
   }, [
-    u(t.$slots, "default")
-  ], 8, k);
+    f(t.$slots, "default")
+  ], 8, S);
 }
-const b = /* @__PURE__ */ m(p, [["render", y]]), g = {
+const B = /* @__PURE__ */ y(_, [["render", b]]), E = {
   install: (t, n) => {
-    t.component("LktButton", b);
+    t.component("LktButton", B);
   }
 };
 export {
-  g as default
+  E as default
 };
