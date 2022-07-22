@@ -86,8 +86,8 @@ Default: `false`
 
 Determines if button is disabled or not.
 ```html
-<LktButton disabled"></LktButton>
-<LktButton v-bind:disabled="disabledChecker""></LktButton>
+<LktButton disabled></LktButton>
+<LktButton v-bind:disabled="disabledChecker"></LktButton>
 ```
 
 
