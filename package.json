@@ -1,0 +1,45 @@
+{
+  "name": "lkt-button",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "private": true,
+  "files": [
+    "assets/*",
+    "dist/*",
+    "src/**/*.vue"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/lkt-button.es.js",
+      "require": "./dist/lkt-button.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "types": "./dist/types/index.d.ts",
+  "scripts": {
+    "serve": "vite",
+    "build": "vite build && vue-tsc --emitDeclarationOnly --project tsconfig.json && mv dist/src dist/types",
+    "build2": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test-coverage": "vitest run --coverage"
+  },
+  "author": "Antonio Ibáñez",
+  "devDependencies": {
+    "@babel/types": "^7.18.9",
+    "@types/node": "^18.0.6",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "vue-tsc": "^0.38.9"
+  },
+  "peerDependencies": {
+    "lkt-scss": "git+https://gitlab.com/lkt-ui/lkt-scss.git",
+    "lkt-tools": "git+https://gitlab.com/lkt-ui/lkt-tools.git",
+    "vue": "^3.0.5"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}
