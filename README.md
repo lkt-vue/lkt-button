@@ -17,6 +17,10 @@ In your main.js
   app.use(LktButton);
 ```
 
+App use options:
+
+* `defaultState` string (default: undefined) => Set a default state for all buttons
+
 In your component:
 
 ```html

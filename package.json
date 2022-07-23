@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "src/index.ts",
   "module": "src/index.ts",
@@ -36,6 +36,7 @@
   },
   "peerDependencies": {
     "lkt-scss": "git+https://gitlab.com/lkt-ui/lkt-scss.git",
+    "lkt-events": "git+https://gitlab.com/lkt-ui/lkt-events.git",
     "lkt-tools": "git+https://gitlab.com/lkt-ui/lkt-tools.git",
     "vue": "^3.0.5"
   },

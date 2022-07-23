@@ -20,6 +20,7 @@ declare namespace _default {
                 const globals: {
                     vue: string;
                     "lkt-tools": string;
+                    "lkt-events": string;
                 };
                 const sourcemapExcludeSources: boolean;
             }
