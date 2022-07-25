@@ -42,7 +42,7 @@ function v(t, e, n, o, r, s) {
 }
 const L = /* @__PURE__ */ B(g, [["render", v]]), C = {
   install: (t, e) => {
-    t.component("LktButton", L), c(e) && f(e.defaultState) && b(e.defaultState);
+    t.component("lktButton", L), c(e) && f(e.defaultState) && b(e.defaultState);
   }
 };
 export {

@@ -24,7 +24,7 @@ App use options:
 In your component:
 
 ```html
-<LktButton v-on:click="doSomething" v-bind:disabled="disabledChecker"></LktButton>
+<lkt-button v-on:click="doSomething" v-bind:disabled="disabledChecker"></lkt-button>
 ```
 ```js
 export default {
@@ -50,7 +50,7 @@ Options: `button`, `submit`, `reset`
 
 Determines which kind of button will be.
 ```html
-<LktButton type="submit"></LktButton>
+<lkt-button type="submit"></lkt-button>
 ```
 
 ### name
@@ -60,7 +60,7 @@ Default: `a random string is generated` <br>
 
 An identifier emitted on click.
 ```html
-<LktButton name="sendMessage"></LktButton>
+<lkt-button name="sendMessage"></lkt-button>
 ```
 
 ### value
@@ -70,7 +70,7 @@ Default: `'`
 
 Set a value for form buttons. Emitted on click.
 ```html
-<LktButton v-bind:value="myButton"></LktButton>
+<lkt-button v-bind:value="myButton"></lkt-button>
 ```
 
 ### state
@@ -80,7 +80,7 @@ Default: `''`
 
 Appends a `data-state` attribute. It's useful for state control and styling.
 ```html
-<LktButton state="calculating"></LktButton>
+<lkt-button state="calculating"></lkt-button>
 ```
 
 ### disabled
@@ -90,8 +90,8 @@ Default: `false`
 
 Determines if button is disabled or not.
 ```html
-<LktButton disabled></LktButton>
-<LktButton v-bind:disabled="disabledChecker"></LktButton>
+<lkt-button disabled></lkt-button>
+<lkt-button v-bind:disabled="disabledChecker"></lkt-button>
 ```
 
 
@@ -103,7 +103,7 @@ Determines if button is disabled or not.
 
 HTML:
 ```HTML
-<LktButton v-on:click="doSomething"></LktButton>
+<lkt-button v-on:click="doSomething"></lkt-button>
 ```
 
 ### Slots
@@ -112,7 +112,7 @@ HTML:
 This slot allows you to fill the button with whatever you want.
 
 ```html
-<LktButton name="testButton" v-on:click="doSomething">
+<lkt-button name="testButton" v-on:click="doSomething">
   Click, me!
-</LktButton>
+</lkt-button>
 ```

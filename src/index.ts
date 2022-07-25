@@ -5,7 +5,7 @@ import {setDefaultState} from "./functions/settings-functions";
 
 const LktButton = {
     install: (app: any, options: any) => {
-        app.component('LktButton', button);
+        app.component('lkt-button', button);
 
         if (isObject(options) && isString(options.defaultState)) {
             setDefaultState(options.defaultState);
