@@ -1,4 +1,5 @@
+import { App } from "vue";
 declare const LktButton: {
-    install: (app: any, options: any) => void;
+    install: (app: App, options: any) => void;
 };
 export default LktButton;

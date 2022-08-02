@@ -1,0 +1,90 @@
+$border-width: 1px !default;
+$border-style: solid !default;
+$border-color: #ddd !default;
+$border-color-hover: #62A9FF !default;
+$border-color-disabled: #ccc !default;
+$border-radius: 4.5px !default;
+$height: 35px !default;
+$min-width: 150px !default;
+$transition: all linear 200ms !default;
+$background: transparent !default;
+$background-hover: #EAFFEF !default;
+$background-disabled: #eeeeee !default;
+$padding: 7px !default;
+$font-size: 16px !default;
+$font-family: Verdana,Arial,Helvetica,sans-serif !default;
+$font-weight: 300 !default;
+$line-height: 1 !default;
+$text-align: center !default;
+$cursor: default !default;
+$box-shadow: none !default;
+$color: #333 !default;
+$color-hover: #62A9FF !default;
+$color-disabled: #444 !default;
+$slot-gap: 5px;
+
+@mixin configure($opts: ()) {
+  @if map-get($opts, border-width) {
+    $border-width: map-get($opts, border-width) !global;
+  }
+  @if map-get($opts, border-style) {
+    $border-style: map-get($opts, border-style) !global;
+  }
+  @if map-get($opts, border-color) {
+    $border-color: map-get($opts, border-color) !global;
+  }
+  @if map-get($opts, border-color-hover) {
+    $border-color-hover: map-get($opts, border-color-hover) !global;
+  }
+  @if map-get($opts, border-radius) {
+    $border-radius: map-get($opts, border-radius) !global;
+  }
+  @if map-get($opts, height) {
+    $height: map-get($opts, height) !global;
+  }
+  @if map-get($opts, min-width) {
+    $min-width: map-get($opts, min-width) !global;
+  }
+  @if map-get($opts, transition) {
+    $transition: map-get($opts, transition) !global;
+  }
+  @if map-get($opts, background) {
+    $background: map-get($opts, background) !global;
+  }
+  @if map-get($opts, background-hover) {
+    $background-hover: map-get($opts, background-hover) !global;
+  }
+  @if map-get($opts, padding) {
+    $padding: map-get($opts, padding) !global;
+  }
+  @if map-get($opts, font-size) {
+    $font-size: map-get($opts, font-size) !global;
+  }
+  @if map-get($opts, font-weight) {
+    $font-weight: map-get($opts, font-weight) !global;
+  }
+  @if map-get($opts, line-height) {
+    $line-height: map-get($opts, line-height) !global;
+  }
+  @if map-get($opts, text-align) {
+    $text-align: map-get($opts, text-align) !global;
+  }
+  @if map-get($opts, cursor) {
+    $cursor: map-get($opts, cursor) !global;
+  }
+  @if map-get($opts, box-shadow) {
+    $box-shadow: map-get($opts, box-shadow) !global;
+  }
+  @if map-get($opts, color) {
+    $color: map-get($opts, color) !global;
+  }
+  @if map-get($opts, color-hover) {
+    $color-hover: map-get($opts, color-hover) !global;
+  }
+  @if map-get($opts, font-family) {
+    $font-family: map-get($opts, font-family) !global;
+  }
+  @if map-get($opts, slot-gap) {
+    $slot-gap: map-get($opts, slot-gap) !global;
+  }
+}

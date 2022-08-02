@@ -1,12 +1,13 @@
 {
   "name": "lkt-button",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "src/index.ts",
   "module": "src/index.ts",
   "private": true,
   "files": [
-    "assets/*",
+    "lkt-button.scss",
+    "lkt-button-config.scss",
     "dist/*",
     "src/**/*.vue"
   ],
@@ -21,7 +22,7 @@
   "types": "./dist/types/index.d.ts",
   "scripts": {
     "serve": "vite",
-    "build": "vite build && vue-tsc --emitDeclarationOnly --project tsconfig.json && mv dist/src dist/types",
+    "build": "vite build && vue-tsc --emitDeclarationOnly --project tsconfig.json && mv dist/src dist/types && rm dist/README.md.d.ts && rm dist/vite.config.d.ts",
     "build2": "vite build",
     "preview": "vite preview",
     "test": "vitest",

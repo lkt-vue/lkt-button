@@ -23,6 +23,14 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
+        wrapContent: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+    };
+    computed: {
+        hasPrev(): boolean;
+        hasNext(): boolean;
     };
     methods: {
         onClick($event: any): void;

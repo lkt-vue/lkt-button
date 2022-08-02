@@ -1,0 +1,51 @@
+@use "lkt-button-config";
+
+@mixin generate() {
+  [data-lkt="button"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: lkt-button-config.$color;
+    box-shadow: lkt-button-config.$box-shadow;
+    cursor: lkt-button-config.$cursor;
+    text-align: lkt-button-config.$text-align;
+    transition: lkt-button-config.$transition;
+    font-family: lkt-button-config.$font-family;
+    font-size: lkt-button-config.$font-size;
+    font-weight: lkt-button-config.$font-weight;
+    line-height: lkt-button-config.$line-height;
+    border-radius: lkt-button-config.$border-radius;
+    border-width: lkt-button-config.$border-width;
+    border-style: lkt-button-config.$border-style;
+    border-color: lkt-button-config.$border-color;
+    min-width: lkt-button-config.$min-width;
+    background: lkt-button-config.$background;
+    padding: lkt-button-config.$padding;
+    min-height: lkt-button-config.$height;
+
+    &:disabled {
+      cursor: not-allowed;
+      color: lkt-button-config.$color-disabled;
+      border-color: lkt-button-config.$border-color-disabled;
+      background-color: lkt-button-config.$background-disabled;
+
+      &:hover {
+        color: lkt-button-config.$color-disabled;
+        background-color: lkt-button-config.$background-disabled;
+      }
+    }
+
+    &:not(:disabled):hover {
+      color: lkt-button-config.$color-hover;
+      border-color: lkt-button-config.$border-color-hover;
+      background: lkt-button-config.$background-hover;
+    }
+
+    [data-role="prev"] {
+      margin-right: lkt-button-config.$slot-gap;
+    }
+    [data-role="next"] {
+      margin-left: lkt-button-config.$slot-gap;
+    }
+  }
+}

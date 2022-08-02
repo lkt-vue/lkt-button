@@ -5,13 +5,16 @@
             v-bind:disabled="disabled"
             v-bind:data-state="state"
             v-on:click.prevent.stop="onClick">
-        <slot></slot>
+        <span data-role="prev" v-if="hasPrev"><slot name="prev"></slot></span>
+        <span data-role="content" v-if="wrapContent"><slot></slot></span>
+        <template v-else><slot></slot></template>
+        <span data-role="next" v-if="hasNext"><slot name="next"></slot></span>
     </button>
 </template>
 
 <script lang="ts">
 import {createLktEvent} from "lkt-events";
-import {generateRandomString} from "lkt-tools";
+import {generateRandomString, slotProvided} from "lkt-tools";
 import {isValidButtonType} from "../functions/validation-functions";
 import { getDefaultButtonState } from "../functions/settings-functions";
 
@@ -23,7 +26,16 @@ export default {
         name: {type: String, default: (): string => { return generateRandomString(10); }},
         state: {type: String, default: (): string => { return getDefaultButtonState(); }},
         value: {type: String, default: ''},
-        disabled: {type: Boolean, default: false}
+        disabled: {type: Boolean, default: false},
+        wrapContent: {type: Boolean, default: false}
+    },
+    computed: {
+        hasPrev() {
+            return slotProvided(this, 'prev');
+        },
+        hasNext() {
+            return slotProvided(this, 'next');
+        },
     },
     methods: {
         onClick($event: any) {
