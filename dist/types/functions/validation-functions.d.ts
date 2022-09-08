@@ -1,1 +1,2 @@
-export declare const isValidButtonType: (value: string) => boolean;
+import { ButtonType } from '../enums/enums';
+export declare const isValidButtonType: (value: ButtonType) => boolean;

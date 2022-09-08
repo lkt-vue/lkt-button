@@ -1,17 +1,18 @@
 /* eslint-disable import/prefer-default-export */
-import {default as button} from "./lib-components/LktButton.vue";
-import {isObject, isString} from "lkt-tools";
-import {setDefaultState} from "./functions/settings-functions";
-import {App} from "vue";
+import { App } from 'vue';
+
+import { InstallOptions } from './interfaces/InstallOptions';
+import { default as button } from './lib-components/LktButton.vue';
+import { Settings } from './settings/Settings';
 
 const LktButton = {
-    install: (app: App, options: any) => {
-        app.component('lkt-button', button);
+  install: (app: App, options?: InstallOptions) => {
+    app.component('lkt-button', button);
 
-        if (isObject(options) && isString(options.defaultState)) {
-            setDefaultState(options.defaultState);
-        }
-    },
+    if (options && options.defaultState) {
+      Settings.DEFAULT_STATE = options.defaultState;
+    }
+  },
 };
 
 export default LktButton;

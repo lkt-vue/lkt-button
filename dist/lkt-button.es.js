@@ -1,19 +1,31 @@
 import { createLktEvent as m } from "lkt-events";
-import { trim as p, generateRandomString as k, slotProvided as u, isObject as y, isString as S } from "lkt-tools";
-import { openBlock as o, createElementBlock as s, withModifiers as _, renderSlot as r, createCommentVNode as c } from "vue";
-const h = ["button", "submit", "reset"], v = (t) => h.indexOf(t) !== -1;
+import { assertNever as c, generateRandomString as k, slotProvided as u } from "lkt-tools";
+import { defineComponent as b, openBlock as a, createElementBlock as s, withModifiers as h, renderSlot as o, createCommentVNode as p } from "vue";
+var n = /* @__PURE__ */ ((t) => (t.button = "button", t.submit = "submit", t.reset = "reset", t))(n || {});
+const v = (t) => {
+  switch (t) {
+    case n.button:
+    case n.reset:
+    case n.submit:
+      return !0;
+    default:
+      c(t);
+  }
+  return !1;
+};
 class l {
 }
 l.DEFAULT_STATE = "";
-const T = (t) => {
-  l.DEFAULT_STATE = p(t, void 0);
-}, b = () => l.DEFAULT_STATE, g = {
+const y = b({
   name: "LktButton",
   emits: ["click"],
   props: {
-    type: { type: String, default: "button", validator: v },
-    name: { type: String, default: () => k(10) },
-    state: { type: String, default: () => b() },
+    type: { type: String, default: n.button, validator: v },
+    name: {
+      type: String,
+      default: () => k(10)
+    },
+    state: { type: String, default: () => l.DEFAULT_STATE },
     value: { type: String, default: "" },
     disabled: { type: Boolean, default: !1 },
     wrapContent: { type: Boolean, default: !1 }
@@ -31,46 +43,46 @@ const T = (t) => {
       this.$emit("click", t, m(this.name, this.value));
     }
   }
-}, B = (t, e) => {
-  const n = t.__vccOpts || t;
-  for (const [d, i] of e)
-    n[d] = i;
-  return n;
-}, E = ["name", "type", "disabled", "data-state"], C = {
+}), S = (t, e) => {
+  const r = t.__vccOpts || t;
+  for (const [i, d] of e)
+    r[i] = d;
+  return r;
+}, $ = ["name", "type", "disabled", "data-state"], g = {
   key: 0,
   "data-role": "prev"
-}, A = {
+}, C = {
   key: 1,
   "data-role": "content"
-}, L = {
+}, E = {
   key: 3,
   "data-role": "next"
 };
-function x(t, e, n, d, i, a) {
-  return o(), s("button", {
+function T(t, e, r, i, d, L) {
+  return a(), s("button", {
     "data-lkt": "button",
-    name: n.name,
-    type: n.type,
-    disabled: n.disabled,
-    "data-state": n.state,
-    onClick: e[0] || (e[0] = _((...f) => a.onClick && a.onClick(...f), ["prevent", "stop"]))
+    name: t.name,
+    type: t.type,
+    disabled: t.disabled,
+    "data-state": t.state,
+    onClick: e[0] || (e[0] = h((...f) => t.onClick && t.onClick(...f), ["prevent", "stop"]))
   }, [
-    a.hasPrev ? (o(), s("span", C, [
-      r(t.$slots, "prev")
-    ])) : c("", !0),
-    n.wrapContent ? (o(), s("span", A, [
-      r(t.$slots, "default")
-    ])) : r(t.$slots, "default", { key: 2 }),
-    a.hasNext ? (o(), s("span", L, [
-      r(t.$slots, "next")
-    ])) : c("", !0)
-  ], 8, E);
+    t.hasPrev ? (a(), s("span", g, [
+      o(t.$slots, "prev")
+    ])) : p("", !0),
+    t.wrapContent ? (a(), s("span", C, [
+      o(t.$slots, "default")
+    ])) : o(t.$slots, "default", { key: 2 }),
+    t.hasNext ? (a(), s("span", E, [
+      o(t.$slots, "next")
+    ])) : p("", !0)
+  ], 8, $);
 }
-const D = /* @__PURE__ */ B(g, [["render", x]]), U = {
+const A = /* @__PURE__ */ S(y, [["render", T]]), N = {
   install: (t, e) => {
-    t.component("lkt-button", D), y(e) && S(e.defaultState) && T(e.defaultState);
+    t.component("lkt-button", A), e && e.defaultState && (l.DEFAULT_STATE = e.defaultState);
   }
 };
 export {
-  U as default
+  N as default
 };

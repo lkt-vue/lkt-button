@@ -1,10 +1,5 @@
-import {Settings} from "../settings/Settings";
-import {trim} from "lkt-tools";
-
-export const setDefaultState = (state: string): void => {
-    Settings.DEFAULT_STATE = trim(state, undefined);
-}
+import { Settings } from '../settings/Settings';
 
 export const getDefaultButtonState = (): string => {
-    return Settings.DEFAULT_STATE;
-}
+  return Settings.DEFAULT_STATE;
+};
