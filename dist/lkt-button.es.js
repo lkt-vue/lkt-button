@@ -1,6 +1,6 @@
-import { createLktEvent as m } from "lkt-events";
-import { assertNever as c, generateRandomString as k, slotProvided as u } from "lkt-tools";
-import { defineComponent as b, openBlock as a, createElementBlock as s, withModifiers as h, renderSlot as o, createCommentVNode as p } from "vue";
+import { createLktEvent as f } from "lkt-events";
+import { assertNever as m, generateRandomString as k, slotProvided as u } from "lkt-tools";
+import { defineComponent as b, openBlock as s, createElementBlock as a, withModifiers as h, renderSlot as o, createCommentVNode as p } from "vue";
 var n = /* @__PURE__ */ ((t) => (t.button = "button", t.submit = "submit", t.reset = "reset", t))(n || {});
 const v = (t) => {
   switch (t) {
@@ -9,7 +9,7 @@ const v = (t) => {
     case n.submit:
       return !0;
     default:
-      c(t);
+      m(t);
   }
   return !1;
 };
@@ -40,7 +40,7 @@ const y = b({
   },
   methods: {
     onClick(t) {
-      this.$emit("click", t, m(this.name, this.value));
+      this.$emit("click", t, f(this.name, this.value));
     }
   }
 }), S = (t, e) => {
@@ -48,39 +48,43 @@ const y = b({
   for (const [i, d] of e)
     r[i] = d;
   return r;
-}, $ = ["name", "type", "disabled", "data-state"], g = {
+}, _ = ["name", "type", "disabled", "data-state"], $ = {
   key: 0,
+  class: "lkt-button__prev",
   "data-role": "prev"
-}, C = {
+}, g = {
   key: 1,
+  class: "lkt-button__content",
   "data-role": "content"
-}, E = {
+}, C = {
   key: 3,
+  class: "lkt-button__next",
   "data-role": "next"
 };
-function T(t, e, r, i, d, L) {
-  return a(), s("button", {
+function E(t, e, r, i, d, A) {
+  return s(), a("button", {
+    class: "lkt-button",
     "data-lkt": "button",
     name: t.name,
     type: t.type,
     disabled: t.disabled,
     "data-state": t.state,
-    onClick: e[0] || (e[0] = h((...f) => t.onClick && t.onClick(...f), ["prevent", "stop"]))
+    onClick: e[0] || (e[0] = h((...c) => t.onClick && t.onClick(...c), ["prevent", "stop"]))
   }, [
-    t.hasPrev ? (a(), s("span", g, [
+    t.hasPrev ? (s(), a("span", $, [
       o(t.$slots, "prev")
     ])) : p("", !0),
-    t.wrapContent ? (a(), s("span", C, [
+    t.wrapContent ? (s(), a("span", g, [
       o(t.$slots, "default")
     ])) : o(t.$slots, "default", { key: 2 }),
-    t.hasNext ? (a(), s("span", E, [
+    t.hasNext ? (s(), a("span", C, [
       o(t.$slots, "next")
     ])) : p("", !0)
-  ], 8, $);
+  ], 8, _);
 }
-const A = /* @__PURE__ */ S(y, [["render", T]]), N = {
+const T = /* @__PURE__ */ S(y, [["render", E]]), N = {
   install: (t, e) => {
-    t.component("lkt-button", A), e && e.defaultState && (l.DEFAULT_STATE = e.defaultState);
+    t.component("lkt-button", T), e && e.defaultState && (l.DEFAULT_STATE = e.defaultState);
   }
 };
 export {
