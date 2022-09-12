@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "src/index.ts",
   "module": "src/index.ts",
@@ -58,9 +58,10 @@
     "vue-tsc": "^0.38.9"
   },
   "peerDependencies": {
-    "lkt-scss": "git+https://gitlab.com/lkt-ui/lkt-scss.git",
     "lkt-events": "git+https://gitlab.com/lkt-ui/lkt-events.git",
+    "lkt-scss": "git+https://gitlab.com/lkt-ui/lkt-scss.git",
     "lkt-tools": "git+https://gitlab.com/lkt-ui/lkt-tools.git",
+    "lkt-theme": "^1.0.4",
     "vue": "^3.0.5"
   },
   "engines": {

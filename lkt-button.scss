@@ -1,7 +1,8 @@
 @use "lkt-button-config";
+@use "node_modules/lkt-theme/lkt-theme";
 
 @mixin generate() {
-  [data-lkt="button"] {
+  .lkt-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -23,29 +24,104 @@
     padding: lkt-button-config.$padding;
     min-height: lkt-button-config.$height;
 
-    &:disabled {
-      cursor: not-allowed;
-      color: lkt-button-config.$color-disabled;
-      border-color: lkt-button-config.$border-color-disabled;
-      background-color: lkt-button-config.$background-disabled;
+    &__prev {
+      margin-right: lkt-button-config.$slot-gap;
+    }
 
-      &:hover {
-        color: lkt-button-config.$color-disabled;
-        background-color: lkt-button-config.$background-disabled;
+    &__next {
+      margin-left: lkt-button-config.$slot-gap;
+    }
+
+    @if lkt-theme.$info-color {
+      &--info {
+        color: lkt-theme.$info-color;
+        background: lkt-theme.$info-color-contrast;
+        border-color: lkt-theme.$info-color;
+
+        &:hover {
+          background: lkt-theme.$info-color;
+          color: lkt-theme.$info-color-contrast;
+        }
       }
     }
 
-    &:not(:disabled):hover {
-      color: lkt-button-config.$color-hover;
-      border-color: lkt-button-config.$border-color-hover;
-      background: lkt-button-config.$background-hover;
+    @if lkt-theme.$warning-color {
+      &--warning {
+        color: lkt-theme.$warning-color;
+        background: lkt-theme.$warning-color-contrast;
+        border-color: lkt-theme.$warning-color;
+
+        &:hover {
+          background: lkt-theme.$warning-color;
+          color: lkt-theme.$warning-color-contrast;
+        }
+      }
     }
 
-    [data-role="prev"] {
-      margin-right: lkt-button-config.$slot-gap;
+    @if lkt-theme.$danger-color {
+      &--danger {
+        color: lkt-theme.$danger-color;
+        background: lkt-theme.$danger-color-contrast;
+        border-color: lkt-theme.$danger-color;
+
+        &:hover {
+          background: lkt-theme.$danger-color;
+          color: lkt-theme.$danger-color-contrast;
+        }
+      }
     }
-    [data-role="next"] {
-      margin-left: lkt-button-config.$slot-gap;
+    @if lkt-theme.$success-color {
+      &--success {
+        color: lkt-theme.$success-color;
+        background: lkt-theme.$success-color-contrast;
+        border-color: lkt-theme.$success-color;
+
+        &:hover {
+          background: lkt-theme.$success-color;
+          color: lkt-theme.$success-color-contrast;
+        }
+      }
+    }
+
+    @if lkt-theme.$target-color {
+      &--target {
+        color: lkt-theme.$target-color;
+        background: lkt-theme.$target-color-contrast;
+        border-color: lkt-theme.$target-color;
+
+        &:hover {
+          background: lkt-theme.$target-color;
+          color: lkt-theme.$target-color-contrast;
+        }
+      }
+    }
+
+    @if lkt-theme.$alert-color {
+      &--alert {
+        color: lkt-theme.$alert-color;
+        background: lkt-theme.$alert-color-contrast;
+        border-color: lkt-theme.$alert-color;
+
+        &:hover {
+          background: lkt-theme.$alert-color;
+          color: lkt-theme.$alert-color-contrast;
+        }
+      }
+    }
+
+    @if lkt-theme.$disabled-color {
+      &:disabled {
+        cursor: not-allowed;
+
+        color: lkt-theme.$disabled-color;
+        background-color: lkt-theme.$disabled-color-contrast;
+        border-color: lkt-theme.$disabled-color;
+
+        &:hover {
+          color: lkt-theme.$disabled-color;
+          background-color: lkt-theme.$disabled-color-contrast;
+        }
+      }
     }
   }
 }

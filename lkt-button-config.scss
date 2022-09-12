@@ -1,15 +1,14 @@
+@use "node_modules/lkt-theme/lkt-theme";
+
+
 $border-width: 1px !default;
 $border-style: solid !default;
 $border-color: #ddd !default;
-$border-color-hover: #62A9FF !default;
-$border-color-disabled: #ccc !default;
 $border-radius: 4.5px !default;
 $height: 35px !default;
 $min-width: 150px !default;
-$transition: all linear 200ms !default;
+$transition: lkt-theme.$primary-transition !default;
 $background: transparent !default;
-$background-hover: #EAFFEF !default;
-$background-disabled: #eeeeee !default;
 $padding: 7px !default;
 $font-size: 16px !default;
 $font-family: Verdana,Arial,Helvetica,sans-serif !default;
@@ -19,9 +18,7 @@ $text-align: center !default;
 $cursor: default !default;
 $box-shadow: none !default;
 $color: #333 !default;
-$color-hover: #62A9FF !default;
-$color-disabled: #444 !default;
-$slot-gap: 5px;
+$slot-gap: 5px !default;
 
 @mixin configure($opts: ()) {
   @if map-get($opts, border-width) {

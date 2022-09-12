@@ -1,16 +1,17 @@
 <template>
-    <button data-lkt="button"
+    <button class="lkt-button"
+            data-lkt="button"
             v-bind:name="name"
             v-bind:type="type"
             v-bind:disabled="disabled"
             v-bind:data-state="state"
             v-on:click.prevent.stop="onClick">
-        <span data-role="prev" v-if="hasPrev"><slot name="prev"></slot></span>
-        <span data-role="content" v-if="wrapContent"><slot></slot></span>
+        <span class="lkt-button__prev" data-role="prev" v-if="hasPrev"><slot name="prev"></slot></span>
+        <span class="lkt-button__content" data-role="content" v-if="wrapContent"><slot></slot></span>
         <template v-else>
             <slot></slot>
         </template>
-        <span data-role="next" v-if="hasNext"><slot name="next"></slot></span>
+        <span class="lkt-button__next" data-role="next" v-if="hasNext"><slot name="next"></slot></span>
     </button>
 </template>
 
