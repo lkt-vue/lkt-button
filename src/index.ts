@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { App } from 'vue';
 
 import { InstallOptions } from './interfaces/InstallOptions';

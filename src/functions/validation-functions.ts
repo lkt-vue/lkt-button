@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-import {assertNever} from "lkt-tools";
+import { assertNever } from 'lkt-control-tools';
 
 import { ButtonType } from '../enums/enums';
 

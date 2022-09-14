@@ -1,126 +1,450 @@
-@use "lkt-button-config";
 @use "node_modules/lkt-theme/lkt-theme";
 
+$border-width: 1px !default;
+$border-style: solid !default;
+$border-color: #ddd !default;
+$font-weight: 300 !default;
+$line-height: 1 !default;
+$text-align: center !default;
+$cursor: default !default;
+$box-shadow: none !default;
+$color: #333 !default;
+$background: transparent !default;
+$height: 35px !default;
+$min-width: 150px !default;
+$padding: 7px !default;
+$slot-gap: 5px !default;
+$border-radius: lkt-theme.$primary-border-radius !default;
+$transition: lkt-theme.$primary-transition !default;
+$font-size: lkt-theme.$primary-button-font-size !default;
+$font-family: lkt-theme.$primary-button-font-family !default;
+
+@mixin configure($opts: ()) {
+  @if map-get($opts, border-width) {
+    $border-width: map-get($opts, border-width) !global;
+  }
+  @if map-get($opts, border-style) {
+    $border-style: map-get($opts, border-style) !global;
+  }
+  @if map-get($opts, border-color) {
+    $border-color: map-get($opts, border-color) !global;
+  }
+  @if map-get($opts, border-color-hover) {
+    $border-color-hover: map-get($opts, border-color-hover) !global;
+  }
+  @if map-get($opts, border-radius) {
+    $border-radius: map-get($opts, border-radius) !global;
+  }
+  @if map-get($opts, height) {
+    $height: map-get($opts, height) !global;
+  }
+  @if map-get($opts, min-width) {
+    $min-width: map-get($opts, min-width) !global;
+  }
+  @if map-get($opts, transition) {
+    $transition: map-get($opts, transition) !global;
+  }
+  @if map-get($opts, background) {
+    $background: map-get($opts, background) !global;
+  }
+  @if map-get($opts, background-hover) {
+    $background-hover: map-get($opts, background-hover) !global;
+  }
+  @if map-get($opts, padding) {
+    $padding: map-get($opts, padding) !global;
+  }
+  @if map-get($opts, font-size) {
+    $font-size: map-get($opts, font-size) !global;
+  }
+  @if map-get($opts, font-weight) {
+    $font-weight: map-get($opts, font-weight) !global;
+  }
+  @if map-get($opts, line-height) {
+    $line-height: map-get($opts, line-height) !global;
+  }
+  @if map-get($opts, text-align) {
+    $text-align: map-get($opts, text-align) !global;
+  }
+  @if map-get($opts, cursor) {
+    $cursor: map-get($opts, cursor) !global;
+  }
+  @if map-get($opts, box-shadow) {
+    $box-shadow: map-get($opts, box-shadow) !global;
+  }
+  @if map-get($opts, color) {
+    $color: map-get($opts, color) !global;
+  }
+  @if map-get($opts, color-hover) {
+    $color-hover: map-get($opts, color-hover) !global;
+  }
+  @if map-get($opts, font-family) {
+    $font-family: map-get($opts, font-family) !global;
+  }
+  @if map-get($opts, slot-gap) {
+    $slot-gap: map-get($opts, slot-gap) !global;
+  }
+}
+
+@mixin __generate-color-style($color, $contrast){
+  color: $color;
+  background: $contrast;
+  border-color: $color;
+
+  &:hover {
+    background: $color;
+    color: $contrast;
+  }
+}
+
 @mixin generate() {
+  // Fix default lkt-theme vars
+  @if($border-radius == 0) {
+    $border-radius: lkt-theme.$primary-border-radius !global;
+  }
+  @if($transition == false) {
+    $transition: lkt-theme.$primary-transition !global;
+  }
+  @if($font-size == false) {
+    $font-size: lkt-theme.$primary-button-font-size !global;
+  }
+  @if($font-family == false) {
+    $font-family: lkt-theme.$primary-button-font-family !global;
+  }
+
   .lkt-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: lkt-button-config.$color;
-    box-shadow: lkt-button-config.$box-shadow;
-    cursor: lkt-button-config.$cursor;
-    text-align: lkt-button-config.$text-align;
-    transition: lkt-button-config.$transition;
-    font-family: lkt-button-config.$font-family;
-    font-size: lkt-button-config.$font-size;
-    font-weight: lkt-button-config.$font-weight;
-    line-height: lkt-button-config.$line-height;
-    border-radius: lkt-button-config.$border-radius;
-    border-width: lkt-button-config.$border-width;
-    border-style: lkt-button-config.$border-style;
-    border-color: lkt-button-config.$border-color;
-    min-width: lkt-button-config.$min-width;
-    background: lkt-button-config.$background;
-    padding: lkt-button-config.$padding;
-    min-height: lkt-button-config.$height;
+    color: $color;
+    box-shadow: $box-shadow;
+    cursor: $cursor;
+    text-align: $text-align;
+    transition: $transition;
+    font-family: $font-family;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    line-height: $line-height;
+    border-radius: $border-radius;
+    border-width: $border-width;
+    border-style: $border-style;
+    border-color: $border-color;
+    min-width: $min-width;
+    background: $background;
+    padding: $padding;
+    min-height: $height;
 
     &__prev {
-      margin-right: lkt-button-config.$slot-gap;
+      margin-right: $slot-gap;
     }
 
     &__next {
-      margin-left: lkt-button-config.$slot-gap;
+      margin-left: $slot-gap;
+    }
+
+    @if lkt-theme.$primary-color {
+      &--primary {
+        @include __generate-color-style(lkt-theme.$primary-color, lkt-theme.$primary-color-contrast);
+      }
+    }
+
+    @if lkt-theme.$primary-color-dark {
+      &--primary-dark {
+        @include __generate-color-style(lkt-theme.$primary-color-dark, lkt-theme.$primary-color-dark-contrast);
+      }
+    }
+
+    @if lkt-theme.$primary-color-darker {
+      &--primary-darker {
+        @include __generate-color-style(lkt-theme.$primary-color-darker, lkt-theme.$primary-color-darker-contrast);
+      }
+    }
+
+    @if lkt-theme.$primary-color-light {
+      &--primary-light {
+        @include __generate-color-style(lkt-theme.$primary-color-light, lkt-theme.$primary-color-light-contrast);
+      }
+    }
+
+    @if lkt-theme.$primary-color-lighter {
+      &--primary-lighter {
+        @include __generate-color-style(lkt-theme.$primary-color-lighter, lkt-theme.$primary-color-lighter-contrast);
+      }
+    }
+
+    @if lkt-theme.$secondary-color {
+      &--secondary {
+        @include __generate-color-style(lkt-theme.$secondary-color, lkt-theme.$secondary-color-contrast);
+      }
+    }
+
+    @if lkt-theme.$secondary-color-dark {
+      &--secondary-dark {
+        @include __generate-color-style(lkt-theme.$secondary-color-dark, lkt-theme.$secondary-color-dark-contrast);
+      }
+    }
+
+    @if lkt-theme.$secondary-color-darker {
+      &--secondary-darker {
+        @include __generate-color-style(lkt-theme.$secondary-color-darker, lkt-theme.$secondary-color-darker-contrast);
+      }
+    }
+
+    @if lkt-theme.$secondary-color-light {
+      &--secondary-light {
+        @include __generate-color-style(lkt-theme.$secondary-color-light, lkt-theme.$secondary-color-light-contrast);
+      }
+    }
+
+    @if lkt-theme.$secondary-color-lighter {
+      &--secondary-lighter {
+        @include __generate-color-style(lkt-theme.$secondary-color-lighter, lkt-theme.$secondary-color-lighter-contrast);
+      }
     }
 
     @if lkt-theme.$info-color {
       &--info {
-        color: lkt-theme.$info-color;
-        background: lkt-theme.$info-color-contrast;
-        border-color: lkt-theme.$info-color;
+        @include __generate-color-style(lkt-theme.$info-color, lkt-theme.$info-color-contrast);
+      }
+    }
 
-        &:hover {
-          background: lkt-theme.$info-color;
-          color: lkt-theme.$info-color-contrast;
-        }
+    @if lkt-theme.$info-color-dark {
+      &--info-dark {
+        @include __generate-color-style(lkt-theme.$info-color-dark, lkt-theme.$info-color-dark-contrast);
+      }
+    }
+
+    @if lkt-theme.$info-color-darker {
+      &--info-darker {
+        @include __generate-color-style(lkt-theme.$info-color-darker, lkt-theme.$info-color-darker-contrast);
+      }
+    }
+
+    @if lkt-theme.$info-color-light {
+      &--info-light {
+        @include __generate-color-style(lkt-theme.$info-color-light, lkt-theme.$info-color-light-contrast);
+      }
+    }
+
+    @if lkt-theme.$info-color-lighter {
+      &--info-lighter {
+        @include __generate-color-style(lkt-theme.$info-color-lighter, lkt-theme.$info-color-lighter-contrast);
       }
     }
 
     @if lkt-theme.$warning-color {
       &--warning {
-        color: lkt-theme.$warning-color;
-        background: lkt-theme.$warning-color-contrast;
-        border-color: lkt-theme.$warning-color;
+        @include __generate-color-style(lkt-theme.$warning-color, lkt-theme.$warning-color-contrast);
+      }
+    }
 
-        &:hover {
-          background: lkt-theme.$warning-color;
-          color: lkt-theme.$warning-color-contrast;
-        }
+    @if lkt-theme.$warning-color-dark {
+      &--warning-dark {
+        @include __generate-color-style(lkt-theme.$warning-color-dark, lkt-theme.$warning-color-dark-contrast);
+      }
+    }
+
+    @if lkt-theme.$warning-color-darker {
+      &--warning-darker {
+        @include __generate-color-style(lkt-theme.$warning-color-darker, lkt-theme.$warning-color-darker-contrast);
+      }
+    }
+
+    @if lkt-theme.$warning-color-light {
+      &--warning-light {
+        @include __generate-color-style(lkt-theme.$warning-color-light, lkt-theme.$warning-color-light-contrast);
+      }
+    }
+
+    @if lkt-theme.$warning-color-lighter {
+      &--warning-lighter {
+        @include __generate-color-style(lkt-theme.$warning-color-lighter, lkt-theme.$warning-color-lighter-contrast);
+      }
+    }
+
+    @if lkt-theme.$notice-color {
+      &--notice {
+        @include __generate-color-style(lkt-theme.$notice-color, lkt-theme.$notice-color-contrast);
+      }
+    }
+
+    @if lkt-theme.$notice-color-dark {
+      &--notice-dark {
+        @include __generate-color-style(lkt-theme.$notice-color-dark, lkt-theme.$notice-color-dark-contrast);
+      }
+    }
+
+    @if lkt-theme.$notice-color-darker {
+      &--notice-darker {
+        @include __generate-color-style(lkt-theme.$notice-color-darker, lkt-theme.$notice-color-darker-contrast);
+      }
+    }
+
+    @if lkt-theme.$notice-color-light {
+      &--notice-light {
+        @include __generate-color-style(lkt-theme.$notice-color-light, lkt-theme.$notice-color-light-contrast);
+      }
+    }
+
+    @if lkt-theme.$notice-color-lighter {
+      &--notice-lighter {
+        @include __generate-color-style(lkt-theme.$notice-color-lighter, lkt-theme.$notice-color-lighter-contrast);
       }
     }
 
     @if lkt-theme.$danger-color {
       &--danger {
-        color: lkt-theme.$danger-color;
-        background: lkt-theme.$danger-color-contrast;
-        border-color: lkt-theme.$danger-color;
-
-        &:hover {
-          background: lkt-theme.$danger-color;
-          color: lkt-theme.$danger-color-contrast;
-        }
+        @include __generate-color-style(lkt-theme.$danger-color, lkt-theme.$danger-color-contrast);
       }
     }
+
+    @if lkt-theme.$danger-color-dark {
+      &--danger-dark {
+        @include __generate-color-style(lkt-theme.$danger-color-dark, lkt-theme.$danger-color-dark-contrast);
+      }
+    }
+
+    @if lkt-theme.$danger-color-darker {
+      &--danger-darker {
+        @include __generate-color-style(lkt-theme.$danger-color-darker, lkt-theme.$danger-color-darker-contrast);
+      }
+    }
+
+    @if lkt-theme.$danger-color-light {
+      &--danger-light {
+        @include __generate-color-style(lkt-theme.$danger-color-light, lkt-theme.$danger-color-light-contrast);
+      }
+    }
+
+    @if lkt-theme.$danger-color-lighter {
+      &--danger-lighter {
+        @include __generate-color-style(lkt-theme.$danger-color-lighter, lkt-theme.$danger-color-lighter-contrast);
+      }
+    }
+
     @if lkt-theme.$success-color {
       &--success {
-        color: lkt-theme.$success-color;
-        background: lkt-theme.$success-color-contrast;
-        border-color: lkt-theme.$success-color;
+        @include __generate-color-style(lkt-theme.$success-color, lkt-theme.$success-color-contrast);
+      }
+    }
 
-        &:hover {
-          background: lkt-theme.$success-color;
-          color: lkt-theme.$success-color-contrast;
-        }
+    @if lkt-theme.$success-color-dark {
+      &--success-dark {
+        @include __generate-color-style(lkt-theme.$success-color-dark, lkt-theme.$success-color-dark-contrast);
+      }
+    }
+
+    @if lkt-theme.$success-color-darker {
+      &--success-darker {
+        @include __generate-color-style(lkt-theme.$success-color-darker, lkt-theme.$success-color-darker-contrast);
+      }
+    }
+
+    @if lkt-theme.$success-color-light {
+      &--success-light {
+        @include __generate-color-style(lkt-theme.$success-color-light, lkt-theme.$success-color-light-contrast);
+      }
+    }
+
+    @if lkt-theme.$success-color-lighter {
+      &--success-lighter {
+        @include __generate-color-style(lkt-theme.$success-color-lighter, lkt-theme.$success-color-lighter-contrast);
       }
     }
 
     @if lkt-theme.$target-color {
       &--target {
-        color: lkt-theme.$target-color;
-        background: lkt-theme.$target-color-contrast;
-        border-color: lkt-theme.$target-color;
+        @include __generate-color-style(lkt-theme.$target-color, lkt-theme.$target-color-contrast);
+      }
+    }
 
-        &:hover {
-          background: lkt-theme.$target-color;
-          color: lkt-theme.$target-color-contrast;
-        }
+    @if lkt-theme.$target-color-dark {
+      &--target-dark {
+        @include __generate-color-style(lkt-theme.$target-color-dark, lkt-theme.$target-color-dark-contrast);
+      }
+    }
+
+    @if lkt-theme.$target-color-darker {
+      &--target-darker {
+        @include __generate-color-style(lkt-theme.$target-color-darker, lkt-theme.$target-color-darker-contrast);
+      }
+    }
+
+    @if lkt-theme.$target-color-light {
+      &--target-light {
+        @include __generate-color-style(lkt-theme.$target-color-light, lkt-theme.$target-color-light-contrast);
+      }
+    }
+
+    @if lkt-theme.$target-color-lighter {
+      &--target-lighter {
+        @include __generate-color-style(lkt-theme.$target-color-lighter, lkt-theme.$target-color-lighter-contrast);
       }
     }
 
     @if lkt-theme.$alert-color {
       &--alert {
-        color: lkt-theme.$alert-color;
-        background: lkt-theme.$alert-color-contrast;
-        border-color: lkt-theme.$alert-color;
+        @include __generate-color-style(lkt-theme.$alert-color, lkt-theme.$alert-color-contrast);
+      }
+    }
 
-        &:hover {
-          background: lkt-theme.$alert-color;
-          color: lkt-theme.$alert-color-contrast;
-        }
+    @if lkt-theme.$alert-color-dark {
+      &--alert-dark {
+        @include __generate-color-style(lkt-theme.$alert-color-dark, lkt-theme.$alert-color-dark-contrast);
+      }
+    }
+
+    @if lkt-theme.$alert-color-darker {
+      &--alert-darker {
+        @include __generate-color-style(lkt-theme.$alert-color-darker, lkt-theme.$alert-color-darker-contrast);
+      }
+    }
+
+    @if lkt-theme.$alert-color-light {
+      &--alert-light {
+        @include __generate-color-style(lkt-theme.$alert-color-light, lkt-theme.$alert-color-light-contrast);
+      }
+    }
+
+    @if lkt-theme.$alert-color-lighter {
+      &--alert-lighter {
+        @include __generate-color-style(lkt-theme.$alert-color-lighter, lkt-theme.$alert-color-light-contrast);
+      }
+    }
+
+    @if lkt-theme.$gray-color {
+      &--gray {
+        @include __generate-color-style(lkt-theme.$gray-color, lkt-theme.$alert-color-contrast);
+      }
+    }
+
+    @if lkt-theme.$gray-color-dark {
+      &--gray-dark {
+        @include __generate-color-style(lkt-theme.$gray-color-dark, lkt-theme.$alert-color-dark-contrast);
+      }
+    }
+
+    @if lkt-theme.$gray-color-darker {
+      &--gray-darker {
+        @include __generate-color-style(lkt-theme.$gray-color-darker, lkt-theme.$alert-color-darker-contrast);
+      }
+    }
+
+    @if lkt-theme.$gray-color-light {
+      &--gray-light {
+        @include __generate-color-style(lkt-theme.$gray-color-light, lkt-theme.$alert-color-light-contrast);
+      }
+    }
+
+    @if lkt-theme.$gray-color-lighter {
+      &--gray-lighter {
+        @include __generate-color-style(lkt-theme.$gray-color-lighter, lkt-theme.$alert-color-lighter-contrast);
       }
     }
 
     @if lkt-theme.$disabled-color {
       &:disabled {
         cursor: not-allowed;
-
-        color: lkt-theme.$disabled-color;
-        background-color: lkt-theme.$disabled-color-contrast;
-        border-color: lkt-theme.$disabled-color;
-
-        &:hover {
-          color: lkt-theme.$disabled-color;
-          background-color: lkt-theme.$disabled-color-contrast;
-        }
+        @include __generate-color-style(lkt-theme.$disabled-color, lkt-theme.$disabled-color-contrast);
       }
     }
   }

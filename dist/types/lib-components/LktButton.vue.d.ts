@@ -22,6 +22,10 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    loading: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
     wrapContent: {
         type: BooleanConstructor;
         default: boolean;
@@ -29,6 +33,7 @@ declare const _default: import("vue").DefineComponent<{
 }, unknown, unknown, {
     hasPrev(): boolean;
     hasNext(): boolean;
+    classes(): string;
 }, {
     onClick($event: any): void;
 }, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "click"[], "click", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
@@ -53,6 +58,10 @@ declare const _default: import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    loading: {
+        type: BooleanConstructor;
+        default: boolean;
+    };
     wrapContent: {
         type: BooleanConstructor;
         default: boolean;
@@ -64,6 +73,7 @@ declare const _default: import("vue").DefineComponent<{
     state: string;
     name: string;
     value: string;
+    loading: boolean;
     disabled: boolean;
     wrapContent: boolean;
 }>;
