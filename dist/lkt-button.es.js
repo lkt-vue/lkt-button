@@ -1,31 +1,45 @@
-import { createLktEvent as m } from "lkt-events";
-import { assertNever as c, generateRandomString as k, slotProvided as o } from "lkt-tools";
-import { defineComponent as h, openBlock as a, createElementBlock as l, normalizeClass as b, withModifiers as y, renderSlot as s, createCommentVNode as p } from "vue";
-var n = /* @__PURE__ */ ((t) => (t.button = "button", t.submit = "submit", t.reset = "reset", t))(n || {});
-const g = (t) => {
+import { createLktEvent as c } from "lkt-events";
+import { defineComponent as h, openBlock as r, createElementBlock as i, normalizeClass as m, withModifiers as k, renderSlot as s, createCommentVNode as p } from "vue";
+function b(t) {
+  throw new Error(
+    `Unhandled discrimination union member: ${JSON.stringify(t)}`
+  );
+}
+var a = /* @__PURE__ */ ((t) => (t.button = "button", t.submit = "submit", t.reset = "reset", t))(a || {});
+const y = (t) => {
   switch (t) {
-    case n.button:
-    case n.reset:
-    case n.submit:
+    case a.button:
+    case a.reset:
+    case a.submit:
       return !0;
     default:
-      c(t);
+      b(t);
   }
   return !1;
 };
-class i {
+class d {
 }
-i.DEFAULT_STATE = "";
+d.DEFAULT_STATE = "";
+function g(t = 10) {
+  let e = "";
+  const n = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", l = n.length;
+  for (let o = 0; o < t; o++)
+    e += n.charAt(Math.floor(Math.random() * l));
+  return e;
+}
+function u(t, e) {
+  return !!t.$slots[e];
+}
 const v = h({
   name: "LktButton",
   emits: ["click"],
   props: {
-    type: { type: String, default: n.button, validator: g },
+    type: { type: String, default: a.button, validator: y },
     name: {
       type: String,
-      default: () => k(10)
+      default: () => g(10)
     },
-    state: { type: String, default: () => i.DEFAULT_STATE },
+    palette: { type: String, default: () => d.DEFAULT_STATE },
     value: { type: String, default: "" },
     disabled: { type: Boolean, default: !1 },
     loading: { type: Boolean, default: !1 },
@@ -33,27 +47,27 @@ const v = h({
   },
   computed: {
     hasPrev() {
-      return o(this, "prev") || o(this, "prev-loading");
+      return u(this, "prev") || u(this, "prev-loading");
     },
     hasNext() {
-      return o(this, "next") || o(this, "next-loading");
+      return u(this, "next") || u(this, "next-loading");
     },
     classes() {
       let t = [];
-      return this.state && t.push(`lkt-button--${this.state}`), this.loading && t.push("is-loading"), t.join(" ");
+      return this.palette && t.push(`lkt-button--${this.palette}`), this.loading && t.push("is-loading"), t.join(" ");
     }
   },
   methods: {
     onClick(t) {
-      this.$emit("click", t, m(this.name, this.value));
+      this.$emit("click", t, c(this.name, this.value));
     }
   }
-}), S = (t, e) => {
-  const r = t.__vccOpts || t;
-  for (const [d, u] of e)
-    r[d] = u;
-  return r;
-}, $ = ["name", "type", "disabled"], C = {
+}), $ = (t, e) => {
+  const n = t.__vccOpts || t;
+  for (const [l, o] of e)
+    n[l] = o;
+  return n;
+}, S = ["name", "type", "disabled"], C = {
   key: 0,
   class: "lkt-button__prev",
   "data-role": "prev"
@@ -66,30 +80,30 @@ const v = h({
   class: "lkt-button__next",
   "data-role": "next"
 };
-function _(t, e, r, d, u, B) {
-  return a(), l("button", {
-    class: b(["lkt-button", t.classes]),
+function A(t, e, n, l, o, w) {
+  return r(), i("button", {
+    class: m(["lkt-button", t.classes]),
     name: t.name,
     type: t.type,
     disabled: t.disabled,
-    onClick: e[0] || (e[0] = y((...f) => t.onClick && t.onClick(...f), ["prevent", "stop"]))
+    onClick: e[0] || (e[0] = k((...f) => t.onClick && t.onClick(...f), ["prevent", "stop"]))
   }, [
-    t.hasPrev ? (a(), l("span", C, [
+    t.hasPrev ? (r(), i("span", C, [
       t.loading ? s(t.$slots, "prev-loading", { key: 0 }) : s(t.$slots, "prev", { key: 1 })
     ])) : p("", !0),
-    t.wrapContent ? (a(), l("span", E, [
+    t.wrapContent ? (r(), i("span", E, [
       s(t.$slots, "default")
     ])) : s(t.$slots, "default", { key: 2 }),
-    t.hasNext ? (a(), l("span", T, [
+    t.hasNext ? (r(), i("span", T, [
       t.loading ? s(t.$slots, "next-loading", { key: 0 }) : s(t.$slots, "next", { key: 1 })
     ])) : p("", !0)
-  ], 10, $);
+  ], 10, S);
 }
-const A = /* @__PURE__ */ S(v, [["render", _]]), D = {
+const _ = /* @__PURE__ */ $(v, [["render", A]]), N = {
   install: (t, e) => {
-    t.component("lkt-button", A), e && e.defaultState && (i.DEFAULT_STATE = e.defaultState);
+    t.component("lkt-button", _), e && e.defaultState && (d.DEFAULT_STATE = e.defaultState);
   }
 };
 export {
-  D as default
+  N as default
 };

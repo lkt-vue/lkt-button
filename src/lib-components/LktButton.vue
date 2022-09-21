@@ -39,7 +39,7 @@ export default defineComponent({
                 return generateRandomString(10);
             }
         },
-        state: {type: String, default: (): string => Settings.DEFAULT_STATE},
+        palette: {type: String, default: (): string => Settings.DEFAULT_STATE},
         value: {type: String, default: ''},
         disabled: {type: Boolean, default: false},
         loading: {type: Boolean, default: false},
@@ -55,8 +55,8 @@ export default defineComponent({
         classes() {
             let r = [];
 
-            if (this.state) {
-                r.push(`lkt-button--${this.state}`);
+            if (this.palette) {
+                r.push(`lkt-button--${this.palette}`);
             }
 
             if (this.loading) {

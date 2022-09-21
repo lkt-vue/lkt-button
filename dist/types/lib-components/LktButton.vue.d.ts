@@ -10,7 +10,7 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: () => string;
     };
-    state: {
+    palette: {
         type: StringConstructor;
         default: () => string;
     };
@@ -46,7 +46,7 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         default: () => string;
     };
-    state: {
+    palette: {
         type: StringConstructor;
         default: () => string;
     };
@@ -70,11 +70,11 @@ declare const _default: import("vue").DefineComponent<{
     onClick?: ((...args: any[]) => any) | undefined;
 }, {
     type: ButtonType;
-    state: string;
     name: string;
     value: string;
     loading: boolean;
     disabled: boolean;
+    palette: string;
     wrapContent: boolean;
 }>;
 export default _default;
