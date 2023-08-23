@@ -73,14 +73,14 @@ Set a value for form buttons. Emitted on click.
 <lkt-button v-bind:value="myButton"></lkt-button>
 ```
 
-### state
+### palette
 Type: `String`<br>
 Required: `false`<br>
 Default: `''`
 
-Appends a `data-state` attribute. It's useful for state control and styling.
+Appends a palette classname. It's useful for palette control and styling.
 ```html
-<lkt-button state="calculating"></lkt-button>
+<lkt-button palette="calculating"></lkt-button>
 ```
 
 ### disabled
@@ -237,12 +237,12 @@ lkt-button--warning-lighter
 <lkt-button class="lkt-button--success-light">Confirm action</lkt-button>
 ```
 
-#### The ```state``` prop
-You can apply ```lkt-theme``` modifiers with the state prop this way:
+#### The ```palette``` prop
+You can apply ```lkt-theme``` modifiers with the palette prop this way:
 
 
 ```html
-<lkt-button state="info">More info</lkt-button>
+<lkt-button palette="info">More info</lkt-button>
 
 <!-- Is the same as: -->
 
