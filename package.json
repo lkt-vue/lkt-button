@@ -1,11 +1,11 @@
 {
   "name": "lkt-button",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "",
   "main": "src/index.ts",
   "module": "src/index.ts",
   "files": [
-    "lkt-button.scss",
+    "lkt-button.css",
     "dist/*",
     "src/**/*.vue"
   ],
@@ -48,7 +48,7 @@
     "@testing-library/dom": "^7.30.1",
     "@testing-library/jest-dom": "^5.11.10",
     "@types/node": "^18.6.2",
-    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.36.2",
     "@vitejs/plugin-vue": "^3.0.1",
     "babel-eslint": "^10.1.0",
@@ -59,17 +59,18 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-html": "^7.1.0",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-jest": "^24.3.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "prettier": "^2.7.1",
     "typescript": "^4.8.2",
+    "vite": "^3.2.7",
     "vue": "^3.2.37",
     "vue-tsc": "^0.38.9"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "dependencies": {
     "lkt-control-tools": "^1.0.1",
