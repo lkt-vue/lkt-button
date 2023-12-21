@@ -18,14 +18,7 @@
     min-width: var(--button-min-width);
     min-height: var(--button-min-height);
     padding: var(--button-padding);
-}
-
-.lkt-button__prev {
-    margin-right: var(--button-slot-gap);
-}
-
-.lkt-button__next {
-    margin-left: var(--button-slot-gap);
+    gap: var(--button-gap);
 }
 
 .lkt-button--alert {

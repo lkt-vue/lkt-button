@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "",
   "main": "src/index.ts",
   "module": "src/index.ts",
@@ -75,10 +75,10 @@
   "dependencies": {
     "lkt-control-tools": "^1.0.1",
     "lkt-events": "^1.0.2",
+    "lkt-http-client": "^1.0.13",
+    "lkt-loader": "^1.0.1",
     "lkt-string-tools": "^1.0.1",
-    "lkt-theme": "^1.0.4",
     "lkt-ts-interfaces": "^1.0.0",
-    "lkt-vue-tools": "^1.0.1",
-    "vue": "^3.0.5"
+    "vue": "^3.3.0"
   }
 }
