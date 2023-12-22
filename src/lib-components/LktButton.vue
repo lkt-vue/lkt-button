@@ -10,6 +10,7 @@ import {ButtonType} from "../enums/enums";
 import {Settings} from "../settings/Settings";
 import {generateRandomString} from "lkt-string-tools";
 import {httpCall} from "lkt-http-client";
+import {openConfirm} from "lkt-modal-confirm";
 
 const props = defineProps({
     type: {type: String as PropType<ButtonType>, default: ButtonType.button, validator: isValidButtonType},
@@ -21,6 +22,9 @@ const props = defineProps({
     wrapContent: {type: Boolean, default: false},
     resource: {type: String, default: ''},
     resourceData: {type: Object, required: false, default: () => ({})},
+    confirmModal: {type: String, default: ''},
+    confirmModalKey: {type: String, default: '_'},
+    confirmData: {type: Object, required: false, default: () => ({})},
 });
 
 const emit = defineEmits(['click', 'loading', 'loaded']);
@@ -39,21 +43,49 @@ const classes = computed(() => {
     hasPrev = computed(() => !!slots.prev)
 ;
 
+const doResourceClick = async ($event: any) => {
+    isLoading.value = true;
+    emit('loading');
+    return httpCall(props.resource, props.resourceData).then((r: any) => {
+        isLoading.value = false;
+        emit('loaded');
+        emit('click', $event, r);
+    }).catch((r: any) => {
+        isLoading.value = false;
+        emit('loaded');
+        emit('click', $event, r);
+    });
+}
+
 const onClick = ($event: any) => {
 
-    if (props.resource) {
-        isLoading.value = true;
-        emit('loading');
-        return httpCall(props.resource, props.resourceData).then((r: any) => {
-            isLoading.value = false;
-            emit('loaded');
-            emit('click', $event, r);
-        }).catch((r: any) => {
-            isLoading.value = false;
-            emit('loaded');
-            emit('click', $event, r);
-        });
+    if (props.confirmModal) {
+        let data = typeof props.confirmData === 'object' ? JSON.parse(JSON.stringify(props.confirmData)) : {};
+
+        if (typeof data.onConfirm === 'function') {
+            let externalConfirmAction = data.onConfirm.bind({});
+            data.onConfirm = () => {
+                if (props.resource) {
+                    return doResourceClick($event).then(() => {
+                        externalConfirmAction();
+                    });
+                } else {
+                    emit('click', $event, createLktEvent(props.name, props.value));
+                }
+            }
+        } else {
+            data.onConfirm = () => {
+                if (props.resource) {
+                    return doResourceClick($event);
+                } else {
+                    emit('click', $event, createLktEvent(props.name, props.value));
+                }
+            }
+        }
+        return openConfirm(props.confirmModal, props.confirmModalKey, data);
     }
+
+    if (props.resource) return doResourceClick($event);
 
     emit('click', $event, createLktEvent(props.name, props.value));
 }
@@ -68,14 +100,14 @@ watch(() => props.loading, () => isLoading.value = props.loading);
             v-bind:type="type"
             v-bind:disabled="disabled"
             v-on:click.prevent.stop="onClick">
-        <span class="lkt-button__prev" data-role="prev" v-if="hasPrev">
+        <span class="lkt-button-prev" v-if="hasPrev">
             <slot name="prev"></slot>
         </span>
-        <span class="lkt-button__content" data-role="content" v-if="wrapContent"><slot></slot></span>
+        <span class="lkt-button-content" v-if="wrapContent"><slot></slot></span>
         <template v-else>
             <slot></slot>
         </template>
-        <span class="lkt-button__next" data-role="next" v-if="hasNext">
+        <span class="lkt-button-next" v-if="hasNext">
             <slot name="next"></slot>
         </span>
         <lkt-spinner v-if="isLoading"></lkt-spinner>

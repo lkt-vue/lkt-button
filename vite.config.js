@@ -24,12 +24,14 @@ export default {
                 'vue',
                 'lkt-loader',
                 'lkt-http-client',
+                'lkt-modal-confirm',
                 'lkt-events',
                 'lkt-control-tools',
             ],
             output: {
                 globals: {
                     vue: 'Vue',
+                    'lkt-modal-confirm': 'LktModalConfirm',
                     'lkt-http-client': 'LktHttpClient',
                     'lkt-events': 'LktEvents',
                     'lkt-vue-tools': 'LktVueTools',

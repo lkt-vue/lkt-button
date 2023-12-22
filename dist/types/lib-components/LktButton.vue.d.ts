@@ -40,6 +40,19 @@ declare const _default: {
             required: false;
             default: () => {};
         };
+        confirmModal: {
+            type: StringConstructor;
+            default: string;
+        };
+        confirmModalKey: {
+            type: StringConstructor;
+            default: string;
+        };
+        confirmData: {
+            type: ObjectConstructor;
+            required: false;
+            default: () => {};
+        };
     }>> & {
         onClick?: ((...args: any[]) => any) | undefined;
         onLoaded?: ((...args: any[]) => any) | undefined;
@@ -83,6 +96,19 @@ declare const _default: {
             required: false;
             default: () => {};
         };
+        confirmModal: {
+            type: StringConstructor;
+            default: string;
+        };
+        confirmModalKey: {
+            type: StringConstructor;
+            default: string;
+        };
+        confirmData: {
+            type: ObjectConstructor;
+            required: false;
+            default: () => {};
+        };
     }>> & {
         onClick?: ((...args: any[]) => any) | undefined;
         onLoaded?: ((...args: any[]) => any) | undefined;
@@ -97,6 +123,9 @@ declare const _default: {
         palette: string;
         wrapContent: boolean;
         resourceData: Record<string, any>;
+        confirmModal: string;
+        confirmModalKey: string;
+        confirmData: Record<string, any>;
     }, true, {}, {}, {
         P: {};
         B: {};
@@ -143,6 +172,19 @@ declare const _default: {
             required: false;
             default: () => {};
         };
+        confirmModal: {
+            type: StringConstructor;
+            default: string;
+        };
+        confirmModalKey: {
+            type: StringConstructor;
+            default: string;
+        };
+        confirmData: {
+            type: ObjectConstructor;
+            required: false;
+            default: () => {};
+        };
     }>> & {
         onClick?: ((...args: any[]) => any) | undefined;
         onLoaded?: ((...args: any[]) => any) | undefined;
@@ -157,6 +199,9 @@ declare const _default: {
         palette: string;
         wrapContent: boolean;
         resourceData: Record<string, any>;
+        confirmModal: string;
+        confirmModalKey: string;
+        confirmData: Record<string, any>;
     }>;
     __isFragment?: undefined;
     __isTeleport?: undefined;
@@ -200,6 +245,19 @@ declare const _default: {
         required: false;
         default: () => {};
     };
+    confirmModal: {
+        type: StringConstructor;
+        default: string;
+    };
+    confirmModalKey: {
+        type: StringConstructor;
+        default: string;
+    };
+    confirmData: {
+        type: ObjectConstructor;
+        required: false;
+        default: () => {};
+    };
 }>> & {
     onClick?: ((...args: any[]) => any) | undefined;
     onLoaded?: ((...args: any[]) => any) | undefined;
@@ -214,6 +272,9 @@ declare const _default: {
     palette: string;
     wrapContent: boolean;
     resourceData: Record<string, any>;
+    confirmModal: string;
+    confirmModalKey: string;
+    confirmData: Record<string, any>;
 }, {}, string, {}> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
     $slots: {
         prev: (_: {}) => any;
