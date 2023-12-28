@@ -43,7 +43,7 @@ const classes = computed(() => {
     hasPrev = computed(() => !!slots.prev)
 ;
 
-const doResourceClick = async ($event: any) => {
+const doResourceClick = async ($event: MouseEvent|null) => {
     isLoading.value = true;
     emit('loading');
     return httpCall(props.resource, props.resourceData).then((r: any) => {
@@ -57,7 +57,7 @@ const doResourceClick = async ($event: any) => {
     });
 }
 
-const onClick = ($event: any) => {
+const onClick = ($event: MouseEvent|null) => {
 
     if (props.confirmModal) {
         let data = typeof props.confirmData === 'object' ? JSON.parse(JSON.stringify(props.confirmData)) : {};
@@ -91,6 +91,10 @@ const onClick = ($event: any) => {
 }
 
 watch(() => props.loading, () => isLoading.value = props.loading);
+
+defineExpose({
+    click: () => onClick(null)
+})
 </script>
 
 <template>

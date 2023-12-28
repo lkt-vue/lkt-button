@@ -57,7 +57,9 @@ declare const _default: {
         onClick?: ((...args: any[]) => any) | undefined;
         onLoaded?: ((...args: any[]) => any) | undefined;
         onLoading?: ((...args: any[]) => any) | undefined;
-    }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("loaded" | "loading" | "click")[], import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & Readonly<import("vue").ExtractPropTypes<{
+    }, {
+        click: () => void | Promise<void>;
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("loaded" | "loading" | "click")[], import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & Readonly<import("vue").ExtractPropTypes<{
         type: {
             type: PropType<ButtonType>;
             default: ButtonType;
@@ -189,7 +191,9 @@ declare const _default: {
         onClick?: ((...args: any[]) => any) | undefined;
         onLoaded?: ((...args: any[]) => any) | undefined;
         onLoading?: ((...args: any[]) => any) | undefined;
-    }, {}, {}, {}, {}, {
+    }, {
+        click: () => void | Promise<void>;
+    }, {}, {}, {}, {
         type: ButtonType;
         name: string;
         value: string;
@@ -262,7 +266,9 @@ declare const _default: {
     onClick?: ((...args: any[]) => any) | undefined;
     onLoaded?: ((...args: any[]) => any) | undefined;
     onLoading?: ((...args: any[]) => any) | undefined;
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("loaded" | "loading" | "click")[], "loaded" | "loading" | "click", {
+}, {
+    click: () => void | Promise<void>;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("loaded" | "loading" | "click")[], "loaded" | "loading" | "click", {
     type: ButtonType;
     name: string;
     value: string;
