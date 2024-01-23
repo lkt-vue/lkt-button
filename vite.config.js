@@ -27,6 +27,7 @@ export default {
                 'lkt-modal-confirm',
                 'lkt-events',
                 'lkt-control-tools',
+                'lkt-string-tools',
             ],
             output: {
                 globals: {
@@ -36,6 +37,7 @@ export default {
                     'lkt-events': 'LktEvents',
                     'lkt-vue-tools': 'LktVueTools',
                     'lkt-control-tools': 'LktControlTools',
+                    'lkt-string-tools': 'LktStringTools',
                 },
                 sourcemapExcludeSources: true,
             },

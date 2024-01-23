@@ -4,27 +4,40 @@ export default {name: "LktButton", inheritAttrs: false}
 
 <script setup lang="ts">
 import {createLktEvent} from "lkt-events";
-import {isValidButtonType} from "../functions/validation-functions";
-import {PropType, useSlots, computed, ref, watch} from "vue";
+import {useSlots, computed, ref, watch} from "vue";
 import {ButtonType} from "../enums/enums";
 import {Settings} from "../settings/Settings";
 import {generateRandomString} from "lkt-string-tools";
 import {httpCall} from "lkt-http-client";
 import {openConfirm} from "lkt-modal-confirm";
+import {LktObject} from "lkt-ts-interfaces";
 
-const props = defineProps({
-    type: {type: String as PropType<ButtonType>, default: ButtonType.button, validator: isValidButtonType},
-    name: {type: String, default: (): string => generateRandomString(10)},
-    palette: {type: String, default: (): string => Settings.DEFAULT_STATE},
-    value: {type: String, default: ''},
-    disabled: {type: Boolean, default: false},
-    loading: {type: Boolean, default: false},
-    wrapContent: {type: Boolean, default: false},
-    resource: {type: String, default: ''},
-    resourceData: {type: Object, required: false, default: () => ({})},
-    confirmModal: {type: String, default: ''},
-    confirmModalKey: {type: String, default: '_'},
-    confirmData: {type: Object, required: false, default: () => ({})},
+const props = withDefaults(defineProps<{
+    type?: ButtonType,
+    name: string,
+    palette: string,
+    value: string,
+    disabled: boolean,
+    loading: boolean,
+    wrapContent: boolean,
+    resource: string,
+    resourceData?: LktObject
+    confirmModal: string,
+    confirmModalKey: string,
+    confirmData?: LktObject
+}>(), {
+    type: ButtonType.button,
+    name: generateRandomString(10),
+    palette: Settings.DEFAULT_STATE,
+    value: '',
+    disabled: false,
+    loading: false,
+    wrapContent: false,
+    resource: '',
+    resourceData: () => ({}),
+    confirmModal: '',
+    confirmModalKey: '_',
+    confirmData: () => ({}),
 });
 
 const emit = defineEmits(['click', 'loading', 'loaded']);
