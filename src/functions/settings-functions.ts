@@ -1,5 +1,5 @@
 import { Settings } from '../settings/Settings';
 
-export const getDefaultButtonState = (): string => {
-  return Settings.DEFAULT_STATE;
+export const setDefaultButtonPalette = (palette: string): void => {
+  Settings.DEFAULT_PALETTE = palette;
 };

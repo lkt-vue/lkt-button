@@ -1,3 +1,3 @@
 export class Settings {
-  static DEFAULT_STATE: string = '';
+  static DEFAULT_PALETTE: string = '';
 }

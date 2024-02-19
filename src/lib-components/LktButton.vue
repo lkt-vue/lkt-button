@@ -9,6 +9,7 @@ import {ButtonType} from "../enums/enums";
 import {Settings} from "../settings/Settings";
 import {generateRandomString} from "lkt-string-tools";
 import {httpCall} from "lkt-http-client";
+import {openModal} from "lkt-modal";
 import {openConfirm} from "lkt-modal-confirm";
 import {LktObject} from "lkt-ts-interfaces";
 
@@ -22,19 +23,25 @@ const props = withDefaults(defineProps<{
     wrapContent: boolean,
     resource: string,
     resourceData?: LktObject
+    modal: string,
+    modalKey: string,
+    modalData?: LktObject
     confirmModal: string,
     confirmModalKey: string,
     confirmData?: LktObject
 }>(), {
     type: ButtonType.button,
     name: generateRandomString(10),
-    palette: Settings.DEFAULT_STATE,
+    palette: Settings.DEFAULT_PALETTE,
     value: '',
     disabled: false,
     loading: false,
     wrapContent: false,
     resource: '',
     resourceData: () => ({}),
+    modal: '',
+    modalKey: '_',
+    modalData: () => ({}),
     confirmModal: '',
     confirmModalKey: '_',
     confirmData: () => ({}),
@@ -71,6 +78,32 @@ const doResourceClick = async ($event: MouseEvent|null) => {
 }
 
 const onClick = ($event: MouseEvent|null) => {
+
+    if (props.modal) {
+        let data = typeof props.modalData === 'object' ? JSON.parse(JSON.stringify(props.modalData)) : {};
+
+        if (typeof data.beforeClose === 'function') {
+            let externalConfirmAction = data.beforeClose.bind({});
+            data.beforeClose = () => {
+                if (props.resource) {
+                    return doResourceClick($event).then(() => {
+                        externalConfirmAction();
+                    });
+                } else {
+                    emit('click', $event, createLktEvent(props.name, props.value));
+                }
+            }
+        } else {
+            data.beforeClose = () => {
+                if (props.resource) {
+                    return doResourceClick($event);
+                } else {
+                    emit('click', $event, createLktEvent(props.name, props.value));
+                }
+            }
+        }
+        return openModal(props.modal, props.modalKey, data);
+    }
 
     if (props.confirmModal) {
         let data = typeof props.confirmData === 'object' ? JSON.parse(JSON.stringify(props.confirmData)) : {};

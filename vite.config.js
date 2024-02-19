@@ -2,7 +2,7 @@ import vue from '@vitejs/plugin-vue';
 import {resolve} from 'path';
 
 const src = resolve(__dirname, 'src');
-const outDir = resolve(__dirname, 'dist');
+const outDir = resolve(__dirname, 'build');
 const test = resolve(__dirname, 'test');
 const snapshots = resolve(__dirname, 'snapshots');
 
@@ -15,7 +15,7 @@ export default {
         lib: {
             entry: `${src}/index.ts`,
             name: 'LktButton',
-            fileName: (format) => `lkt-button.${format}.js`,
+            formats: ['es']
         },
         outDir,
         minify: true,
@@ -24,6 +24,7 @@ export default {
                 'vue',
                 'lkt-loader',
                 'lkt-http-client',
+                'lkt-modal',
                 'lkt-modal-confirm',
                 'lkt-events',
                 'lkt-control-tools',
@@ -32,6 +33,7 @@ export default {
             output: {
                 globals: {
                     vue: 'Vue',
+                    'lkt-modal': 'LktModal',
                     'lkt-modal-confirm': 'LktModalConfirm',
                     'lkt-http-client': 'LktHttpClient',
                     'lkt-events': 'LktEvents',
