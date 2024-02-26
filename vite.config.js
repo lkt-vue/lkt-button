@@ -15,6 +15,7 @@ export default {
         lib: {
             entry: `${src}/index.ts`,
             name: 'LktButton',
+            fileName: 'build',
             formats: ['es']
         },
         outDir,

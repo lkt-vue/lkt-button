@@ -1,29 +1,26 @@
-import { defineComponent as L, useSlots as g, ref as A, computed as m, watch as M, resolveComponent as B, openBlock as i, createElementBlock as c, normalizeClass as T, withModifiers as N, renderSlot as f, createCommentVNode as p, createBlock as P } from "vue";
-import { createLktEvent as u } from "lkt-events";
+import { defineComponent as g, useSlots as L, ref as A, computed as f, watch as B, resolveComponent as M, openBlock as u, createElementBlock as d, normalizeClass as T, withModifiers as N, renderSlot as m, createCommentVNode as p, createBlock as P } from "vue";
+import { createLktEvent as i } from "lkt-events";
 import { generateRandomString as S } from "lkt-string-tools";
-import { httpCall as w } from "lkt-http-client";
-import { openModal as J } from "lkt-modal";
-import K, { openConfirm as O } from "lkt-modal-confirm";
-var y = /* @__PURE__ */ ((l) => (l.button = "button", l.submit = "submit", l.reset = "reset", l))(y || {});
+import { httpCall as J } from "lkt-http-client";
+import { openModal as K } from "lkt-modal";
+import { openConfirm as O } from "lkt-modal-confirm";
+var y = /* @__PURE__ */ ((a) => (a.button = "button", a.submit = "submit", a.reset = "reset", a))(y || {});
 const k = class k {
 };
 k.DEFAULT_PALETTE = "";
-let d = k;
-const j = ["name", "type", "disabled"], F = {
+let c = k;
+const j = ["name", "type", "disabled"], w = {
   key: 0,
   class: "lkt-button-prev"
-}, U = {
+}, x = {
   key: 1,
-  class: "lkt-button-content"
-}, R = {
-  key: 3,
   class: "lkt-button-next"
-}, x = { name: "LktButton", inheritAttrs: !1 }, z = /* @__PURE__ */ L({
-  ...x,
+}, F = { name: "LktButton", inheritAttrs: !1 }, U = /* @__PURE__ */ g({
+  ...F,
   props: {
     type: { default: y.button },
     name: { default: S(10) },
-    palette: { default: d.DEFAULT_PALETTE },
+    palette: { default: c.DEFAULT_PALETTE },
     value: { default: "" },
     disabled: { type: Boolean, default: !1 },
     loading: { type: Boolean, default: !1 },
@@ -38,14 +35,14 @@ const j = ["name", "type", "disabled"], F = {
     confirmData: { default: () => ({}) }
   },
   emits: ["click", "loading", "loaded"],
-  setup(l, { expose: h, emit: v }) {
-    const e = l, a = v, b = g(), n = A(e.loading), _ = m(() => {
+  setup(a, { expose: h, emit: _ }) {
+    const e = a, l = _, b = L(), n = A(e.loading), v = f(() => {
       let t = [];
       return e.palette && t.push(`lkt-button--${e.palette}`), n.value && t.push("is-loading"), t.join(" ");
-    }), D = m(() => !!b.next), E = m(() => !!b.prev), r = async (t) => (n.value = !0, a("loading"), w(e.resource, e.resourceData).then((o) => {
-      n.value = !1, a("loaded"), a("click", t, o);
+    }), D = f(() => !!b.next), E = f(() => !!b.prev), r = async (t) => (n.value = !0, l("loading"), J(e.resource, e.resourceData).then((o) => {
+      n.value = !1, l("loaded"), l("click", t, o);
     }).catch((o) => {
-      n.value = !1, a("loaded"), a("click", t, o);
+      n.value = !1, l("loaded"), l("click", t, o);
     })), C = (t) => {
       if (e.modal) {
         let o = typeof e.modalData == "object" ? JSON.parse(JSON.stringify(e.modalData)) : {};
@@ -56,15 +53,15 @@ const j = ["name", "type", "disabled"], F = {
               return r(t).then(() => {
                 s();
               });
-            a("click", t, u(e.name, e.value));
+            l("click", t, i(e.name, e.value));
           };
         } else
           o.beforeClose = () => {
             if (e.resource)
               return r(t);
-            a("click", t, u(e.name, e.value));
+            l("click", t, i(e.name, e.value));
           };
-        return J(e.modal, e.modalKey, o);
+        return K(e.modal, e.modalKey, o);
       }
       if (e.confirmModal) {
         let o = typeof e.confirmData == "object" ? JSON.parse(JSON.stringify(e.confirmData)) : {};
@@ -75,52 +72,50 @@ const j = ["name", "type", "disabled"], F = {
               return r(t).then(() => {
                 s();
               });
-            a("click", t, u(e.name, e.value));
+            l("click", t, i(e.name, e.value));
           };
         } else
           o.onConfirm = () => {
             if (e.resource)
               return r(t);
-            a("click", t, u(e.name, e.value));
+            l("click", t, i(e.name, e.value));
           };
         return O(e.confirmModal, e.confirmModalKey, o);
       }
       if (e.resource)
         return r(t);
-      a("click", t, u(e.name, e.value));
+      l("click", t, i(e.name, e.value));
     };
-    return M(() => e.loading, () => n.value = e.loading), h({
+    return B(() => e.loading, () => n.value = e.loading), h({
       click: () => C(null)
     }), (t, o) => {
-      const s = B("lkt-spinner");
-      return i(), c("button", {
-        class: T(["lkt-button", _.value]),
+      const s = M("lkt-spinner");
+      return u(), d("button", {
+        class: T(["lkt-button", v.value]),
         name: t.name,
         type: t.type,
         disabled: t.disabled,
         onClick: N(C, ["prevent", "stop"])
       }, [
-        E.value ? (i(), c("span", F, [
-          f(t.$slots, "prev")
+        E.value ? (u(), d("span", w, [
+          m(t.$slots, "prev")
         ])) : p("", !0),
-        t.wrapContent ? (i(), c("span", U, [
-          f(t.$slots, "default")
-        ])) : f(t.$slots, "default", { key: 2 }),
-        D.value ? (i(), c("span", R, [
-          f(t.$slots, "next")
+        m(t.$slots, "default"),
+        D.value ? (u(), d("span", x, [
+          m(t.$slots, "next")
         ])) : p("", !0),
-        n.value ? (i(), P(s, { key: 4 })) : p("", !0)
+        n.value ? (u(), P(s, { key: 2 })) : p("", !0)
       ], 10, j);
     };
   }
-}), W = (l) => {
-  d.DEFAULT_PALETTE = l;
-}, X = {
-  install: (l) => {
-    l.component("lkt-button") === void 0 && l.component("lkt-button", z), l.component("lkt-modal-confirm") === void 0 && l.use(K);
+}), I = (a) => {
+  c.DEFAULT_PALETTE = a;
+}, Q = {
+  install: (a) => {
+    a.component("lkt-button") === void 0 && a.component("lkt-button", U);
   }
 };
 export {
-  X as default,
-  W as setDefaultButtonPalette
+  Q as default,
+  I as setDefaultButtonPalette
 };

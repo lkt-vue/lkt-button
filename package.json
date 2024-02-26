@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "1.0.17",
+  "version": "1.1.0",
   "description": "",
   "keywords": [
     "lkt",
@@ -15,19 +15,19 @@
     "ui"
   ],
   "type": "module",
-  "module": "./dist/lkt-button.js",
+  "module": "./dist/build.js",
   "exports": {
     ".": {
-      "import": "./dist/lkt-button.js"
+      "import": "./dist/build.js"
     },
     "./styles": "./dist/style.css"
   },
-  "types": "./dist/lkt-button.d.ts",
+  "types": "./dist/index.d.ts",
   "files": ["dist/*"],
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
-    "build": "vite build && tsc --project tsconfig.json && cp build/style.css dist/style.css"
+    "build": "rm -rf dist/*; vue-tsc --declaration --emitDeclarationOnly; vite build; cp build/* dist/"
   },
   "author": "Antonio Ibáñez",
   "devDependencies": {

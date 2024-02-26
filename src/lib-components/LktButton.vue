@@ -63,7 +63,7 @@ const classes = computed(() => {
     hasPrev = computed(() => !!slots.prev)
 ;
 
-const doResourceClick = async ($event: MouseEvent|null) => {
+const doResourceClick = async ($event: MouseEvent | null) => {
     isLoading.value = true;
     emit('loading');
     return httpCall(props.resource, props.resourceData).then((r: any) => {
@@ -77,7 +77,7 @@ const doResourceClick = async ($event: MouseEvent|null) => {
     });
 }
 
-const onClick = ($event: MouseEvent|null) => {
+const onClick = ($event: MouseEvent | null) => {
 
     if (props.modal) {
         let data = typeof props.modalData === 'object' ? JSON.parse(JSON.stringify(props.modalData)) : {};
@@ -153,10 +153,7 @@ defineExpose({
         <span class="lkt-button-prev" v-if="hasPrev">
             <slot name="prev"></slot>
         </span>
-        <span class="lkt-button-content" v-if="wrapContent"><slot></slot></span>
-        <template v-else>
-            <slot></slot>
-        </template>
+        <slot name="default"/>
         <span class="lkt-button-next" v-if="hasNext">
             <slot name="next"></slot>
         </span>
