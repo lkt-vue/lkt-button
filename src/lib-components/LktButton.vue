@@ -116,6 +116,7 @@ const onClick = ($event: MouseEvent | null) => {
 
         if (typeof data.onConfirm === 'function') {
             let externalConfirmAction = data.onConfirm.bind({});
+            debug('Has onConfirm function: ', externalConfirmAction);
             data.onConfirm = () => {
                 if (props.resource) {
                     return doResourceClick($event).then(() => {
@@ -126,6 +127,7 @@ const onClick = ($event: MouseEvent | null) => {
                     emit('click', $event, createLktEvent(props.name, props.value));
                 }
             }
+            debug('New onConfirm function: ', data.onConfirm);
         } else {
             data.onConfirm = () => {
                 if (props.resource) {
@@ -134,6 +136,7 @@ const onClick = ($event: MouseEvent | null) => {
                     emit('click', $event, createLktEvent(props.name, props.value));
                 }
             }
+            debug('New onConfirm function: ', data.onConfirm);
         }
         return openConfirm(props.confirmModal, props.confirmModalKey, data);
     }
