@@ -110,13 +110,13 @@ const onClick = ($event: MouseEvent | null) => {
     }
 
     if (props.confirmModal) {
-        let data = typeof props.confirmData === 'object' ? JSON.parse(JSON.stringify(props.confirmData)) : {};
+        let data = typeof props.confirmData === 'object' ? props.confirmData : {};
 
         debug('Has Confirm Modal: ', props.confirmModal, data);
-        debug('type of onConfirm: ', typeof data.onConfirm);
+        debug('typeof onConfirm: ', typeof data.onConfirm);
 
         if (typeof data.onConfirm === 'function') {
-            let externalConfirmAction = data.onConfirm.bind({});
+            let externalConfirmAction = data.onConfirm;
             debug('Has onConfirm function: ', externalConfirmAction);
             data.onConfirm = () => {
                 if (props.resource) {
