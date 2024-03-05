@@ -36,29 +36,29 @@ const j = ["name", "type", "disabled"], w = {
   },
   emits: ["click", "loading", "loaded"],
   setup(a, { expose: h, emit: _ }) {
-    const e = a, l = _, b = L(), n = A(e.loading), v = f(() => {
+    const e = a, l = _, b = L(), r = A(e.loading), v = f(() => {
       let t = [];
-      return e.palette && t.push(`lkt-button--${e.palette}`), n.value && t.push("is-loading"), t.join(" ");
-    }), D = f(() => !!b.next), E = f(() => !!b.prev), r = async (t) => (n.value = !0, l("loading"), J(e.resource, e.resourceData).then((o) => {
-      n.value = !1, l("loaded"), l("click", t, o);
+      return e.palette && t.push(`lkt-button--${e.palette}`, `palette--${e.palette}`), r.value && t.push("is-loading"), t.join(" ");
+    }), D = f(() => !!b.next), E = f(() => !!b.prev), s = async (t) => (r.value = !0, l("loading"), J(e.resource, e.resourceData).then((o) => {
+      r.value = !1, l("loaded"), l("click", t, o);
     }).catch((o) => {
-      n.value = !1, l("loaded"), l("click", t, o);
+      r.value = !1, l("loaded"), l("click", t, o);
     })), C = (t) => {
       if (e.modal) {
         let o = typeof e.modalData == "object" ? JSON.parse(JSON.stringify(e.modalData)) : {};
         if (typeof o.beforeClose == "function") {
-          let s = o.beforeClose.bind({});
+          let n = o.beforeClose.bind({});
           o.beforeClose = () => {
             if (e.resource)
-              return r(t).then(() => {
-                s();
+              return s(t).then(() => {
+                n();
               });
-            l("click", t, i(e.name, e.value));
+            n(), l("click", t, i(e.name, e.value));
           };
         } else
           o.beforeClose = () => {
             if (e.resource)
-              return r(t);
+              return s(t);
             l("click", t, i(e.name, e.value));
           };
         return K(e.modal, e.modalKey, o);
@@ -66,30 +66,30 @@ const j = ["name", "type", "disabled"], w = {
       if (e.confirmModal) {
         let o = typeof e.confirmData == "object" ? JSON.parse(JSON.stringify(e.confirmData)) : {};
         if (typeof o.onConfirm == "function") {
-          let s = o.onConfirm.bind({});
+          let n = o.onConfirm.bind({});
           o.onConfirm = () => {
             if (e.resource)
-              return r(t).then(() => {
-                s();
+              return s(t).then(() => {
+                n();
               });
-            l("click", t, i(e.name, e.value));
+            n(), l("click", t, i(e.name, e.value));
           };
         } else
           o.onConfirm = () => {
             if (e.resource)
-              return r(t);
+              return s(t);
             l("click", t, i(e.name, e.value));
           };
         return O(e.confirmModal, e.confirmModalKey, o);
       }
       if (e.resource)
-        return r(t);
+        return s(t);
       l("click", t, i(e.name, e.value));
     };
-    return B(() => e.loading, () => n.value = e.loading), h({
+    return B(() => e.loading, () => r.value = e.loading), h({
       click: () => C(null)
     }), (t, o) => {
-      const s = M("lkt-spinner");
+      const n = M("lkt-spinner");
       return u(), d("button", {
         class: T(["lkt-button", v.value]),
         name: t.name,
@@ -104,7 +104,7 @@ const j = ["name", "type", "disabled"], w = {
         D.value ? (u(), d("span", x, [
           m(t.$slots, "next")
         ])) : p("", !0),
-        n.value ? (u(), P(s, { key: 2 })) : p("", !0)
+        r.value ? (u(), P(n, { key: 2 })) : p("", !0)
       ], 10, j);
     };
   }

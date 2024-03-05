@@ -55,7 +55,7 @@ const isLoading = ref(props.loading);
 
 const classes = computed(() => {
         let r = [];
-        if (props.palette) r.push(`lkt-button--${props.palette}`);
+        if (props.palette) r.push(`lkt-button--${props.palette}`, `palette--${props.palette}`);
         if (isLoading.value) r.push('is-loading');
         return r.join(' ');
     }),
@@ -90,6 +90,7 @@ const onClick = ($event: MouseEvent | null) => {
                         externalConfirmAction();
                     });
                 } else {
+                    externalConfirmAction();
                     emit('click', $event, createLktEvent(props.name, props.value));
                 }
             }
@@ -116,6 +117,7 @@ const onClick = ($event: MouseEvent | null) => {
                         externalConfirmAction();
                     });
                 } else {
+                    externalConfirmAction();
                     emit('click', $event, createLktEvent(props.name, props.value));
                 }
             }
