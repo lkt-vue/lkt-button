@@ -2,4 +2,4 @@ import { Plugin } from 'vue';
 import "./../lkt-button.css";
 declare const LktButton: Plugin;
 export default LktButton;
-export { setDefaultButtonPalette } from "./functions/settings-functions";
+export { setDefaultButtonPalette, debugLktButton } from "./functions/settings-functions";

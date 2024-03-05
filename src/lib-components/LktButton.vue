@@ -12,7 +12,7 @@ import {httpCall} from "lkt-http-client";
 import {openModal} from "lkt-modal";
 import {openConfirm} from "lkt-modal-confirm";
 import {LktObject} from "lkt-ts-interfaces";
-import {debug} from "@/functions/settings-functions";
+import {debug} from "../functions/settings-functions";
 
 const props = withDefaults(defineProps<{
     type?: ButtonType,
