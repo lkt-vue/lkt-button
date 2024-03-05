@@ -1,5 +1,5 @@
-import { defineComponent as L, useSlots as A, ref as B, computed as m, watch as M, resolveComponent as N, openBlock as f, createElementBlock as p, normalizeClass as T, withModifiers as w, renderSlot as b, createCommentVNode as k, createBlock as P } from "vue";
-import { createLktEvent as u } from "lkt-events";
+import { defineComponent as L, useSlots as A, ref as B, computed as m, watch as M, resolveComponent as N, openBlock as c, createElementBlock as p, normalizeClass as T, withModifiers as w, renderSlot as b, createCommentVNode as k, createBlock as P } from "vue";
+import { createLktEvent as f } from "lkt-events";
 import { generateRandomString as J } from "lkt-string-tools";
 import { httpCall as K } from "lkt-http-client";
 import { openModal as O } from "lkt-modal";
@@ -8,13 +8,13 @@ var h = /* @__PURE__ */ ((n) => (n.button = "button", n.submit = "submit", n.res
 const d = class d {
 };
 d.DEFAULT_PALETTE = "", d.debugEnabled = !1;
-let s = d;
+let i = d;
 const Q = (n) => {
-  s.DEFAULT_PALETTE = n;
+  i.DEFAULT_PALETTE = n;
 }, W = (n = !0) => {
-  s.debugEnabled = n;
-}, c = (...n) => {
-  s.debugEnabled && console.info("[LktButton] ", n);
+  i.debugEnabled = n;
+}, s = (...n) => {
+  i.debugEnabled && console.info("[LktButton] ", ...n);
 }, j = ["name", "type", "disabled"], x = {
   key: 0,
   class: "lkt-button-prev"
@@ -26,7 +26,7 @@ const Q = (n) => {
   props: {
     type: { default: h.button },
     name: { default: J(10) },
-    palette: { default: s.DEFAULT_PALETTE },
+    palette: { default: i.DEFAULT_PALETTE },
     value: { default: "" },
     disabled: { type: Boolean, default: !1 },
     loading: { type: Boolean, default: !1 },
@@ -43,74 +43,74 @@ const Q = (n) => {
   emits: ["click", "loading", "loaded"],
   setup(n, { expose: g, emit: v }) {
     const e = n, a = v, C = A(), r = B(e.loading), E = m(() => {
-      let t = [];
-      return e.palette && t.push(`lkt-button--${e.palette}`, `palette--${e.palette}`), r.value && t.push("is-loading"), t.join(" ");
-    }), _ = m(() => !!C.next), D = m(() => !!C.prev), i = async (t) => (r.value = !0, a("loading"), K(e.resource, e.resourceData).then((o) => {
-      r.value = !1, a("loaded"), a("click", t, o);
-    }).catch((o) => {
-      r.value = !1, a("loaded"), a("click", t, o);
-    })), y = (t) => {
-      if (c("onClick!"), e.modal) {
-        let o = typeof e.modalData == "object" ? JSON.parse(JSON.stringify(e.modalData)) : {};
-        if (typeof o.beforeClose == "function") {
-          let l = o.beforeClose.bind({});
-          o.beforeClose = () => {
+      let o = [];
+      return e.palette && o.push(`lkt-button--${e.palette}`, `palette--${e.palette}`), r.value && o.push("is-loading"), o.join(" ");
+    }), _ = m(() => !!C.next), D = m(() => !!C.prev), u = async (o) => (r.value = !0, a("loading"), K(e.resource, e.resourceData).then((t) => {
+      r.value = !1, a("loaded"), a("click", o, t);
+    }).catch((t) => {
+      r.value = !1, a("loaded"), a("click", o, t);
+    })), y = (o) => {
+      if (s("onClick!"), e.modal) {
+        let t = typeof e.modalData == "object" ? JSON.parse(JSON.stringify(e.modalData)) : {};
+        if (typeof t.beforeClose == "function") {
+          let l = t.beforeClose.bind({});
+          t.beforeClose = () => {
             if (e.resource)
-              return i(t).then(() => {
+              return u(o).then(() => {
                 l();
               });
-            l(), a("click", t, u(e.name, e.value));
+            l(), a("click", o, f(e.name, e.value));
           };
         } else
-          o.beforeClose = () => {
+          t.beforeClose = () => {
             if (e.resource)
-              return i(t);
-            a("click", t, u(e.name, e.value));
+              return u(o);
+            a("click", o, f(e.name, e.value));
           };
-        return O(e.modal, e.modalKey, o);
+        return O(e.modal, e.modalKey, t);
       }
       if (e.confirmModal) {
-        let o = typeof e.confirmData == "object" ? JSON.parse(JSON.stringify(e.confirmData)) : {};
-        if (c("Has Confirm Modal: ", e.confirmModal, o), typeof o.onConfirm == "function") {
-          let l = o.onConfirm.bind({});
-          c("Has onConfirm function: ", l), o.onConfirm = () => {
+        let t = typeof e.confirmData == "object" ? JSON.parse(JSON.stringify(e.confirmData)) : {};
+        if (s("Has Confirm Modal: ", e.confirmModal, t), s("type of onConfirm: ", typeof t.onConfirm), typeof t.onConfirm == "function") {
+          let l = t.onConfirm.bind({});
+          s("Has onConfirm function: ", l), t.onConfirm = () => {
             if (e.resource)
-              return i(t).then(() => {
+              return u(o).then(() => {
                 l();
               });
-            l(), a("click", t, u(e.name, e.value));
-          }, c("New onConfirm function: ", o.onConfirm);
+            l(), a("click", o, f(e.name, e.value));
+          }, s("New onConfirm function: ", t.onConfirm);
         } else
-          o.onConfirm = () => {
+          t.onConfirm = () => {
             if (e.resource)
-              return i(t);
-            a("click", t, u(e.name, e.value));
-          }, c("New onConfirm function: ", o.onConfirm);
-        return S(e.confirmModal, e.confirmModalKey, o);
+              return u(o);
+            a("click", o, f(e.name, e.value));
+          }, s("New onConfirm function: ", t.onConfirm);
+        return S(e.confirmModal, e.confirmModalKey, t);
       }
       if (e.resource)
-        return i(t);
-      a("click", t, u(e.name, e.value));
+        return u(o);
+      a("click", o, f(e.name, e.value));
     };
     return M(() => e.loading, () => r.value = e.loading), g({
       click: () => y(null)
-    }), (t, o) => {
+    }), (o, t) => {
       const l = N("lkt-spinner");
-      return f(), p("button", {
+      return c(), p("button", {
         class: T(["lkt-button", E.value]),
-        name: t.name,
-        type: t.type,
-        disabled: t.disabled,
+        name: o.name,
+        type: o.type,
+        disabled: o.disabled,
         onClick: w(y, ["prevent", "stop"])
       }, [
-        D.value ? (f(), p("span", x, [
-          b(t.$slots, "prev")
+        D.value ? (c(), p("span", x, [
+          b(o.$slots, "prev")
         ])) : k("", !0),
-        b(t.$slots, "default"),
-        _.value ? (f(), p("span", F, [
-          b(t.$slots, "next")
+        b(o.$slots, "default"),
+        _.value ? (c(), p("span", F, [
+          b(o.$slots, "next")
         ])) : k("", !0),
-        r.value ? (f(), P(l, { key: 2 })) : k("", !0)
+        r.value ? (c(), P(l, { key: 2 })) : k("", !0)
       ], 10, j);
     };
   }

@@ -113,6 +113,7 @@ const onClick = ($event: MouseEvent | null) => {
         let data = typeof props.confirmData === 'object' ? JSON.parse(JSON.stringify(props.confirmData)) : {};
 
         debug('Has Confirm Modal: ', props.confirmModal, data);
+        debug('type of onConfirm: ', typeof data.onConfirm);
 
         if (typeof data.onConfirm === 'function') {
             let externalConfirmAction = data.onConfirm.bind({});

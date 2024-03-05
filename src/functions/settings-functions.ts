@@ -9,6 +9,6 @@ export const debugLktButton = (state: boolean = true): void => {
 };
 
 export const debug = (...args: any[]): void => {
-  if (Settings.debugEnabled) console.info('[LktButton] ', args);
+  if (Settings.debugEnabled) console.info('[LktButton] ', ...args);
 };
 
