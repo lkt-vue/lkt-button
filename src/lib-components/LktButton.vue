@@ -12,6 +12,7 @@ import {httpCall} from "lkt-http-client";
 import {openModal} from "lkt-modal";
 import {openConfirm} from "lkt-modal-confirm";
 import {LktObject} from "lkt-ts-interfaces";
+import {debug} from "@/functions/settings-functions";
 
 const props = withDefaults(defineProps<{
     type?: ButtonType,
@@ -79,6 +80,8 @@ const doResourceClick = async ($event: MouseEvent | null) => {
 
 const onClick = ($event: MouseEvent | null) => {
 
+    debug('onClick!');
+
     if (props.modal) {
         let data = typeof props.modalData === 'object' ? JSON.parse(JSON.stringify(props.modalData)) : {};
 
@@ -108,6 +111,8 @@ const onClick = ($event: MouseEvent | null) => {
 
     if (props.confirmModal) {
         let data = typeof props.confirmData === 'object' ? JSON.parse(JSON.stringify(props.confirmData)) : {};
+
+        debug('Has Confirm Modal: ', props.confirmModal, data);
 
         if (typeof data.onConfirm === 'function') {
             let externalConfirmAction = data.onConfirm.bind({});
