@@ -83,11 +83,9 @@ const onClick = ($event: MouseEvent | null) => {
     debug('onClick!');
 
     if (props.modal) {
-        let data = typeof props.modalData === 'object' ? JSON.parse(JSON.stringify(props.modalData)) : {};
-
-        if (typeof data.beforeClose === 'function') {
-            let externalConfirmAction = data.beforeClose.bind({});
-            data.beforeClose = () => {
+        if (typeof props.modalData.beforeClose === 'function') {
+            let externalConfirmAction = props.modalData.beforeClose.bind({});
+            props.modalData.beforeClose = () => {
                 if (props.resource) {
                     return doResourceClick($event).then(() => {
                         externalConfirmAction();
@@ -98,7 +96,7 @@ const onClick = ($event: MouseEvent | null) => {
                 }
             }
         } else {
-            data.beforeClose = () => {
+            props.modalData.beforeClose = () => {
                 if (props.resource) {
                     return doResourceClick($event);
                 } else {
@@ -106,19 +104,17 @@ const onClick = ($event: MouseEvent | null) => {
                 }
             }
         }
-        return openModal(props.modal, props.modalKey, data);
+        return openModal(props.modal, props.modalKey, props.modalData);
     }
 
     if (props.confirmModal) {
-        let data = typeof props.confirmData === 'object' ? props.confirmData : {};
+        debug('Has Confirm Modal: ', props.confirmModal, props.confirmData);
+        debug('typeof onConfirm: ', typeof props.confirmData.onConfirm);
 
-        debug('Has Confirm Modal: ', props.confirmModal, data);
-        debug('typeof onConfirm: ', typeof data.onConfirm);
-
-        if (typeof data.onConfirm === 'function') {
-            let externalConfirmAction = data.onConfirm;
+        if (typeof props.confirmData.onConfirm === 'function') {
+            let externalConfirmAction = props.confirmData.onConfirm;
             debug('Has onConfirm function: ', externalConfirmAction);
-            data.onConfirm = () => {
+            props.confirmData.onConfirm = () => {
                 if (props.resource) {
                     return doResourceClick($event).then(() => {
                         externalConfirmAction();
@@ -128,18 +124,18 @@ const onClick = ($event: MouseEvent | null) => {
                     emit('click', $event, createLktEvent(props.name, props.value));
                 }
             }
-            debug('New onConfirm function: ', data.onConfirm);
+            debug('New onConfirm function: ', props.confirmData.onConfirm);
         } else {
-            data.onConfirm = () => {
+            props.confirmData.onConfirm = () => {
                 if (props.resource) {
                     return doResourceClick($event);
                 } else {
                     emit('click', $event, createLktEvent(props.name, props.value));
                 }
             }
-            debug('New onConfirm function: ', data.onConfirm);
+            debug('New onConfirm function: ', props.confirmData.onConfirm);
         }
-        return openConfirm(props.confirmModal, props.confirmModalKey, data);
+        return openConfirm(props.confirmModal, props.confirmModalKey, props.confirmData);
     }
 
     if (props.resource) return doResourceClick($event);
