@@ -3,6 +3,7 @@ import { LktObject } from "lkt-ts-interfaces";
 declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     type?: ButtonType | undefined;
     name: string;
+    class: string;
     palette: string;
     value: string;
     disabled: boolean;
@@ -20,6 +21,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     type: ButtonType;
     name: string;
     palette: string;
+    class: string;
     value: string;
     disabled: boolean;
     loading: boolean;
@@ -41,6 +43,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
 }, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     type?: ButtonType | undefined;
     name: string;
+    class: string;
     palette: string;
     value: string;
     disabled: boolean;
@@ -58,6 +61,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     type: ButtonType;
     name: string;
     palette: string;
+    class: string;
     value: string;
     disabled: boolean;
     loading: boolean;
@@ -80,6 +84,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     value: string;
     loading: boolean;
     disabled: boolean;
+    class: string;
     resource: string;
     palette: string;
     wrapContent: boolean;
