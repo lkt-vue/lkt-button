@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "",
   "keywords": [
     "lkt",
@@ -20,10 +20,16 @@
     ".": {
       "import": "./dist/build.js"
     },
-    "./styles": "./dist/style.css"
+    "./styles": "./dist/style.css",
+    "./theme": "./themes/default.css",
+    "./theme/default": "./themes/default.css"
   },
   "types": "./dist/index.d.ts",
-  "files": ["dist/*", "src/**/*.vue"],
+  "files": [
+    "dist/*",
+    "src/**/*.vue",
+    "themes/**/*.css"
+  ],
   "license": "MIT",
   "sideEffects": false,
   "scripts": {

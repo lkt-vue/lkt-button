@@ -1,0 +1,41 @@
+:root {
+    /** Button font */
+    --lkt-btn-font-family: Helvetica;
+    --lkt-btn-font-size: 17px;
+    --lkt-btn-font-weight: 300;
+    --lkt-btn-line-height: 1;
+
+    /** Button sizing */
+    --lkt-btn-min-width: 150px;
+    --lkt-btn-min-height: 35px;
+    --lkt-btn-padding: 7px;
+    --lkt-btn-gap: 5px;
+
+    /** Button border */
+    --lkt-btn-border-radius: 5px;
+    --lkt-btn-border-width: 1px;
+    --lkt-btn-border-style: solid;
+
+    /** Colors */
+    --lkt-btn-color: #ffffff;
+    --lkt-btn-bg: #007ebc;
+    --lkt-btn-border-color: #ddd;
+
+    /** Button effects */
+    --lkt-btn-shadow: none;
+    --lkt-btn-transition: all linear 100ms;
+
+    /** State: hover */
+    --lkt-btn-color-hover: #ffffff;
+    --lkt-btn-bg-hover: #007ebc;
+    --lkt-btn-border-color-hover: #ddd;
+
+    /** State: Focus */
+    --lkt-btn-border-color-focus: var(--focus-color);
+    --lkt-btn-shadow-focus: 0 0 0 2px var(--focus-color);
+
+    /** State: Disabled */
+    --lkt-btn-color-disabled: var(--disabled-contrast);
+    --lkt-btn-bg-disabled: var(--disabled-color);
+    --lkt-btn-border-color-disabled: var(--disabled-color);
+}

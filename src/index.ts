@@ -1,6 +1,6 @@
 import {App, Plugin} from 'vue';
 
-import "./../lkt-button.css";
+import "../style.css";
 import {default as button} from './lib-components/LktButton.vue';
 
 const LktButton: Plugin = {

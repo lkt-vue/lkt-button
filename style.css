@@ -2,23 +2,30 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color);
-    box-shadow: var(--button-shadow);
     cursor: default;
     text-align: center;
-    transition: var(--button-transition);
-    font-family: var(--button-font-family);
-    font-size: var(--button-font-size);
-    font-weight: var(--button-font-weight);
-    line-height: var(--button-line-height);
-    border-radius: var(--button-border-radius);
-    border-width: var(--button-border-width);
-    border-style: var(--button-border-style);
-    border-color: var(--button-border-color);
-    min-width: var(--button-min-width);
-    min-height: var(--button-min-height);
-    padding: var(--button-padding);
-    gap: var(--button-gap);
+    color: var(--lkt-btn-color);
+    background: var(--lkt-btn-bg);
+    box-shadow: var(--lkt-btn-shadow);
+    transition: var(--lkt-btn-transition);
+    font-family: var(--lkt-btn-font-family), serif;
+    font-size: var(--lkt-btn-font-size);
+    font-weight: var(--lkt-btn-font-weight);
+    line-height: var(--lkt-btn-line-height);
+    border-radius: var(--lkt-btn-border-radius);
+    border-width: var(--lkt-btn-border-width);
+    border-style: var(--lkt-btn-border-style);
+    border-color: var(--lkt-btn-border-color);
+    min-width: var(--lkt-btn-min-width);
+    min-height: var(--lkt-btn-min-height);
+    padding: var(--lkt-btn-padding);
+    gap: var(--lkt-btn-gap);
+}
+
+.lkt-button:hover {
+    color: var(--lkt-btn-color-hover);
+    background: var(--lkt-btn-bg-hover);
+    border-color: var(--lkt-btn-border-color-hover);
 }
 
 .lkt-button--alert {
@@ -89,9 +96,9 @@
 
 .lkt-button:disabled {
     cursor: not-allowed;
-    color: var(--disabled-contrast);
-    background: var(--disabled-color);
-    border-color: var(--disabled-color);
+    color: var(--lkt-btn-color-disabled);
+    background: var(--lkt-btn-bg-disabled);
+    border-color: var(--lkt-btn-border-color-disabled);
 }
 
 .lkt-button:disabled:hover {
@@ -101,12 +108,12 @@
 
 .lkt-button:focus {
     outline: 0;
-    border: var(--button-border-width) var(--button-border-style) var(--focus-color);
-    box-shadow: 0 0 0 2px var(--focus-color);
+    border: var(--lkt-btn-border-width) var(--lkt-btn-border-style) var(--lkt-btn-border-color-focus);
+    box-shadow: var(--lkt-btn-shadow-focus);
 }
 
 .lkt-button:active {
     outline: 0;
-    border: var(--button-border-width) var(--button-border-style) var(--focus-color);
-    box-shadow: 0 0 0 2px var(--focus-color);
+    border: var(--lkt-btn-border-width) var(--lkt-btn-border-style) var(--lkt-btn-border-color-focus);
+    box-shadow: var(--lkt-btn-shadow-focus);
 }
