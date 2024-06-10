@@ -1,4 +1,4 @@
-import { defineComponent as L, useSlots as A, ref as B, computed as m, watch as M, resolveComponent as w, openBlock as f, createElementBlock as d, normalizeClass as R, withModifiers as T, renderSlot as p, createCommentVNode as C, createBlock as N } from "vue";
+import { defineComponent as _, useSlots as B, ref as M, computed as m, watch as A, resolveComponent as w, openBlock as f, createElementBlock as d, normalizeClass as R, withModifiers as T, renderSlot as p, createCommentVNode as C, createBlock as N } from "vue";
 import { createLktEvent as c } from "lkt-events";
 import { generateRandomString as P } from "lkt-string-tools";
 import { httpCall as K } from "lkt-http-client";
@@ -8,26 +8,26 @@ var D = /* @__PURE__ */ ((a) => (a.button = "button", a.submit = "submit", a.res
 const u = class u {
 };
 u.DEFAULT_PALETTE = "", u.debugEnabled = !1;
-let s = u;
-const S = (a) => {
-  s.DEFAULT_PALETTE = a;
-}, W = (a = !0) => {
-  s.debugEnabled = a;
+let i = u;
+const Q = (a) => {
+  i.DEFAULT_PALETTE = a;
+}, S = (a = !0) => {
+  i.debugEnabled = a;
 }, t = (...a) => {
-  s.debugEnabled && console.info("[LktButton] ", ...a);
+  i.debugEnabled && console.info("[LktButton] ", ...a);
 }, U = ["name", "type", "disabled"], H = {
   key: 0,
   class: "lkt-button-prev"
 }, j = {
   key: 1,
   class: "lkt-button-next"
-}, z = { name: "LktButton", inheritAttrs: !1 }, V = /* @__PURE__ */ L({
-  ...z,
+}, z = /* @__PURE__ */ _({
+  __name: "LktButton",
   props: {
     type: { default: D.button },
     name: { default: P(10) },
     class: { default: "" },
-    palette: { default: s.DEFAULT_PALETTE },
+    palette: { default: i.DEFAULT_PALETTE },
     value: { default: "" },
     disabled: { type: Boolean, default: !1 },
     loading: { type: Boolean, default: !1 },
@@ -43,10 +43,10 @@ const S = (a) => {
   },
   emits: ["click", "loading", "loaded"],
   setup(a, { expose: h, emit: y }) {
-    const e = a, n = y, k = A(), r = B(e.loading), v = m(() => {
+    const e = a, n = y, k = B(), r = M(e.loading), v = m(() => {
       let o = [];
       return e.class && o.push(e.class), e.palette && o.push(`lkt-button--${e.palette}`, `palette--${e.palette}`), r.value && o.push("is-loading"), o.join(" ");
-    }), E = m(() => !!k.next), _ = m(() => !!k.prev), i = async (o) => (t("Resource Click", e.resource, e.resourceData), r.value = !0, n("loading"), K(e.resource, e.resourceData).then((l) => {
+    }), E = m(() => !!k.next), g = m(() => !!k.prev), s = async (o) => (t("Resource Click", e.resource, e.resourceData), r.value = !0, n("loading"), K(e.resource, e.resourceData).then((l) => {
       r.value = !1, n("loaded"), t("Resource Click -> Received response", l), n("click", o, l);
     }).catch((l) => {
       r.value = !1, n("loaded"), t("Resource Click -> Received response error", l), n("click", o, l);
@@ -56,7 +56,7 @@ const S = (a) => {
           let l = e.modalData.beforeClose.bind({});
           t("Click -> Has beforeClose function: ", l), e.modalData.beforeClose = () => {
             if (e.resource)
-              return i(o).then(() => {
+              return s(o).then(() => {
                 l();
               });
             l(), n("click", o, c(e.name, e.value));
@@ -64,7 +64,7 @@ const S = (a) => {
         } else
           e.modalData.beforeClose = () => {
             if (e.resource)
-              return i(o);
+              return s(o);
             n("click", o, c(e.name, e.value));
           }, t("Click -> New beforeClose function: ", e.modalData.beforeClose);
         return x(e.modal, e.modalKey, e.modalData);
@@ -74,7 +74,7 @@ const S = (a) => {
           let l = e.confirmData.onConfirm;
           t("Click -> Has onConfirm function: ", l), e.confirmData.onConfirm = () => {
             if (e.resource)
-              return i(o).then(() => {
+              return s(o).then(() => {
                 l();
               });
             l(), n("click", o, c(e.name, e.value));
@@ -82,19 +82,19 @@ const S = (a) => {
         } else
           e.confirmData.onConfirm = () => {
             if (e.resource)
-              return i(o);
+              return s(o);
             n("click", o, c(e.name, e.value));
           }, t("Click -> New onConfirm function: ", e.confirmData.onConfirm);
         return F(e.confirmModal, e.confirmModalKey, e.confirmData);
       }
       if (e.resource)
-        return t("Click -> has resource"), i(o);
+        return t("Click -> has resource"), s(o);
       t("Click -> Emit"), n("click", o, c(e.name, e.value));
     };
-    return M(() => e.loading, () => r.value = e.loading), h({
+    return A(() => e.loading, () => r.value = e.loading), h({
       click: () => b(null)
     }), (o, l) => {
-      const g = w("lkt-spinner");
+      const L = w("lkt-spinner");
       return f(), d("button", {
         class: R(["lkt-button", v.value]),
         name: o.name,
@@ -102,24 +102,24 @@ const S = (a) => {
         disabled: o.disabled,
         onClick: T(b, ["prevent", "stop"])
       }, [
-        _.value ? (f(), d("span", H, [
+        g.value ? (f(), d("span", H, [
           p(o.$slots, "prev")
         ])) : C("", !0),
         p(o.$slots, "default"),
         E.value ? (f(), d("span", j, [
           p(o.$slots, "next")
         ])) : C("", !0),
-        r.value ? (f(), N(g, { key: 2 })) : C("", !0)
+        r.value ? (f(), N(L, { key: 2 })) : C("", !0)
       ], 10, U);
     };
   }
-}), X = {
+}), W = {
   install: (a) => {
-    a.component("lkt-button") === void 0 && a.component("lkt-button", V);
+    a.component("lkt-button") === void 0 && a.component("lkt-button", z);
   }
 };
 export {
-  W as debugLktButton,
-  X as default,
-  S as setDefaultButtonPalette
+  S as debugLktButton,
+  W as default,
+  Q as setDefaultButtonPalette
 };

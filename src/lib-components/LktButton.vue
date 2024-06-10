@@ -1,7 +1,3 @@
-<script lang="ts">
-export default {name: "LktButton", inheritAttrs: false}
-</script>
-
 <script setup lang="ts">
 import {createLktEvent} from "lkt-events";
 import {useSlots, computed, ref, watch} from "vue";

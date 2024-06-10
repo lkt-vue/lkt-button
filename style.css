@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     cursor: default;
-    text-align: center;
+    text-align: var(--lkt-btn-text-align);
     color: var(--lkt-btn-color);
     background: var(--lkt-btn-bg);
     box-shadow: var(--lkt-btn-shadow);
