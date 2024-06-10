@@ -1,17 +1,17 @@
 :root {
-    /** Button font */
-    --lkt-btn-font-family: Helvetica;
+    /** Font */
+    --lkt-btn-font-family: system-ui, Helvetica;
     --lkt-btn-font-size: 17px;
     --lkt-btn-font-weight: 300;
     --lkt-btn-line-height: 1;
 
-    /** Button sizing */
+    /** Sizing */
     --lkt-btn-min-width: 150px;
     --lkt-btn-min-height: 35px;
     --lkt-btn-padding: 7px;
     --lkt-btn-gap: 5px;
 
-    /** Button border */
+    /** Border */
     --lkt-btn-border-radius: 5px;
     --lkt-btn-border-width: 1px;
     --lkt-btn-border-style: solid;
@@ -21,7 +21,7 @@
     --lkt-btn-bg: #007ebc;
     --lkt-btn-border-color: #ddd;
 
-    /** Button effects */
+    /** Effects */
     --lkt-btn-shadow: none;
     --lkt-btn-transition: all linear 100ms;
 
