@@ -23,6 +23,7 @@ export default {
         rollupOptions: {
             external: [
                 'vue',
+                'vue-router',
                 'lkt-loader',
                 'lkt-http-client',
                 'lkt-modal',

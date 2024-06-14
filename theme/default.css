@@ -39,4 +39,8 @@
     --lkt-btn-color-disabled: var(--disabled-contrast);
     --lkt-btn-bg-disabled: var(--disabled-color);
     --lkt-btn-border-color-disabled: var(--disabled-color);
+
+    /** Internal image */
+    --lkt-button-img-max-width: 50px;
+    --lkt-button-img-max-height: 50px;
 }

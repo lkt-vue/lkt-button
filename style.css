@@ -22,6 +22,11 @@
     gap: var(--lkt-btn-gap);
 }
 
+.lkt-button img {
+    max-width: var(--lkt-button-img-max-width);
+    max-height: var(--lkt-button-img-max-height);
+}
+
 .lkt-button:hover {
     color: var(--lkt-btn-color-hover);
     background: var(--lkt-btn-bg-hover);

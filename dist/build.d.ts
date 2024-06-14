@@ -1,6 +1,6 @@
-declare function S(a?: boolean): void;
-declare namespace W {
+declare function Y(a?: boolean): void;
+declare namespace Z {
     function install(a: any): void;
 }
-declare function Q(a: any): void;
-export { S as debugLktButton, W as default, Q as setDefaultButtonPalette };
+declare function X(a: any): void;
+export { Y as debugLktButton, Z as default, X as setDefaultButtonPalette };

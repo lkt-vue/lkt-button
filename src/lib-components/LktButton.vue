@@ -9,28 +9,33 @@ import {openModal} from "lkt-modal";
 import {openConfirm} from "lkt-modal-confirm";
 import {LktObject} from "lkt-ts-interfaces";
 import {debug} from "../functions/settings-functions";
+import {useRouter} from "vue-router";
 
 const props = withDefaults(defineProps<{
     type?: ButtonType,
-    name: string,
-    class: string,
-    palette: string,
-    value: string,
-    disabled: boolean,
-    loading: boolean,
-    wrapContent: boolean,
-    resource: string,
+    name?: string,
+    onClickTo?: string,
+    onClickToExternal?: boolean,
+    class?: string,
+    palette?: string,
+    value?: string,
+    disabled?: boolean,
+    loading?: boolean,
+    wrapContent?: boolean,
+    resource?: string,
     resourceData?: LktObject
-    modal: string,
-    modalKey: string,
+    modal?: string,
+    modalKey?: string,
     modalData?: LktObject
-    confirmModal: string,
-    confirmModalKey: string,
+    confirmModal?: string,
+    confirmModalKey?: string,
     confirmData?: LktObject
 }>(), {
     type: ButtonType.button,
     name: generateRandomString(10),
     palette: Settings.DEFAULT_PALETTE,
+    onClickTo: '',
+    onClickToExternal: false,
     class: '',
     value: '',
     disabled: false,
@@ -49,6 +54,8 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits(['click', 'loading', 'loaded']);
 
 const slots = useSlots();
+
+const router = useRouter();
 
 const isLoading = ref(props.loading);
 
@@ -137,6 +144,18 @@ const onClick = ($event: MouseEvent | null) => {
                 if (props.resource) {
                     return doResourceClick($event);
                 } else {
+                    if (props.onClickTo !== '') {
+                        if ($event) {
+                            $event.preventDefault();
+                            $event.stopPropagation();
+                        }
+                        if (props.onClickToExternal) {
+
+                        } else {
+                            router.push(props.onClickTo);
+                        }
+                        return;
+                    }
                     emit('click', $event, createLktEvent(props.name, props.value));
                 }
             }
@@ -151,6 +170,18 @@ const onClick = ($event: MouseEvent | null) => {
     }
 
     debug('Click -> Emit');
+    if (props.onClickTo !== '') {
+        if ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+        }
+        if (props.onClickToExternal) {
+            window.location.href = props.onClickTo;
+        } else {
+            router.push(props.onClickTo);
+        }
+        return;
+    }
     emit('click', $event, createLktEvent(props.name, props.value));
 }
 
