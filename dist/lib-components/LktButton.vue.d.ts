@@ -11,6 +11,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     disabled?: boolean | undefined;
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
+    split?: boolean | undefined;
     resource?: string | undefined;
     resourceData?: LktObject | undefined;
     modal?: string | undefined;
@@ -30,6 +31,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     disabled: boolean;
     loading: boolean;
     wrapContent: boolean;
+    split: boolean;
     resource: string;
     resourceData: () => {};
     modal: string;
@@ -55,6 +57,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     disabled?: boolean | undefined;
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
+    split?: boolean | undefined;
     resource?: string | undefined;
     resourceData?: LktObject | undefined;
     modal?: string | undefined;
@@ -74,6 +77,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     disabled: boolean;
     loading: boolean;
     wrapContent: boolean;
+    split: boolean;
     resource: string;
     resourceData: () => {};
     modal: string;
@@ -87,6 +91,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     onLoaded?: ((...args: any[]) => any) | undefined;
     onLoading?: ((...args: any[]) => any) | undefined;
 }, {
+    split: boolean;
     type: ButtonType;
     name: string;
     value: string;
@@ -105,7 +110,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmModal: string;
     confirmModalKey: string;
     confirmData: LktObject;
-}, {}>, {
+}, {}>, Partial<Record<any, (_: {}) => any>> & {
     prev?(_: {}): any;
     default?(_: {}): any;
     next?(_: {}): any;

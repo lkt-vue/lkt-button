@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {createLktEvent} from "lkt-events";
-import {useSlots, computed, ref, watch} from "vue";
+import {ComponentPublicInstance, computed, onBeforeUnmount, ref, useSlots, watch} from "vue";
 import {ButtonType} from "../enums/enums";
 import {Settings} from "../settings/Settings";
 import {generateRandomString} from "lkt-string-tools";
@@ -22,6 +22,7 @@ const props = withDefaults(defineProps<{
     disabled?: boolean,
     loading?: boolean,
     wrapContent?: boolean,
+    split?: boolean,
     resource?: string,
     resourceData?: LktObject
     modal?: string,
@@ -41,6 +42,7 @@ const props = withDefaults(defineProps<{
     disabled: false,
     loading: false,
     wrapContent: false,
+    split: false,
     resource: '',
     resourceData: () => ({}),
     modal: '',
@@ -57,13 +59,21 @@ const slots = useSlots();
 
 const router = useRouter();
 
-const isLoading = ref(props.loading);
+const Identifier = 'lkt-button-' + generateRandomString();
+
+const isLoading = ref(props.loading),
+    container = ref(<Element | ComponentPublicInstance | null>null),
+    button = ref(<Element | ComponentPublicInstance | null>null),
+    dropdown = ref(<Element | ComponentPublicInstance | null>null),
+    showDropdown = ref(false)
+;
 
 const classes = computed(() => {
         let r = [];
         if (props.class) r.push(props.class);
         if (props.palette) r.push(`lkt-button--${props.palette}`, `palette--${props.palette}`);
         if (isLoading.value) r.push('is-loading');
+        if (props.split) r.push('lkt-split-button');
         return r.join(' ');
     }),
     hasNext = computed(() => !!slots.next),
@@ -71,25 +81,75 @@ const classes = computed(() => {
 ;
 
 const doResourceClick = async ($event: MouseEvent | null) => {
-    debug('Resource Click', props.resource, props.resourceData);
-    isLoading.value = true;
-    emit('loading');
-    return httpCall(props.resource, props.resourceData).then((r: any) => {
-        isLoading.value = false;
-        emit('loaded');
-        debug('Resource Click -> Received response', r);
-        emit('click', $event, r);
-    }).catch((r: any) => {
-        isLoading.value = false;
-        emit('loaded');
-        debug('Resource Click -> Received response error', r);
-        emit('click', $event, r);
-    });
-}
+        debug('Resource Click', props.resource, props.resourceData);
+        isLoading.value = true;
+        emit('loading');
+        return httpCall(props.resource, props.resourceData).then((r: any) => {
+            isLoading.value = false;
+            emit('loaded');
+            debug('Resource Click -> Received response', r);
+            emit('click', $event, r);
+        }).catch((r: any) => {
+            isLoading.value = false;
+            emit('loaded');
+            debug('Resource Click -> Received response error', r);
+            emit('click', $event, r);
+        });
+    },
+    onClickOutside = (e: MouseEvent) => {
+
+        if (!e.target) {
+            showDropdown.value = false;
+            return;
+        }
+
+        console.log('onClickOutside', e.target);
+        //
+        // if (e.target === button.value || e.target === container.value) {
+        //     // showDropdown.value = false;
+        //     return;
+        // }
+        //
+        // if (
+        //     // e.target !== container.value
+        //     // && e.target !== button.value
+        //     // &&
+        //     e.target !== dropdown.value
+        // ){
+        //     showDropdown.value = false;
+        //     return;
+        // }
+
+        //@ts-ignore
+        if (!container.value.contains(e.target) || container.value.id !== e.target.id) {
+            showDropdown.value = false;
+            return;
+        }
+    },
+    toggleDropdown = ($event: MouseEvent) => {
+        // onClickOutside($event);
+        showDropdown.value = !showDropdown.value;
+    }
+    ;
+
+window.addEventListener('click', onClickOutside);
+
+onBeforeUnmount(() => {
+    window.removeEventListener('click', onClickOutside);
+})
 
 const onClick = ($event: MouseEvent | null) => {
 
     debug('Click');
+    if ($event) {
+        toggleDropdown($event);
+    }
+
+    // window.dispatchEvent(new Event('click'));
+
+    if (props.split) {
+        return;
+    }
 
     if (props.modal) {
         debug('Click -> has modal', props.confirmModal, props.modalData);
@@ -190,22 +250,40 @@ watch(() => props.loading, () => isLoading.value = props.loading);
 defineExpose({
     click: () => onClick(null)
 })
+
+const splitSlots = computed((): LktObject => {
+    let r = [];
+    for (let k in slots) if (k.indexOf('split-') !== -1) r.push(k);
+    return r;
+});
 </script>
 
 <template>
-    <button class="lkt-button"
-            v-bind:class="classes"
-            v-bind:name="name"
-            v-bind:type="type"
-            v-bind:disabled="disabled"
-            v-on:click.prevent.stop="onClick">
-        <span class="lkt-button-prev" v-if="hasPrev">
-            <slot name="prev"></slot>
-        </span>
-        <slot name="default"/>
-        <span class="lkt-button-next" v-if="hasNext">
-            <slot name="next"></slot>
-        </span>
-        <lkt-spinner v-if="isLoading"></lkt-spinner>
-    </button>
+    <div class="lkt-button-container"
+         ref="container"
+         :id="Identifier"
+    >
+        <button class="lkt-button"
+                ref="button"
+                v-bind:class="classes"
+                v-bind:name="name"
+                v-bind:type="type"
+                v-bind:disabled="disabled"
+                v-on:click.prevent.stop="onClick">
+            <span class="lkt-button-prev" v-if="hasPrev">
+                <slot name="prev"/>
+            </span>
+            <slot name="default"/>
+            <span class="lkt-button-next" v-if="hasNext">
+                <slot name="next"/>
+            </span>
+            <lkt-spinner v-if="isLoading"/>
+            <div v-if="split" class="lkt-split-button-arrow"/>
+        </button>
+        <div v-if="split && showDropdown" ref="dropdown" class="lkt-split-button-dropdown-content">
+            <template v-for="slot in splitSlots">
+                <slot :name="slot"/>
+            </template>
+        </div>
+    </div>
 </template>

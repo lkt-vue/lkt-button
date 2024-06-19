@@ -7,6 +7,7 @@
     --lkt-btn-text-align: left;
 
     /** Sizing */
+    --lkt-btn-width: 100%;
     --lkt-btn-min-width: 150px;
     --lkt-btn-min-height: 35px;
     --lkt-btn-padding: 7px;
@@ -43,4 +44,8 @@
     /** Internal image */
     --lkt-button-img-max-width: 50px;
     --lkt-button-img-max-height: 50px;
+
+    /** Split Button */
+    --lkt-button-split-arrow-width: 40px;
+    --lkt-button-split-arrow-bg: transparent;
 }
