@@ -23,6 +23,7 @@ const props = withDefaults(defineProps<{
     loading?: boolean,
     wrapContent?: boolean,
     split?: boolean,
+    isAnchor?: boolean,
     resource?: string,
     resourceData?: LktObject
     modal?: string,
@@ -43,6 +44,7 @@ const props = withDefaults(defineProps<{
     loading: false,
     wrapContent: false,
     split: false,
+    isAnchor: false,
     resource: '',
     resourceData: () => ({}),
     modal: '',
@@ -102,8 +104,6 @@ const doResourceClick = async ($event: MouseEvent | null) => {
             showDropdown.value = false;
             return;
         }
-
-        console.log('onClickOutside', e.target);
         //
         // if (e.target === button.value || e.target === container.value) {
         //     // showDropdown.value = false;
@@ -130,7 +130,7 @@ const doResourceClick = async ($event: MouseEvent | null) => {
         // onClickOutside($event);
         showDropdown.value = !showDropdown.value;
     }
-    ;
+;
 
 window.addEventListener('click', onClickOutside);
 
@@ -263,13 +263,30 @@ const splitSlots = computed((): LktObject => {
          ref="container"
          :id="Identifier"
     >
-        <button class="lkt-button"
-                ref="button"
-                v-bind:class="classes"
-                v-bind:name="name"
-                v-bind:type="type"
-                v-bind:disabled="disabled"
-                v-on:click.prevent.stop="onClick">
+        <lkt-anchor
+            v-if="isAnchor"
+            class="lkt-button"
+            :href="onClickTo"
+            imposter
+        >
+            <span class="lkt-button-prev" v-if="hasPrev">
+                <slot name="prev"/>
+            </span>
+            <slot name="default"/>
+            <span class="lkt-button-next" v-if="hasNext">
+                <slot name="next"/>
+            </span>
+            <lkt-spinner v-if="isLoading"/>
+        </lkt-anchor>
+        <button
+            v-else
+            class="lkt-button"
+            ref="button"
+            v-bind:class="classes"
+            v-bind:name="name"
+            v-bind:type="type"
+            v-bind:disabled="disabled"
+            v-on:click.prevent.stop="onClick">
             <span class="lkt-button-prev" v-if="hasPrev">
                 <slot name="prev"/>
             </span>

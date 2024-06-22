@@ -12,6 +12,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
     split?: boolean | undefined;
+    isAnchor?: boolean | undefined;
     resource?: string | undefined;
     resourceData?: LktObject | undefined;
     modal?: string | undefined;
@@ -32,6 +33,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading: boolean;
     wrapContent: boolean;
     split: boolean;
+    isAnchor: boolean;
     resource: string;
     resourceData: () => {};
     modal: string;
@@ -58,6 +60,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
     split?: boolean | undefined;
+    isAnchor?: boolean | undefined;
     resource?: string | undefined;
     resourceData?: LktObject | undefined;
     modal?: string | undefined;
@@ -78,6 +81,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading: boolean;
     wrapContent: boolean;
     split: boolean;
+    isAnchor: boolean;
     resource: string;
     resourceData: () => {};
     modal: string;
@@ -103,6 +107,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     onClickToExternal: boolean;
     palette: string;
     wrapContent: boolean;
+    isAnchor: boolean;
     resourceData: LktObject;
     modal: string;
     modalKey: string;

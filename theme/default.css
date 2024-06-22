@@ -5,6 +5,8 @@
     --lkt-btn-font-weight: 400;
     --lkt-btn-line-height: 1;
     --lkt-btn-text-align: left;
+    --lkt-btn-text-decoration: none;
+    --lkt-btn-text-decoration-hover: none;
 
     /** Sizing */
     --lkt-btn-width: 100%;
@@ -16,6 +18,7 @@
     /** Border */
     --lkt-btn-border-radius: 5px;
     --lkt-btn-border-width: 1px;
+    --lkt-btn-border-width-hover: 1px;
     --lkt-btn-border-style: solid;
 
     /** Colors */

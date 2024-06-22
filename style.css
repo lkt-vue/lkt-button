@@ -26,6 +26,7 @@
     width: var(--lkt-btn-width, 100%);
     padding: var(--lkt-btn-padding);
     gap: var(--lkt-btn-gap);
+    text-decoration: var(--lkt-btn-text-decoration);
 }
 
 .lkt-button img {
@@ -37,6 +38,8 @@
     color: var(--lkt-btn-color-hover);
     background: var(--lkt-btn-bg-hover);
     border-color: var(--lkt-btn-border-color-hover);
+    border-width: var(--lkt-btn-border-width-hover);
+    text-decoration: var(--lkt-btn-text-decoration-hover);
 }
 
 .lkt-button--alert {
