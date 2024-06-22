@@ -1,4 +1,4 @@
-import { defineComponent as j, useSlots as z, ref as p, computed as C, onBeforeUnmount as I, watch as S, resolveComponent as L, openBlock as a, createElementBlock as i, createBlock as v, withCtx as V, renderSlot as c, createCommentVNode as s, normalizeClass as q, withModifiers as G, Fragment as J, renderList as Q } from "vue";
+import { defineComponent as x, useSlots as z, ref as p, computed as C, onBeforeUnmount as I, watch as S, resolveComponent as _, openBlock as a, createElementBlock as i, createBlock as v, withCtx as V, renderSlot as c, createCommentVNode as s, normalizeClass as q, withModifiers as G, Fragment as J, renderList as Q } from "vue";
 import { createLktEvent as k } from "lkt-events";
 import { generateRandomString as B } from "lkt-string-tools";
 import { httpCall as W } from "lkt-http-client";
@@ -31,7 +31,7 @@ const me = (n) => {
 }, ne = {
   key: 3,
   class: "lkt-split-button-arrow"
-}, ae = /* @__PURE__ */ j({
+}, ae = /* @__PURE__ */ x({
   __name: "LktButton",
   props: {
     type: { default: A.button },
@@ -60,11 +60,11 @@ const me = (n) => {
     const e = n, r = R, h = z(), D = Z(), P = "lkt-button-" + B(), u = p(e.loading), y = p(null), N = p(null), F = p(null), d = p(!1), K = C(() => {
       let o = [];
       return e.class && o.push(e.class), e.palette && o.push(`lkt-button--${e.palette}`, `palette--${e.palette}`), u.value && o.push("is-loading"), e.split && o.push("lkt-split-button"), o.join(" ");
-    }), w = C(() => !!h.next), g = C(() => !!h.prev), m = async (o) => (l("Resource Click", e.resource, e.resourceData), u.value = !0, r("loading"), W(e.resource, e.resourceData).then((t) => {
+    }), E = C(() => !!h.next), w = C(() => !!h.prev), m = async (o) => (l("Resource Click", e.resource, e.resourceData), u.value = !0, r("loading"), W(e.resource, e.resourceData).then((t) => {
       u.value = !1, r("loaded"), l("Resource Click -> Received response", t), r("click", o, t);
     }).catch((t) => {
       u.value = !1, r("loaded"), l("Resource Click -> Received response error", t), r("click", o, t);
-    })), E = (o) => {
+    })), g = (o) => {
       if (!o.target) {
         d.value = !1;
         return;
@@ -76,8 +76,8 @@ const me = (n) => {
     }, U = (o) => {
       d.value = !d.value;
     };
-    window.addEventListener("click", E), I(() => {
-      window.removeEventListener("click", E);
+    window.addEventListener("click", g), I(() => {
+      window.removeEventListener("click", g);
     });
     const T = (o) => {
       if (l("Click"), o && U(), !e.split) {
@@ -133,38 +133,39 @@ const me = (n) => {
     S(() => e.loading, () => u.value = e.loading), M({
       click: () => T(null)
     });
-    const x = C(() => {
+    const H = C(() => {
       let o = [];
       for (let t in h)
         t.indexOf("split-") !== -1 && o.push(t);
       return o;
     });
     return (o, t) => {
-      const _ = L("lkt-spinner"), H = L("lkt-anchor");
+      const L = _("lkt-spinner"), O = _("lkt-anchor");
       return a(), i("div", {
         class: "lkt-button-container",
         ref_key: "container",
         ref: y,
         id: P
       }, [
-        o.isAnchor ? (a(), v(H, {
+        o.isAnchor ? (a(), v(O, {
           key: 0,
           class: "lkt-button",
-          href: o.onClickTo,
+          href: o.onClickToExternal ? o.onClickTo : "",
+          to: o.onClickToExternal ? "" : o.onClickTo,
           imposter: ""
         }, {
           default: V(() => [
-            g.value ? (a(), i("span", $, [
+            w.value ? (a(), i("span", $, [
               c(o.$slots, "prev")
             ])) : s("", !0),
             c(o.$slots, "default"),
-            w.value ? (a(), i("span", ee, [
+            E.value ? (a(), i("span", ee, [
               c(o.$slots, "next")
             ])) : s("", !0),
-            u.value ? (a(), v(_, { key: 2 })) : s("", !0)
+            u.value ? (a(), v(L, { key: 2 })) : s("", !0)
           ]),
           _: 3
-        }, 8, ["href"])) : (a(), i("button", {
+        }, 8, ["href", "to"])) : (a(), i("button", {
           key: 1,
           class: q(["lkt-button", K.value]),
           ref_key: "button",
@@ -174,14 +175,14 @@ const me = (n) => {
           disabled: o.disabled,
           onClick: G(T, ["prevent", "stop"])
         }, [
-          g.value ? (a(), i("span", te, [
+          w.value ? (a(), i("span", te, [
             c(o.$slots, "prev")
           ])) : s("", !0),
           c(o.$slots, "default"),
-          w.value ? (a(), i("span", le, [
+          E.value ? (a(), i("span", le, [
             c(o.$slots, "next")
           ])) : s("", !0),
-          u.value ? (a(), v(_, { key: 2 })) : s("", !0),
+          u.value ? (a(), v(L, { key: 2 })) : s("", !0),
           o.split ? (a(), i("div", ne)) : s("", !0)
         ], 10, oe)),
         o.split && d.value ? (a(), i("div", {
@@ -190,7 +191,7 @@ const me = (n) => {
           ref: F,
           class: "lkt-split-button-dropdown-content"
         }, [
-          (a(!0), i(J, null, Q(x.value, (O) => c(o.$slots, O)), 256))
+          (a(!0), i(J, null, Q(H.value, (j) => c(o.$slots, j)), 256))
         ], 512)) : s("", !0)
       ], 512);
     };

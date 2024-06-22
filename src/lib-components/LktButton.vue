@@ -266,7 +266,8 @@ const splitSlots = computed((): LktObject => {
         <lkt-anchor
             v-if="isAnchor"
             class="lkt-button"
-            :href="onClickTo"
+            :href="onClickToExternal ? onClickTo : ''"
+            :to="onClickToExternal ? '' : onClickTo"
             imposter
         >
             <span class="lkt-button-prev" v-if="hasPrev">
