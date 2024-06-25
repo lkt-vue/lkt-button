@@ -9,7 +9,10 @@ import {openModal} from "lkt-modal";
 import {openConfirm} from "lkt-modal-confirm";
 import {LktObject} from "lkt-ts-interfaces";
 import {debug} from "../functions/settings-functions";
-import {useRouter} from "vue-router";
+import {useRouter, useRoute} from "vue-router";
+import {__} from "lkt-i18n";
+import {ButtonOption} from "../classes/ButtonOption";
+import SplitOption from "@/SplitOption.vue";
 
 const props = withDefaults(defineProps<{
     type?: ButtonType,
@@ -23,6 +26,8 @@ const props = withDefaults(defineProps<{
     loading?: boolean,
     wrapContent?: boolean,
     split?: boolean,
+    splitOptions?: ButtonOption[],
+    closeSplitOnRouteChanged?: boolean,
     isAnchor?: boolean,
     resource?: string,
     resourceData?: LktObject
@@ -31,7 +36,13 @@ const props = withDefaults(defineProps<{
     modalData?: LktObject
     confirmModal?: string,
     confirmModalKey?: string,
-    confirmData?: LktObject
+    confirmData?: LktObject,
+    text?: string,
+    icon?: string,
+    img?: string,
+    newTab?: boolean,
+    download?: boolean,
+    downloadFileName?: string,
 }>(), {
     type: ButtonType.button,
     name: generateRandomString(10),
@@ -44,6 +55,8 @@ const props = withDefaults(defineProps<{
     loading: false,
     wrapContent: false,
     split: false,
+    splitOptions: () => [],
+    closeSplitOnRouteChanged: false,
     isAnchor: false,
     resource: '',
     resourceData: () => ({}),
@@ -53,6 +66,12 @@ const props = withDefaults(defineProps<{
     confirmModal: '',
     confirmModalKey: '_',
     confirmData: () => ({}),
+    text: '',
+    icon: '',
+    img: '',
+    newTab: false,
+    download: false,
+    downloadFileName: '',
 });
 
 const emit = defineEmits(['click', 'loading', 'loaded']);
@@ -78,8 +97,12 @@ const classes = computed(() => {
         if (props.split) r.push('lkt-split-button');
         return r.join(' ');
     }),
-    hasNext = computed(() => !!slots.next),
-    hasPrev = computed(() => !!slots.prev)
+    computedText = computed(() => {
+        if (props.text.startsWith('__:')) {
+            return __(props.text.substring(3));
+        }
+        return props.text;
+    })
 ;
 
 const doResourceClick = async ($event: MouseEvent | null) => {
@@ -104,6 +127,7 @@ const doResourceClick = async ($event: MouseEvent | null) => {
             showDropdown.value = false;
             return;
         }
+
         //
         // if (e.target === button.value || e.target === container.value) {
         //     // showDropdown.value = false;
@@ -129,6 +153,11 @@ const doResourceClick = async ($event: MouseEvent | null) => {
     toggleDropdown = ($event: MouseEvent) => {
         // onClickOutside($event);
         showDropdown.value = !showDropdown.value;
+    },
+    onClickSplitOption = (option: ButtonOption) => {
+        if (typeof option.onClick === 'function') option.onClick();
+
+        if (option.autoToggleParent) showDropdown.value = false;
     }
 ;
 
@@ -247,6 +276,13 @@ const onClick = ($event: MouseEvent | null) => {
 
 watch(() => props.loading, () => isLoading.value = props.loading);
 
+const route = useRoute();
+watch(route, (to) => {
+    if (props.split && props.closeSplitOnRouteChanged) {
+        showDropdown.value = false;
+    }
+}, {flush: 'pre', immediate: true, deep: true})
+
 defineExpose({
     click: () => onClick(null)
 })
@@ -268,39 +304,56 @@ const splitSlots = computed((): LktObject => {
             class="lkt-button"
             :href="onClickToExternal ? onClickTo : ''"
             :to="onClickToExternal ? '' : onClickTo"
+            :download="download"
+            :target="newTab ? '_blank' : ''"
+            :download-file-name="downloadFileName"
             imposter
         >
-            <span class="lkt-button-prev" v-if="hasPrev">
-                <slot name="prev"/>
-            </span>
-            <slot name="default"/>
-            <span class="lkt-button-next" v-if="hasNext">
-                <slot name="next"/>
-            </span>
+            <i v-if="icon" :class="icon"/>
+            <img v-if="img" :src="img" :alt="computedText"/>
+
+            <template v-if="computedText">
+                {{computedText}}
+            </template>
+
+            <template v-if="slots.default">
+                <slot/>
+            </template>
             <lkt-spinner v-if="isLoading"/>
         </lkt-anchor>
+
         <button
             v-else
             class="lkt-button"
             ref="button"
-            v-bind:class="classes"
-            v-bind:name="name"
-            v-bind:type="type"
-            v-bind:disabled="disabled"
+            :class="classes"
+            :name="name"
+            :type="type"
+            :disabled="disabled"
             v-on:click.prevent.stop="onClick">
-            <span class="lkt-button-prev" v-if="hasPrev">
-                <slot name="prev"/>
-            </span>
-            <slot name="default"/>
-            <span class="lkt-button-next" v-if="hasNext">
-                <slot name="next"/>
-            </span>
-            <lkt-spinner v-if="isLoading"/>
-            <div v-if="split" class="lkt-split-button-arrow"/>
+                <i v-if="icon" :class="icon"/>
+                <img v-if="img" :src="img" :alt="computedText"/>
+
+                <template v-if="computedText">
+                    {{computedText}}
+                </template>
+
+                <template v-if="slots.default">
+                    <slot/>
+                </template>
+
+                <lkt-spinner v-if="isLoading"/>
+                <div v-if="split" class="lkt-split-button-arrow"/>
         </button>
         <div v-if="split && showDropdown" ref="dropdown" class="lkt-split-button-dropdown-content">
-            <template v-for="slot in splitSlots">
+            <template v-if="false" v-for="slot in splitSlots">
                 <slot :name="slot"/>
+            </template>
+            <template v-for="(btn, i) in splitOptions">
+                <split-option
+                    v-model="splitOptions[i]"
+                    @click="() => onClickSplitOption(btn)"
+                />
             </template>
         </div>
     </div>

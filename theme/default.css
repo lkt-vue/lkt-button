@@ -17,9 +17,12 @@
 
     /** Border */
     --lkt-btn-border-radius: 5px;
+    --lkt-btn-border-radius-hover: var(--lkt-btn-border-radius);
     --lkt-btn-border-width: 1px;
     --lkt-btn-border-width-hover: 1px;
+    --lkt-btn-border-width-focus: var(--lkt-btn-border-width);
     --lkt-btn-border-style: solid;
+    --lkt-btn-border-style-focus: var(--lkt-btn-border-style);
 
     /** Colors */
     --lkt-btn-color: #ffffff;
@@ -41,8 +44,13 @@
 
     /** State: Disabled */
     --lkt-btn-color-disabled: var(--disabled-contrast);
+    --lkt-btn-color-disabled-hover: var(--disabled-contrast);
     --lkt-btn-bg-disabled: var(--disabled-color);
+    --lkt-btn-bg-disabled-hover: var(--disabled-color);
     --lkt-btn-border-color-disabled: var(--disabled-color);
+    --lkt-btn-border-color-disabled-hover: var(--disabled-color);
+    --lkt-btn-shadow-disabled: none;
+    --lkt-btn-shadow-disabled-hover: none;
 
     /** Internal image */
     --lkt-button-img-max-width: 50px;

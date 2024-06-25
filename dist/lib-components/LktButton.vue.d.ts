@@ -1,5 +1,6 @@
 import { ButtonType } from "../enums/enums";
 import { LktObject } from "lkt-ts-interfaces";
+import { ButtonOption } from "../classes/ButtonOption";
 declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     type?: ButtonType | undefined;
     name?: string | undefined;
@@ -12,6 +13,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
     split?: boolean | undefined;
+    splitOptions?: ButtonOption[] | undefined;
+    closeSplitOnRouteChanged?: boolean | undefined;
     isAnchor?: boolean | undefined;
     resource?: string | undefined;
     resourceData?: LktObject | undefined;
@@ -21,6 +24,12 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmModal?: string | undefined;
     confirmModalKey?: string | undefined;
     confirmData?: LktObject | undefined;
+    text?: string | undefined;
+    icon?: string | undefined;
+    img?: string | undefined;
+    newTab?: boolean | undefined;
+    download?: boolean | undefined;
+    downloadFileName?: string | undefined;
 }>, {
     type: ButtonType;
     name: string;
@@ -33,6 +42,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading: boolean;
     wrapContent: boolean;
     split: boolean;
+    splitOptions: () => never[];
+    closeSplitOnRouteChanged: boolean;
     isAnchor: boolean;
     resource: string;
     resourceData: () => {};
@@ -42,6 +53,12 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmModal: string;
     confirmModalKey: string;
     confirmData: () => {};
+    text: string;
+    icon: string;
+    img: string;
+    newTab: boolean;
+    download: boolean;
+    downloadFileName: string;
 }>, {
     click: () => void | Promise<void>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
@@ -60,6 +77,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
     split?: boolean | undefined;
+    splitOptions?: ButtonOption[] | undefined;
+    closeSplitOnRouteChanged?: boolean | undefined;
     isAnchor?: boolean | undefined;
     resource?: string | undefined;
     resourceData?: LktObject | undefined;
@@ -69,6 +88,12 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmModal?: string | undefined;
     confirmModalKey?: string | undefined;
     confirmData?: LktObject | undefined;
+    text?: string | undefined;
+    icon?: string | undefined;
+    img?: string | undefined;
+    newTab?: boolean | undefined;
+    download?: boolean | undefined;
+    downloadFileName?: string | undefined;
 }>, {
     type: ButtonType;
     name: string;
@@ -81,6 +106,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading: boolean;
     wrapContent: boolean;
     split: boolean;
+    splitOptions: () => never[];
+    closeSplitOnRouteChanged: boolean;
     isAnchor: boolean;
     resource: string;
     resourceData: () => {};
@@ -90,6 +117,12 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmModal: string;
     confirmModalKey: string;
     confirmData: () => {};
+    text: string;
+    icon: string;
+    img: string;
+    newTab: boolean;
+    download: boolean;
+    downloadFileName: string;
 }>>> & {
     onClick?: ((...args: any[]) => any) | undefined;
     onLoaded?: ((...args: any[]) => any) | undefined;
@@ -100,13 +133,19 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     name: string;
     value: string;
     loading: boolean;
+    img: string;
+    text: string;
     disabled: boolean;
     class: string;
+    icon: string;
     resource: string;
+    download: boolean;
     onClickTo: string;
     onClickToExternal: boolean;
     palette: string;
     wrapContent: boolean;
+    splitOptions: ButtonOption[];
+    closeSplitOnRouteChanged: boolean;
     isAnchor: boolean;
     resourceData: LktObject;
     modal: string;
@@ -115,10 +154,10 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmModal: string;
     confirmModalKey: string;
     confirmData: LktObject;
+    newTab: boolean;
+    downloadFileName: string;
 }, {}>, Partial<Record<any, (_: {}) => any>> & {
-    prev?(_: {}): any;
     default?(_: {}): any;
-    next?(_: {}): any;
 }>;
 export default _default;
 type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;
