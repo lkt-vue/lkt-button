@@ -1,13 +1,14 @@
+import { ButtonOption } from "../classes/ButtonOption";
 declare const _default: import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     modelValue: ButtonOption;
 }>, {
-    modelValue: () => {};
+    modelValue: () => ButtonOption;
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     click: (...args: any[]) => void;
 }, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     modelValue: ButtonOption;
 }>, {
-    modelValue: () => {};
+    modelValue: () => ButtonOption;
 }>>> & {
     onClick?: ((...args: any[]) => any) | undefined;
 }, {

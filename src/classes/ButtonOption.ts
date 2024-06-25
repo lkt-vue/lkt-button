@@ -3,6 +3,9 @@ export class ButtonOption {
     text: string = '';
 
     onClick: Function|undefined = undefined;
+    classes: string = '';
+    containerClasses: string = '';
+    classGenerator: Function|undefined = undefined;
 
     autoToggleParent: boolean = false;
 
@@ -18,6 +21,21 @@ export class ButtonOption {
 
     setAutoToggleParentAfterClick(enabled: boolean = true) {
         this.autoToggleParent = enabled;
+        return this;
+    }
+
+    setClassGenerator(fn: Function) {
+        this.classGenerator = fn;
+        return this;
+    }
+
+    setClasses(classes: string) {
+        this.classes = classes;
+        return this;
+    }
+
+    setContainerClasses(classes: string) {
+        this.containerClasses = classes;
         return this;
     }
 }

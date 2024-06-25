@@ -1,23 +1,35 @@
-declare function Ee(t: any, s: any): {
+declare function Be(o: any, l: any): {
     key: any;
     text: any;
+    classes: string;
+    containerClasses: string;
     autoToggleParent: boolean;
-    setOnClick: (s: any) => me;
+    setOnClick: (l: any) => K;
     onClick: any;
-    setAutoToggleParentAfterClick: (s?: boolean) => me;
+    setAutoToggleParentAfterClick: (l?: boolean) => K;
+    setClassGenerator: (l: any) => K;
+    classGenerator: any;
+    setClasses: (l: any) => K;
+    setContainerClasses: (l: any) => K;
 };
-declare function De(t?: boolean): void;
-declare namespace Te {
-    function install(t: any): void;
+declare function Te(o?: boolean): void;
+declare namespace Ee {
+    function install(o: any): void;
 }
-declare function we(t: any): void;
-declare class me {
-    constructor(s: any, y: any);
+declare function De(o: any): void;
+declare class K {
+    constructor(l: any, D: any);
     key: any;
     text: any;
+    classes: string;
+    containerClasses: string;
     autoToggleParent: boolean;
-    setOnClick(s: any): this;
+    setOnClick(l: any): this;
     onClick: any;
-    setAutoToggleParentAfterClick(s?: boolean): this;
+    setAutoToggleParentAfterClick(l?: boolean): this;
+    setClassGenerator(l: any): this;
+    classGenerator: any;
+    setClasses(l: any): this;
+    setContainerClasses(l: any): this;
 }
-export { Ee as createButtonOption, De as debugLktButton, Te as default, we as setDefaultButtonPalette };
+export { Be as createButtonOption, Te as debugLktButton, Ee as default, De as setDefaultButtonPalette };

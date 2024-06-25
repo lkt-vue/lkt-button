@@ -7,6 +7,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     onClickTo?: string | undefined;
     onClickToExternal?: boolean | undefined;
     class?: string | undefined;
+    containerClass?: string | undefined;
     palette?: string | undefined;
     value?: string | undefined;
     disabled?: boolean | undefined;
@@ -37,6 +38,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     onClickTo: string;
     onClickToExternal: boolean;
     class: string;
+    containerClass: string;
     value: string;
     disabled: boolean;
     loading: boolean;
@@ -71,6 +73,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     onClickTo?: string | undefined;
     onClickToExternal?: boolean | undefined;
     class?: string | undefined;
+    containerClass?: string | undefined;
     palette?: string | undefined;
     value?: string | undefined;
     disabled?: boolean | undefined;
@@ -101,6 +104,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     onClickTo: string;
     onClickToExternal: boolean;
     class: string;
+    containerClass: string;
     value: string;
     disabled: boolean;
     loading: boolean;
@@ -142,6 +146,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     download: boolean;
     onClickTo: string;
     onClickToExternal: boolean;
+    containerClass: string;
     palette: string;
     wrapContent: boolean;
     splitOptions: ButtonOption[];

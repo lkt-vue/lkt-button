@@ -12,7 +12,7 @@ import {debug} from "../functions/settings-functions";
 import {useRouter, useRoute} from "vue-router";
 import {__} from "lkt-i18n";
 import {ButtonOption} from "../classes/ButtonOption";
-import SplitOption from "@/SplitOption.vue";
+import SplitOption from "../components/SplitOption.vue";
 
 const props = withDefaults(defineProps<{
     type?: ButtonType,
@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<{
     onClickTo?: string,
     onClickToExternal?: boolean,
     class?: string,
+    containerClass?: string,
     palette?: string,
     value?: string,
     disabled?: boolean,
@@ -50,6 +51,7 @@ const props = withDefaults(defineProps<{
     onClickTo: '',
     onClickToExternal: false,
     class: '',
+    containerClass: '',
     value: '',
     disabled: false,
     loading: false,
@@ -95,6 +97,11 @@ const classes = computed(() => {
         if (props.palette) r.push(`lkt-button--${props.palette}`, `palette--${props.palette}`);
         if (isLoading.value) r.push('is-loading');
         if (props.split) r.push('lkt-split-button');
+        return r.join(' ');
+    }),
+    computedContainerClass = computed(() => {
+        let r = [];
+        if (props.containerClass) r.push(props.containerClass);
         return r.join(' ');
     }),
     computedText = computed(() => {
@@ -298,6 +305,7 @@ const splitSlots = computed((): LktObject => {
     <div class="lkt-button-container"
          ref="container"
          :id="Identifier"
+         :class="computedContainerClass"
     >
         <lkt-anchor
             v-if="isAnchor"
