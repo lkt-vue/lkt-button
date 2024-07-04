@@ -126,7 +126,7 @@
 
 .lkt-button:focus {
     outline: 0;
-    border: var(--lkt-btn-border-width-focus, var(--lkt-btn-border-width)) var(--lkt-btn-border-style-focus, var(--lkt-btn-border-style)) var(--lkt-btn-border-color-focus);
+    border: var(--lkt-btn-border-width-focus) var(--lkt-btn-border-style-focus) var(--lkt-btn-border-color-focus);
     box-shadow: var(--lkt-btn-shadow-focus);
 }
 
