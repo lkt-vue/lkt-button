@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ButtonOption} from "../classes/ButtonOption";
-import LktButton from "@/lib-components/LktButton.vue";
+import LktButton from "../lib-components/LktButton.vue";
 import {computed, ref} from "vue";
 
 const props = withDefaults(defineProps<{
