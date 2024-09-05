@@ -1,35 +1,35 @@
-declare function Be(o: any, l: any): {
+declare function Le(o: any, a: any): {
     key: any;
     text: any;
     classes: string;
     containerClasses: string;
     autoToggleParent: boolean;
-    setOnClick: (l: any) => K;
+    setOnClick: (a: any) => z;
     onClick: any;
-    setAutoToggleParentAfterClick: (l?: boolean) => K;
-    setClassGenerator: (l: any) => K;
+    setAutoToggleParentAfterClick: (a?: boolean) => z;
+    setClassGenerator: (a: any) => z;
     classGenerator: any;
-    setClasses: (l: any) => K;
-    setContainerClasses: (l: any) => K;
+    setClasses: (a: any) => z;
+    setContainerClasses: (a: any) => z;
 };
-declare function Te(o?: boolean): void;
-declare namespace Ee {
+declare function Ee(o?: boolean): void;
+declare namespace Be {
     function install(o: any): void;
 }
-declare function De(o: any): void;
-declare class K {
-    constructor(l: any, D: any);
+declare function Te(o: any): void;
+declare class z {
+    constructor(a: any, E: any);
     key: any;
     text: any;
     classes: string;
     containerClasses: string;
     autoToggleParent: boolean;
-    setOnClick(l: any): this;
+    setOnClick(a: any): this;
     onClick: any;
-    setAutoToggleParentAfterClick(l?: boolean): this;
-    setClassGenerator(l: any): this;
+    setAutoToggleParentAfterClick(a?: boolean): this;
+    setClassGenerator(a: any): this;
     classGenerator: any;
-    setClasses(l: any): this;
-    setContainerClasses(l: any): this;
+    setClasses(a: any): this;
+    setContainerClasses(a: any): this;
 }
-export { Be as createButtonOption, Te as debugLktButton, Ee as default, De as setDefaultButtonPalette };
+export { Le as createButtonOption, Ee as debugLktButton, Be as default, Te as setDefaultButtonPalette };

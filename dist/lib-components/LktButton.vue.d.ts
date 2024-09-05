@@ -31,6 +31,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     newTab?: boolean | undefined;
     download?: boolean | undefined;
     downloadFileName?: string | undefined;
+    tooltip?: boolean | undefined;
 }>, {
     type: ButtonType;
     name: string;
@@ -97,6 +98,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     newTab?: boolean | undefined;
     download?: boolean | undefined;
     downloadFileName?: string | undefined;
+    tooltip?: boolean | undefined;
 }>, {
     type: ButtonType;
     name: string;
@@ -163,6 +165,9 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     downloadFileName: string;
 }, {}>, Partial<Record<any, (_: {}) => any>> & {
     default?(_: {}): any;
+    tooltip?(_: {
+        doClose: any;
+    }): any;
 }>;
 export default _default;
 type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;

@@ -44,6 +44,7 @@ const props = withDefaults(defineProps<{
     newTab?: boolean,
     download?: boolean,
     downloadFileName?: string,
+    tooltip?: boolean,
 }>(), {
     type: ButtonType.button,
     name: generateRandomString(10),
@@ -88,7 +89,8 @@ const isLoading = ref(props.loading),
     container = ref(<Element | ComponentPublicInstance | null>null),
     button = ref(<Element | ComponentPublicInstance | null>null),
     dropdown = ref(<Element | ComponentPublicInstance | null>null),
-    showDropdown = ref(false)
+    showDropdown = ref(false),
+    showTooltip = ref(false)
 ;
 
 const classes = computed(() => {
@@ -178,7 +180,11 @@ const onClick = ($event: MouseEvent | null) => {
 
     debug('Click');
     if ($event) {
-        toggleDropdown($event);
+        if (props.tooltip) {
+            showTooltip.value = !showTooltip.value;
+        } else {
+            toggleDropdown($event);
+        }
     }
 
     // window.dispatchEvent(new Event('click'));
@@ -268,8 +274,8 @@ const onClick = ($event: MouseEvent | null) => {
     debug('Click -> Emit');
     if (props.onClickTo !== '') {
         if ($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
+            // $event.preventDefault();
+            // $event.stopPropagation();
         }
         if (props.onClickToExternal) {
             window.location.href = props.onClickTo;
@@ -338,7 +344,7 @@ const splitSlots = computed((): LktObject => {
             :name="name"
             :type="type"
             :disabled="disabled"
-            v-on:click.prevent.stop="onClick">
+            v-on:click="onClick">
                 <i v-if="icon" :class="icon"/>
                 <img v-if="img" :src="img" :alt="computedText"/>
 
@@ -364,5 +370,17 @@ const splitSlots = computed((): LktObject => {
                 />
             </template>
         </div>
+
+        <lkt-tooltip
+            v-if="tooltip && container"
+            v-model="showTooltip"
+            :referrer="container"
+        >
+            <template #default="{doClose}">
+                <slot
+                    name="tooltip"
+                    :do-close="doClose"/>
+            </template>
+        </lkt-tooltip>
     </div>
 </template>
