@@ -25,7 +25,6 @@ const props = withDefaults(defineProps<{
     loading?: boolean,
     wrapContent?: boolean,
     split?: boolean,
-    closeSplitOnRouteChanged?: boolean,
     isAnchor?: boolean,
     resource?: string,
     resourceData?: LktObject
@@ -57,7 +56,6 @@ const props = withDefaults(defineProps<{
     loading: false,
     wrapContent: false,
     split: false,
-    closeSplitOnRouteChanged: false,
     isAnchor: false,
     resource: '',
     resourceData: () => ({}),
@@ -84,7 +82,15 @@ const slots = useSlots(),
     router = useRouter(),
     route = useRoute();
 
-const routeIsActive = ref(false);
+const Identifier = 'lkt-button-' + generateRandomString();
+
+const isLoading = ref(props.loading),
+    container = ref(<Element | ComponentPublicInstance | null>null),
+    button = ref(<Element | ComponentPublicInstance | null>null),
+    showDropdown = ref(false),
+    showTooltip = ref(false),
+    routeIsActive = ref(false)
+;
 
 const checkIfActiveRoute = () => {
     if (!props.onClickTo) return;
@@ -94,19 +100,7 @@ const checkIfActiveRoute = () => {
 
 watch(route, (to) => {
     checkIfActiveRoute();
-    if (props.split && props.closeSplitOnRouteChanged) {
-        showDropdown.value = false;
-    }
 }, {flush: 'pre', immediate: true, deep: true});
-
-const Identifier = 'lkt-button-' + generateRandomString();
-
-const isLoading = ref(props.loading),
-    container = ref(<Element | ComponentPublicInstance | null>null),
-    button = ref(<Element | ComponentPublicInstance | null>null),
-    showDropdown = ref(false),
-    showTooltip = ref(false)
-;
 
 const classes = computed(() => {
         let r = [];

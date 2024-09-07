@@ -13,7 +13,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
     split?: boolean | undefined;
-    closeSplitOnRouteChanged?: boolean | undefined;
     isAnchor?: boolean | undefined;
     resource?: string | undefined;
     resourceData?: LktObject | undefined;
@@ -45,7 +44,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading: boolean;
     wrapContent: boolean;
     split: boolean;
-    closeSplitOnRouteChanged: boolean;
     isAnchor: boolean;
     resource: string;
     resourceData: () => {};
@@ -83,7 +81,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
     split?: boolean | undefined;
-    closeSplitOnRouteChanged?: boolean | undefined;
     isAnchor?: boolean | undefined;
     resource?: string | undefined;
     resourceData?: LktObject | undefined;
@@ -115,7 +112,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading: boolean;
     wrapContent: boolean;
     split: boolean;
-    closeSplitOnRouteChanged: boolean;
     isAnchor: boolean;
     resource: string;
     resourceData: () => {};
@@ -157,7 +153,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     containerClass: string;
     palette: string;
     wrapContent: boolean;
-    closeSplitOnRouteChanged: boolean;
     isAnchor: boolean;
     resourceData: LktObject;
     modal: string;
