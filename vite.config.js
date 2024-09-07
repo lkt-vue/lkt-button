@@ -27,6 +27,7 @@ export default {
                 'lkt-loader',
                 'lkt-http-client',
                 'lkt-i18n',
+                'lkt-tooltip',
                 'lkt-modal',
                 'lkt-modal-confirm',
                 'lkt-events',

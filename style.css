@@ -74,25 +74,7 @@
     width: var(--lkt-button-split-arrow-width);
     height: 100%;
     background: var(--lkt-button-split-arrow-bg);
-    position: absolute;
-    right: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.lkt-split-button-arrow:before {
-    display: block;
-    content: '';
-    background: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9Ii04LjUgMCAzMiAzMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNNy4yOCAyMC4wNDBjLTAuMjQgMC0wLjQ0LTAuMDgwLTAuNi0wLjI0bC02LjQ0LTYuNDRjLTAuMzItMC4zMi0wLjMyLTAuODQgMC0xLjIgMC4zMi0wLjMyIDAuODQtMC4zMiAxLjIgMGw1Ljg0IDUuODQgNS44NC01Ljg0YzAuMzItMC4zMiAwLjg0LTAuMzIgMS4yIDAgMC4zMiAwLjMyIDAuMzIgMC44NCAwIDEuMmwtNi40NCA2LjQ0Yy0wLjE2IDAuMTYtMC40IDAuMjQtMC42IDAuMjR6Ij48L3BhdGg+Cjwvc3ZnPg==');
-    background-size: 28px 28px;
-    height: 28px;
-    width: 28px;
-}
-
-.lkt-split-button-dropdown-content {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    z-index: 3;
 }

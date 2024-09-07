@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {createLktEvent} from "lkt-events";
-import {ComponentPublicInstance, computed, onBeforeUnmount, ref, useSlots, watch} from "vue";
+import {ComponentPublicInstance, computed, ref, useSlots, watch} from "vue";
 import {ButtonType} from "../enums/enums";
 import {Settings} from "../settings/Settings";
 import {generateRandomString} from "lkt-string-tools";
@@ -9,10 +9,8 @@ import {openModal} from "lkt-modal";
 import {openConfirm} from "lkt-modal-confirm";
 import {LktObject} from "lkt-ts-interfaces";
 import {debug} from "../functions/settings-functions";
-import {useRouter, useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {__} from "lkt-i18n";
-import {ButtonOption} from "../classes/ButtonOption";
-import SplitOption from "../components/SplitOption.vue";
 
 const props = withDefaults(defineProps<{
     type?: ButtonType,
@@ -27,7 +25,6 @@ const props = withDefaults(defineProps<{
     loading?: boolean,
     wrapContent?: boolean,
     split?: boolean,
-    splitOptions?: ButtonOption[],
     closeSplitOnRouteChanged?: boolean,
     isAnchor?: boolean,
     resource?: string,
@@ -45,6 +42,8 @@ const props = withDefaults(defineProps<{
     download?: boolean,
     downloadFileName?: string,
     tooltip?: boolean,
+    tooltipWindowMargin?: number
+    tooltipReferrerMargin?: number
 }>(), {
     type: ButtonType.button,
     name: generateRandomString(10),
@@ -58,7 +57,6 @@ const props = withDefaults(defineProps<{
     loading: false,
     wrapContent: false,
     split: false,
-    splitOptions: () => [],
     closeSplitOnRouteChanged: false,
     isAnchor: false,
     resource: '',
@@ -75,20 +73,37 @@ const props = withDefaults(defineProps<{
     newTab: false,
     download: false,
     downloadFileName: '',
+    tooltip: false,
+    tooltipWindowMargin: 0,
+    tooltipReferrerMargin: 0,
 });
 
 const emit = defineEmits(['click', 'loading', 'loaded']);
 
-const slots = useSlots();
+const slots = useSlots(),
+    router = useRouter(),
+    route = useRoute();
 
-const router = useRouter();
+const routeIsActive = ref(false);
+
+const checkIfActiveRoute = () => {
+    if (!props.onClickTo) return;
+    let currentRoute = router.currentRoute;
+    routeIsActive.value = currentRoute.value.path === props.onClickTo;
+}
+
+watch(route, (to) => {
+    checkIfActiveRoute();
+    if (props.split && props.closeSplitOnRouteChanged) {
+        showDropdown.value = false;
+    }
+}, {flush: 'pre', immediate: true, deep: true});
 
 const Identifier = 'lkt-button-' + generateRandomString();
 
 const isLoading = ref(props.loading),
     container = ref(<Element | ComponentPublicInstance | null>null),
     button = ref(<Element | ComponentPublicInstance | null>null),
-    dropdown = ref(<Element | ComponentPublicInstance | null>null),
     showDropdown = ref(false),
     showTooltip = ref(false)
 ;
@@ -96,9 +111,12 @@ const isLoading = ref(props.loading),
 const classes = computed(() => {
         let r = [];
         if (props.class) r.push(props.class);
+        if (props.split) r.push('lkt-split-button');
         if (props.palette) r.push(`lkt-button--${props.palette}`, `palette--${props.palette}`);
         if (isLoading.value) r.push('is-loading');
-        if (props.split) r.push('lkt-split-button');
+        if (routeIsActive.value) r.push('is-active-route');
+        if (showTooltip.value) r.push('show-tooltip');
+        if (showDropdown.value) r.push('show-split');
         return r.join(' ');
     }),
     computedContainerClass = computed(() => {
@@ -111,8 +129,13 @@ const classes = computed(() => {
             return __(props.text.substring(3));
         }
         return props.text;
-    })
-;
+    }),
+    hasCustomSplitIconSlot = computed(() => {
+        return typeof Settings.defaultSplitIcon !== 'undefined';
+    }),
+    customSplitIconSlot = computed(() => {
+        return Settings.defaultSplitIcon;
+    });
 
 const doResourceClick = async ($event: MouseEvent | null) => {
         debug('Resource Click', props.resource, props.resourceData);
@@ -129,52 +152,8 @@ const doResourceClick = async ($event: MouseEvent | null) => {
             debug('Resource Click -> Received response error', r);
             emit('click', $event, r);
         });
-    },
-    onClickOutside = (e: MouseEvent) => {
-
-        if (!e.target) {
-            showDropdown.value = false;
-            return;
-        }
-
-        //
-        // if (e.target === button.value || e.target === container.value) {
-        //     // showDropdown.value = false;
-        //     return;
-        // }
-        //
-        // if (
-        //     // e.target !== container.value
-        //     // && e.target !== button.value
-        //     // &&
-        //     e.target !== dropdown.value
-        // ){
-        //     showDropdown.value = false;
-        //     return;
-        // }
-
-        //@ts-ignore
-        if (!container.value.contains(e.target) || container.value.id !== e.target.id) {
-            showDropdown.value = false;
-            return;
-        }
-    },
-    toggleDropdown = ($event: MouseEvent) => {
-        // onClickOutside($event);
-        showDropdown.value = !showDropdown.value;
-    },
-    onClickSplitOption = (option: ButtonOption) => {
-        if (typeof option.onClick === 'function') option.onClick();
-
-        if (option.autoToggleParent) showDropdown.value = false;
     }
 ;
-
-window.addEventListener('click', onClickOutside);
-
-onBeforeUnmount(() => {
-    window.removeEventListener('click', onClickOutside);
-})
 
 const onClick = ($event: MouseEvent | null) => {
 
@@ -183,13 +162,11 @@ const onClick = ($event: MouseEvent | null) => {
         if (props.tooltip) {
             showTooltip.value = !showTooltip.value;
         } else {
-            toggleDropdown($event);
+            showDropdown.value = !showDropdown.value;
         }
     }
 
-    // window.dispatchEvent(new Event('click'));
-
-    if (props.split) {
+    if (props.split || props.tooltip) {
         return;
     }
 
@@ -273,10 +250,6 @@ const onClick = ($event: MouseEvent | null) => {
 
     debug('Click -> Emit');
     if (props.onClickTo !== '') {
-        if ($event) {
-            // $event.preventDefault();
-            // $event.stopPropagation();
-        }
         if (props.onClickToExternal) {
             window.location.href = props.onClickTo;
         } else {
@@ -289,22 +262,11 @@ const onClick = ($event: MouseEvent | null) => {
 
 watch(() => props.loading, () => isLoading.value = props.loading);
 
-const route = useRoute();
-watch(route, (to) => {
-    if (props.split && props.closeSplitOnRouteChanged) {
-        showDropdown.value = false;
-    }
-}, {flush: 'pre', immediate: true, deep: true})
+checkIfActiveRoute();
 
 defineExpose({
     click: () => onClick(null)
 })
-
-const splitSlots = computed((): LktObject => {
-    let r = [];
-    for (let k in slots) if (k.indexOf('split-') !== -1) r.push(k);
-    return r;
-});
 </script>
 
 <template>
@@ -357,24 +319,34 @@ const splitSlots = computed((): LktObject => {
                 </template>
 
                 <lkt-spinner v-if="isLoading"/>
-                <div v-if="split" class="lkt-split-button-arrow"/>
+
+                <div v-if="split" class="lkt-split-button-arrow">
+                    <template v-if="hasCustomSplitIconSlot">
+                        <component :is="customSplitIconSlot"/>
+                    </template>
+                </div>
         </button>
-        <div v-if="split && showDropdown" ref="dropdown" class="lkt-split-button-dropdown-content">
-            <template v-if="false" v-for="slot in splitSlots">
-                <slot :name="slot"/>
+
+        <lkt-tooltip
+            v-if="split && container"
+            v-model="showDropdown"
+            :referrer="container"
+            :window-margin="tooltipWindowMargin"
+            :referrer-margin="tooltipReferrerMargin"
+            class="lkt-split-button-dropdown-content"
+        >
+            <template #default="{doClose}">
+                <slot name="split"
+                      :do-close="doClose"/>
             </template>
-            <template v-for="(btn, i) in splitOptions">
-                <split-option
-                    v-model="splitOptions[i]"
-                    @click="() => onClickSplitOption(btn)"
-                />
-            </template>
-        </div>
+        </lkt-tooltip>
 
         <lkt-tooltip
             v-if="tooltip && container"
             v-model="showTooltip"
             :referrer="container"
+            :window-margin="tooltipWindowMargin"
+            :referrer-margin="tooltipReferrerMargin"
         >
             <template #default="{doClose}">
                 <slot

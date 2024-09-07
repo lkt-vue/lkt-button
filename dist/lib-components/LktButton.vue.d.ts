@@ -1,6 +1,5 @@
 import { ButtonType } from "../enums/enums";
 import { LktObject } from "lkt-ts-interfaces";
-import { ButtonOption } from "../classes/ButtonOption";
 declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     type?: ButtonType | undefined;
     name?: string | undefined;
@@ -14,7 +13,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
     split?: boolean | undefined;
-    splitOptions?: ButtonOption[] | undefined;
     closeSplitOnRouteChanged?: boolean | undefined;
     isAnchor?: boolean | undefined;
     resource?: string | undefined;
@@ -32,6 +30,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     download?: boolean | undefined;
     downloadFileName?: string | undefined;
     tooltip?: boolean | undefined;
+    tooltipWindowMargin?: number | undefined;
+    tooltipReferrerMargin?: number | undefined;
 }>, {
     type: ButtonType;
     name: string;
@@ -45,7 +45,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading: boolean;
     wrapContent: boolean;
     split: boolean;
-    splitOptions: () => never[];
     closeSplitOnRouteChanged: boolean;
     isAnchor: boolean;
     resource: string;
@@ -62,6 +61,9 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     newTab: boolean;
     download: boolean;
     downloadFileName: string;
+    tooltip: boolean;
+    tooltipWindowMargin: number;
+    tooltipReferrerMargin: number;
 }>, {
     click: () => void | Promise<void>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
@@ -81,7 +83,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
     split?: boolean | undefined;
-    splitOptions?: ButtonOption[] | undefined;
     closeSplitOnRouteChanged?: boolean | undefined;
     isAnchor?: boolean | undefined;
     resource?: string | undefined;
@@ -99,6 +100,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     download?: boolean | undefined;
     downloadFileName?: string | undefined;
     tooltip?: boolean | undefined;
+    tooltipWindowMargin?: number | undefined;
+    tooltipReferrerMargin?: number | undefined;
 }>, {
     type: ButtonType;
     name: string;
@@ -112,7 +115,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading: boolean;
     wrapContent: boolean;
     split: boolean;
-    splitOptions: () => never[];
     closeSplitOnRouteChanged: boolean;
     isAnchor: boolean;
     resource: string;
@@ -129,6 +131,9 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     newTab: boolean;
     download: boolean;
     downloadFileName: string;
+    tooltip: boolean;
+    tooltipWindowMargin: number;
+    tooltipReferrerMargin: number;
 }>>> & {
     onClick?: ((...args: any[]) => any) | undefined;
     onLoaded?: ((...args: any[]) => any) | undefined;
@@ -144,6 +149,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     disabled: boolean;
     class: string;
     icon: string;
+    tooltip: boolean;
     resource: string;
     download: boolean;
     onClickTo: string;
@@ -151,7 +157,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     containerClass: string;
     palette: string;
     wrapContent: boolean;
-    splitOptions: ButtonOption[];
     closeSplitOnRouteChanged: boolean;
     isAnchor: boolean;
     resourceData: LktObject;
@@ -163,8 +168,13 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmData: LktObject;
     newTab: boolean;
     downloadFileName: string;
-}, {}>, Partial<Record<any, (_: {}) => any>> & {
+    tooltipWindowMargin: number;
+    tooltipReferrerMargin: number;
+}, {}>, {
     default?(_: {}): any;
+    split?(_: {
+        doClose: any;
+    }): any;
     tooltip?(_: {
         doClose: any;
     }): any;

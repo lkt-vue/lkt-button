@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "1.1.23",
+  "version": "1.2.0",
   "description": "",
   "keywords": [
     "lkt",
@@ -33,7 +33,8 @@
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
-    "build": "rm -rf dist/*; vue-tsc --declaration --emitDeclarationOnly; vite build; tsc --project tsconfig.build.json; cp build/* dist/"
+    "build": "vue-tsc --declaration --emitDeclarationOnly; vite build; tsc --project tsconfig.build.json; cp build/* dist/",
+    "rebuild": "rm -rf dist/*; vue-tsc --declaration --emitDeclarationOnly; vite build; tsc --project tsconfig.build.json; cp build/* dist/"
   },
   "author": "Antonio Ibáñez",
   "devDependencies": {
@@ -58,6 +59,7 @@
     "lkt-loader": "^1.0.1",
     "lkt-modal-confirm": "^1.0.0",
     "lkt-string-tools": "^1.0.1",
+    "lkt-tooltip": "^1.0.0",
     "lkt-ts-interfaces": "^1.0.0",
     "vue": "^3.3.0",
     "vue-router": "^4.4.0"
