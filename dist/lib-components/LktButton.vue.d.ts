@@ -24,6 +24,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmData?: LktObject | undefined;
     text?: string | undefined;
     icon?: string | undefined;
+    iconEnd?: string | undefined;
     img?: string | undefined;
     newTab?: boolean | undefined;
     download?: boolean | undefined;
@@ -33,6 +34,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     tooltipWindowMargin?: number | undefined;
     tooltipReferrerMargin?: number | undefined;
     tooltipClass?: string | undefined;
+    tooltipLocationY?: string | undefined;
+    tooltipLocationX?: string | undefined;
     splitClass?: string | undefined;
     checked?: boolean | undefined;
 }>, {
@@ -59,6 +62,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmData: () => {};
     text: string;
     icon: string;
+    iconEnd: string;
     img: string;
     newTab: boolean;
     download: boolean;
@@ -67,6 +71,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     tooltip: boolean;
     tooltipWindowMargin: number;
     tooltipReferrerMargin: number;
+    tooltipLocationY: string;
+    tooltipLocationX: string;
     checked: boolean;
 }>, {
     click: () => void | Promise<void>;
@@ -99,6 +105,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmData?: LktObject | undefined;
     text?: string | undefined;
     icon?: string | undefined;
+    iconEnd?: string | undefined;
     img?: string | undefined;
     newTab?: boolean | undefined;
     download?: boolean | undefined;
@@ -108,6 +115,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     tooltipWindowMargin?: number | undefined;
     tooltipReferrerMargin?: number | undefined;
     tooltipClass?: string | undefined;
+    tooltipLocationY?: string | undefined;
+    tooltipLocationX?: string | undefined;
     splitClass?: string | undefined;
     checked?: boolean | undefined;
 }>, {
@@ -134,6 +143,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmData: () => {};
     text: string;
     icon: string;
+    iconEnd: string;
     img: string;
     newTab: boolean;
     download: boolean;
@@ -142,6 +152,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     tooltip: boolean;
     tooltipWindowMargin: number;
     tooltipReferrerMargin: number;
+    tooltipLocationY: string;
+    tooltipLocationX: string;
     checked: boolean;
 }>>> & {
     onClick?: ((...args: any[]) => any) | undefined;
@@ -176,11 +188,14 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     confirmModal: string;
     confirmModalKey: string;
     confirmData: LktObject;
+    iconEnd: string;
     newTab: boolean;
     downloadFileName: string;
     showSwitch: false;
     tooltipWindowMargin: number;
     tooltipReferrerMargin: number;
+    tooltipLocationY: string;
+    tooltipLocationX: string;
 }, {}>, {
     default?(_: {}): any;
     split?(_: {

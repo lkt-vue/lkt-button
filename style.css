@@ -78,3 +78,17 @@
     align-items: center;
     justify-content: center;
 }
+
+.lkt-button .lkt-field-switch {
+    --lkt-field-input-height: auto;
+    margin-left: auto;
+}
+
+.lkt-button .lkt-field-switch label {
+    padding-left: 30px;
+}
+
+.lkt-button .lkt-button-icon-end {
+    margin-left: auto;
+    display: inline-block;
+}

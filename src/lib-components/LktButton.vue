@@ -36,6 +36,7 @@ const props = withDefaults(defineProps<{
     confirmData?: LktObject,
     text?: string,
     icon?: string,
+    iconEnd?: string,
     img?: string,
     newTab?: boolean,
     download?: boolean,
@@ -45,6 +46,8 @@ const props = withDefaults(defineProps<{
     tooltipWindowMargin?: number
     tooltipReferrerMargin?: number
     tooltipClass?: string
+    tooltipLocationY?: string
+    tooltipLocationX?: string
     splitClass?: string
     checked?: boolean
 }>(), {
@@ -71,6 +74,7 @@ const props = withDefaults(defineProps<{
     confirmData: () => ({}),
     text: '',
     icon: '',
+    iconEnd: '',
     img: '',
     newTab: false,
     download: false,
@@ -79,6 +83,8 @@ const props = withDefaults(defineProps<{
     tooltip: false,
     tooltipWindowMargin: 0,
     tooltipReferrerMargin: 0,
+    tooltipLocationY: 'bottom',
+    tooltipLocationX: 'left-corner',
     checked: false,
 });
 
@@ -328,12 +334,13 @@ defineExpose({
                     <slot/>
                 </template>
 
+                <lkt-spinner v-if="isLoading"/>
 
                 <lkt-field-switch
                     v-if="showSwitch"
                     v-model="isChecked"/>
 
-                <lkt-spinner v-if="isLoading"/>
+                <i v-if="iconEnd" :class="iconEnd" class="lkt-button-icon-end"/>
 
                 <div v-if="split" class="lkt-split-button-arrow">
                     <template v-if="hasCustomSplitIconSlot">
@@ -364,6 +371,8 @@ defineExpose({
             :window-margin="tooltipWindowMargin"
             :referrer-margin="tooltipReferrerMargin"
             :class="tooltipClass"
+            :location-x="tooltipLocationX"
+            :location-y="tooltipLocationY"
         >
             <template #default="{doClose}">
                 <slot
