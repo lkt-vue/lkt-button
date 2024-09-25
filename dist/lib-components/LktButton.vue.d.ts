@@ -31,6 +31,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     tooltip?: boolean | undefined;
     tooltipWindowMargin?: number | undefined;
     tooltipReferrerMargin?: number | undefined;
+    tooltipClass?: string | undefined;
+    splitClass?: string | undefined;
 }>, {
     type: ButtonType;
     name: string;
@@ -99,6 +101,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     tooltip?: boolean | undefined;
     tooltipWindowMargin?: number | undefined;
     tooltipReferrerMargin?: number | undefined;
+    tooltipClass?: string | undefined;
+    splitClass?: string | undefined;
 }>, {
     type: ButtonType;
     name: string;

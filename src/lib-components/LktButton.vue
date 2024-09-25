@@ -43,6 +43,8 @@ const props = withDefaults(defineProps<{
     tooltip?: boolean,
     tooltipWindowMargin?: number
     tooltipReferrerMargin?: number
+    tooltipClass?: string
+    splitClass?: string
 }>(), {
     type: ButtonType.button,
     name: generateRandomString(10),
@@ -328,6 +330,7 @@ defineExpose({
             :window-margin="tooltipWindowMargin"
             :referrer-margin="tooltipReferrerMargin"
             class="lkt-split-button-dropdown-content"
+            :class="splitClass"
         >
             <template #default="{doClose}">
                 <slot name="split"
@@ -341,6 +344,7 @@ defineExpose({
             :referrer="container"
             :window-margin="tooltipWindowMargin"
             :referrer-margin="tooltipReferrerMargin"
+            :class="tooltipClass"
         >
             <template #default="{doClose}">
                 <slot
