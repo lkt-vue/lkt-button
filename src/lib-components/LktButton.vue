@@ -40,11 +40,13 @@ const props = withDefaults(defineProps<{
     newTab?: boolean,
     download?: boolean,
     downloadFileName?: string,
+    showSwitch?: false,
     tooltip?: boolean,
     tooltipWindowMargin?: number
     tooltipReferrerMargin?: number
     tooltipClass?: string
     splitClass?: string
+    checked?: boolean
 }>(), {
     type: ButtonType.button,
     name: generateRandomString(10),
@@ -73,12 +75,14 @@ const props = withDefaults(defineProps<{
     newTab: false,
     download: false,
     downloadFileName: '',
+    showSwitch: false,
     tooltip: false,
     tooltipWindowMargin: 0,
     tooltipReferrerMargin: 0,
+    checked: false,
 });
 
-const emit = defineEmits(['click', 'loading', 'loaded']);
+const emit = defineEmits(['click', 'loading', 'loaded', 'update:checked']);
 
 const slots = useSlots(),
     router = useRouter(),
@@ -91,7 +95,8 @@ const isLoading = ref(props.loading),
     button = ref(<Element | ComponentPublicInstance | null>null),
     showDropdown = ref(false),
     showTooltip = ref(false),
-    routeIsActive = ref(false)
+    routeIsActive = ref(false),
+    isChecked = ref(props.checked)
 ;
 
 const checkIfActiveRoute = () => {
@@ -155,7 +160,13 @@ const onClick = ($event: MouseEvent | null) => {
 
     debug('Click');
     if ($event) {
-        if (props.tooltip) {
+        if (props.showSwitch) {
+            let fieldContainer = $event.target?.closest(".lkt-field-switch");
+            if (!fieldContainer) {
+                isChecked.value = !isChecked.value;
+            }
+        }
+        else if (props.tooltip) {
             showTooltip.value = !showTooltip.value;
         } else {
             showDropdown.value = !showDropdown.value;
@@ -163,6 +174,7 @@ const onClick = ($event: MouseEvent | null) => {
     }
 
     if (props.split || props.tooltip) {
+        emit('click', $event, createLktEvent(props.name, props.value));
         return;
     }
 
@@ -257,6 +269,8 @@ const onClick = ($event: MouseEvent | null) => {
 }
 
 watch(() => props.loading, () => isLoading.value = props.loading);
+watch(() => props.checked, () => isChecked.value = props.checked);
+watch(isChecked, v => emit('update:checked', v));
 
 checkIfActiveRoute();
 
@@ -313,6 +327,11 @@ defineExpose({
                 <template v-if="slots.default">
                     <slot/>
                 </template>
+
+
+                <lkt-field-switch
+                    v-if="showSwitch"
+                    v-model="isChecked"/>
 
                 <lkt-spinner v-if="isLoading"/>
 
