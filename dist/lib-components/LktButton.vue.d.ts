@@ -13,6 +13,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
     split?: boolean | undefined;
+    splitIcon?: string | undefined;
     isAnchor?: boolean | undefined;
     resource?: string | undefined;
     resourceData?: LktObject | undefined;
@@ -30,7 +31,11 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     download?: boolean | undefined;
     downloadFileName?: string | undefined;
     showSwitch?: false | undefined;
+    hiddenSwitch?: false | undefined;
     tooltip?: boolean | undefined;
+    showTooltipOnHover?: boolean | undefined;
+    showTooltipOnHoverDelay?: number | undefined;
+    hideTooltipOnLeave?: boolean | undefined;
     tooltipWindowMargin?: number | undefined;
     tooltipReferrerMargin?: number | undefined;
     tooltipClass?: string | undefined;
@@ -51,6 +56,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading: boolean;
     wrapContent: boolean;
     split: boolean;
+    splitIcon: string;
     isAnchor: boolean;
     resource: string;
     resourceData: () => {};
@@ -69,6 +75,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     downloadFileName: string;
     showSwitch: boolean;
     tooltip: boolean;
+    showTooltipOnHoverDelay: number;
     tooltipWindowMargin: number;
     tooltipReferrerMargin: number;
     tooltipLocationY: string;
@@ -94,6 +101,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading?: boolean | undefined;
     wrapContent?: boolean | undefined;
     split?: boolean | undefined;
+    splitIcon?: string | undefined;
     isAnchor?: boolean | undefined;
     resource?: string | undefined;
     resourceData?: LktObject | undefined;
@@ -111,7 +119,11 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     download?: boolean | undefined;
     downloadFileName?: string | undefined;
     showSwitch?: false | undefined;
+    hiddenSwitch?: false | undefined;
     tooltip?: boolean | undefined;
+    showTooltipOnHover?: boolean | undefined;
+    showTooltipOnHoverDelay?: number | undefined;
+    hideTooltipOnLeave?: boolean | undefined;
     tooltipWindowMargin?: number | undefined;
     tooltipReferrerMargin?: number | undefined;
     tooltipClass?: string | undefined;
@@ -132,6 +144,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     loading: boolean;
     wrapContent: boolean;
     split: boolean;
+    splitIcon: string;
     isAnchor: boolean;
     resource: string;
     resourceData: () => {};
@@ -150,6 +163,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     downloadFileName: string;
     showSwitch: boolean;
     tooltip: boolean;
+    showTooltipOnHoverDelay: number;
     tooltipWindowMargin: number;
     tooltipReferrerMargin: number;
     tooltipLocationY: string;
@@ -180,6 +194,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     containerClass: string;
     palette: string;
     wrapContent: boolean;
+    splitIcon: string;
     isAnchor: boolean;
     resourceData: LktObject;
     modal: string;
@@ -192,6 +207,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     newTab: boolean;
     downloadFileName: string;
     showSwitch: false;
+    showTooltipOnHoverDelay: number;
     tooltipWindowMargin: number;
     tooltipReferrerMargin: number;
     tooltipLocationY: string;

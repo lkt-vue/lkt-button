@@ -25,6 +25,7 @@ const props = withDefaults(defineProps<{
     loading?: boolean,
     wrapContent?: boolean,
     split?: boolean,
+    splitIcon?: string,
     isAnchor?: boolean,
     resource?: string,
     resourceData?: LktObject
@@ -42,7 +43,11 @@ const props = withDefaults(defineProps<{
     download?: boolean,
     downloadFileName?: string,
     showSwitch?: false,
+    hiddenSwitch?: false,
     tooltip?: boolean,
+    showTooltipOnHover?: boolean,
+    showTooltipOnHoverDelay?: number,
+    hideTooltipOnLeave?: boolean,
     tooltipWindowMargin?: number
     tooltipReferrerMargin?: number
     tooltipClass?: string
@@ -63,6 +68,7 @@ const props = withDefaults(defineProps<{
     loading: false,
     wrapContent: false,
     split: false,
+    splitIcon: '',
     isAnchor: false,
     resource: '',
     resourceData: () => ({}),
@@ -81,6 +87,7 @@ const props = withDefaults(defineProps<{
     downloadFileName: '',
     showSwitch: false,
     tooltip: false,
+    showTooltipOnHoverDelay: 0,
     tooltipWindowMargin: 0,
     tooltipReferrerMargin: 0,
     tooltipLocationY: 'bottom',
@@ -102,6 +109,8 @@ const isLoading = ref(props.loading),
     showDropdown = ref(false),
     showTooltip = ref(false),
     routeIsActive = ref(false),
+    isHovered = ref(false),
+    showTooltipOnHoverTimeout = ref(undefined),
     isChecked = ref(props.checked)
 ;
 
@@ -166,7 +175,7 @@ const onClick = ($event: MouseEvent | null) => {
 
     debug('Click');
     if ($event) {
-        if (props.showSwitch) {
+        if (props.showSwitch || props.hiddenSwitch) {
             let fieldContainer = $event.target?.closest(".lkt-field-switch");
             if (!fieldContainer) {
                 isChecked.value = !isChecked.value;
@@ -277,6 +286,30 @@ const onClick = ($event: MouseEvent | null) => {
 watch(() => props.loading, () => isLoading.value = props.loading);
 watch(() => props.checked, () => isChecked.value = props.checked);
 watch(isChecked, v => emit('update:checked', v));
+watch(isHovered, v => {
+
+    if (isHovered.value && props.showTooltipOnHover) {
+        if (showTooltipOnHoverTimeout.value !== undefined) {
+            clearTimeout(showTooltipOnHoverTimeout.value);
+        }
+
+        //@ts-ignore
+        showTooltipOnHoverTimeout.value = setTimeout(() => {
+            showTooltip.value = true
+            clearTimeout(showTooltipOnHoverTimeout.value);
+        }, props.showTooltipOnHoverDelay);
+
+    } else if (!isHovered.value && props.hideTooltipOnLeave) {
+        showTooltip.value = false
+        clearTimeout(showTooltipOnHoverTimeout.value);
+
+    } else if (!isHovered.value) {
+        clearTimeout(showTooltipOnHoverTimeout.value);
+    }
+
+
+
+});
 
 checkIfActiveRoute();
 
@@ -290,6 +323,8 @@ defineExpose({
          ref="container"
          :id="Identifier"
          :class="computedContainerClass"
+         @mousemove="isHovered = true"
+         @mouseleave="isHovered = false"
     >
         <lkt-anchor
             v-if="isAnchor"
@@ -337,13 +372,17 @@ defineExpose({
                 <lkt-spinner v-if="isLoading"/>
 
                 <lkt-field-switch
-                    v-if="showSwitch"
+                    v-if="showSwitch || hiddenSwitch"
+                    v-show="!hiddenSwitch"
                     v-model="isChecked"/>
 
                 <i v-if="iconEnd" :class="iconEnd" class="lkt-button-icon-end"/>
 
                 <div v-if="split" class="lkt-split-button-arrow">
-                    <template v-if="hasCustomSplitIconSlot">
+                    <template v-if="splitIcon">
+                        <i :class="splitIcon"/>
+                    </template>
+                    <template v-else-if="hasCustomSplitIconSlot">
                         <component :is="customSplitIconSlot"/>
                     </template>
                 </div>
