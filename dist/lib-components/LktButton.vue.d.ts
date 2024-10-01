@@ -1,3 +1,4 @@
+import { VueElement } from "vue";
 import { ButtonType } from "../enums/enums";
 import { LktObject } from "lkt-ts-interfaces";
 declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
@@ -43,6 +44,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     tooltipLocationX?: string | undefined;
     splitClass?: string | undefined;
     checked?: boolean | undefined;
+    clickRef: Element | VueElement;
 }>, {
     type: ButtonType;
     name: string;
@@ -81,6 +83,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     tooltipLocationY: string;
     tooltipLocationX: string;
     checked: boolean;
+    clickRef: boolean;
 }>, {
     click: () => void | Promise<void>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
@@ -131,6 +134,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     tooltipLocationX?: string | undefined;
     splitClass?: string | undefined;
     checked?: boolean | undefined;
+    clickRef: Element | VueElement;
 }>, {
     type: ButtonType;
     name: string;
@@ -169,6 +173,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     tooltipLocationY: string;
     tooltipLocationX: string;
     checked: boolean;
+    clickRef: boolean;
 }>>> & {
     onClick?: ((...args: any[]) => any) | undefined;
     onLoaded?: ((...args: any[]) => any) | undefined;
@@ -212,6 +217,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<__
     tooltipReferrerMargin: number;
     tooltipLocationY: string;
     tooltipLocationX: string;
+    clickRef: Element | VueElement;
 }, {}>, {
     default?(_: {}): any;
     split?(_: {

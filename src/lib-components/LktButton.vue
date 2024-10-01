@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {createLktEvent} from "lkt-events";
-import {ComponentPublicInstance, computed, ref, useSlots, watch} from "vue";
+import {ComponentPublicInstance, computed, ref, useSlots, VueElement, watch} from "vue";
 import {ButtonType} from "../enums/enums";
 import {Settings} from "../settings/Settings";
 import {generateRandomString} from "lkt-string-tools";
@@ -55,6 +55,7 @@ const props = withDefaults(defineProps<{
     tooltipLocationX?: string
     splitClass?: string
     checked?: boolean
+    clickRef: Element | VueElement
 }>(), {
     type: ButtonType.button,
     name: generateRandomString(10),
@@ -93,6 +94,7 @@ const props = withDefaults(defineProps<{
     tooltipLocationY: 'bottom',
     tooltipLocationX: 'left-corner',
     checked: false,
+    clickRef: false,
 });
 
 const emit = defineEmits(['click', 'loading', 'loaded', 'update:checked']);
@@ -176,6 +178,7 @@ const onClick = ($event: MouseEvent | null) => {
     debug('Click');
     if ($event) {
         if (props.showSwitch || props.hiddenSwitch) {
+            //@ts-ignore
             let fieldContainer = $event.target?.closest(".lkt-field-switch");
             if (!fieldContainer) {
                 isChecked.value = !isChecked.value;
@@ -185,6 +188,18 @@ const onClick = ($event: MouseEvent | null) => {
             showTooltip.value = !showTooltip.value;
         } else {
             showDropdown.value = !showDropdown.value;
+        }
+    }
+
+    console.log('props.clickRef: ', props.clickRef);
+    if (typeof props.clickRef !== 'undefined') {
+        if (props.clickRef instanceof Element) {
+            // @ts-ignore
+            props.clickRef.click();
+        }
+        else if (props.clickRef && props.clickRef && typeof props.clickRef === 'function') {
+            // @ts-ignore
+            props.clickRef.click();
         }
     }
 

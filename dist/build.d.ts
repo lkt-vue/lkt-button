@@ -1,7 +1,7 @@
-declare function Le(l?: boolean): void;
-declare namespace Se {
+declare function Be(l?: boolean): void;
+declare namespace Le {
     function install(l: any): void;
 }
-declare function Be(l: any): void;
-declare function Me(l: any): void;
-export { Le as debugLktButton, Se as default, Be as setDefaultButtonPalette, Me as setDefaultButtonSplitSlot };
+declare function Ee(l: any): void;
+declare function Se(l: any): void;
+export { Be as debugLktButton, Le as default, Ee as setDefaultButtonPalette, Se as setDefaultButtonSplitSlot };
