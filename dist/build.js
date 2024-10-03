@@ -1,4 +1,4 @@
-import { defineComponent as ee, useSlots as oe, ref as c, watch as R, computed as E, resolveComponent as L, openBlock as a, createElementBlock as f, normalizeClass as m, createBlock as C, withCtx as A, createCommentVNode as i, Fragment as F, createTextVNode as U, toDisplayString as P, unref as K, renderSlot as S, withDirectives as le, vShow as te, resolveDynamicComponent as ae } from "vue";
+import { defineComponent as ee, useSlots as oe, ref as c, watch as E, computed as R, resolveComponent as L, openBlock as a, createElementBlock as f, normalizeClass as m, createBlock as C, withCtx as A, createCommentVNode as i, Fragment as F, createTextVNode as U, toDisplayString as P, unref as K, renderSlot as S, withDirectives as le, vShow as te, resolveDynamicComponent as ae } from "vue";
 import { createLktEvent as b } from "lkt-events";
 import { generateRandomString as W } from "lkt-string-tools";
 import { httpCall as ie } from "lkt-http-client";
@@ -12,7 +12,7 @@ const B = class B {
 };
 B.DEFAULT_PALETTE = "", B.debugEnabled = !1, B.defaultSplitIcon = void 0;
 let d = B;
-const Ee = (l) => {
+const Re = (l) => {
   d.DEFAULT_PALETTE = l;
 }, Be = (l = !0) => {
   d.debugEnabled = l;
@@ -76,22 +76,22 @@ const Ee = (l) => {
       let o = M.currentRoute;
       V.value = o.value.path === e.onClickTo;
     };
-    R(z, (o) => {
+    E(z, (o) => {
       H();
     }, { flush: "pre", immediate: !0, deep: !0 });
-    const J = E(() => {
+    const J = R(() => {
       let o = [];
       return e.class && o.push(e.class), e.split && o.push("lkt-split-button"), e.palette && o.push(`lkt-button--${e.palette}`, `palette--${e.palette}`), p.value && o.push("is-loading"), V.value && o.push("is-active-route"), k.value && o.push("show-tooltip"), g.value && o.push("show-split"), o.join(" ");
-    }), Q = E(() => {
+    }), Q = R(() => {
       let o = [];
       return e.containerClass && o.push(e.containerClass), o.join(" ");
-    }), y = E(() => e.text.startsWith("__:") ? fe(e.text.substring(3)) : e.text), Z = E(() => typeof d.defaultSplitIcon < "u"), $ = E(() => d.defaultSplitIcon), D = async (o) => (n("Resource Click", e.resource, e.resourceData), p.value = !0, r("loading"), ie(e.resource, e.resourceData).then((t) => {
+    }), y = R(() => e.text.startsWith("__:") ? fe(e.text.substring(3)) : e.text), Z = R(() => typeof d.defaultSplitIcon < "u"), $ = R(() => d.defaultSplitIcon), D = async (o) => (n("Resource Click", e.resource, e.resourceData), p.value = !0, r("loading"), ie(e.resource, e.resourceData).then((t) => {
       p.value = !1, r("loaded"), n("Resource Click -> Received response", t), r("click", o, t);
     }).catch((t) => {
       p.value = !1, r("loaded"), n("Resource Click -> Received response error", t), r("click", o, t);
     })), N = (o) => {
       var t;
-      if (n("Click"), o && (e.showSwitch || e.hiddenSwitch ? (t = o.target) != null && t.closest(".lkt-field-switch") || (w.value = !w.value) : e.tooltip ? k.value = !k.value : g.value = !g.value), console.log("props.clickRef: ", e.clickRef), typeof e.clickRef < "u" && (e.clickRef instanceof Element || e.clickRef && e.clickRef && typeof e.clickRef == "function") && e.clickRef.click(), e.split || e.tooltip) {
+      if (n("Click"), o && (e.showSwitch || e.hiddenSwitch ? (t = o.target) != null && t.closest(".lkt-field-switch") || (w.value = !w.value) : e.tooltip ? k.value = !k.value : g.value = !g.value), typeof e.clickRef < "u" && (e.clickRef instanceof Element || e.clickRef && e.clickRef && typeof e.clickRef == "function") && e.clickRef.click(), e.split || e.tooltip) {
         r("click", o, b(e.name, e.value));
         return;
       }
@@ -143,7 +143,7 @@ const Ee = (l) => {
       }
       r("click", o, b(e.name, e.value));
     };
-    return R(() => e.loading, () => p.value = e.loading), R(() => e.checked, () => w.value = e.checked), R(w, (o) => r("update:checked", o)), R(v, (o) => {
+    return E(() => e.loading, () => p.value = e.loading), E(() => e.checked, () => w.value = e.checked), E(w, (o) => r("update:checked", o)), E(v, (o) => {
       v.value && e.showTooltipOnHover ? (h.value !== void 0 && clearTimeout(h.value), h.value = setTimeout(() => {
         k.value = !0, clearTimeout(h.value);
       }, e.showTooltipOnHoverDelay)) : !v.value && e.hideTooltipOnLeave ? (k.value = !1, clearTimeout(h.value)) : v.value || clearTimeout(h.value);
@@ -271,6 +271,6 @@ const Ee = (l) => {
 export {
   Be as debugLktButton,
   Le as default,
-  Ee as setDefaultButtonPalette,
+  Re as setDefaultButtonPalette,
   Se as setDefaultButtonSplitSlot
 };

@@ -191,7 +191,6 @@ const onClick = ($event: MouseEvent | null) => {
         }
     }
 
-    console.log('props.clickRef: ', props.clickRef);
     if (typeof props.clickRef !== 'undefined') {
         if (props.clickRef instanceof Element) {
             // @ts-ignore
