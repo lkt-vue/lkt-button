@@ -19,7 +19,7 @@
     --lkt-btn-border-radius: 5px;
     --lkt-btn-border-radius-hover: var(--lkt-btn-border-radius);
     --lkt-btn-border-width: 1px;
-    --lkt-btn-border-width-hover: 1px;
+    --lkt-btn-border-width-hover: var(--lkt-btn-border-width);
     --lkt-btn-border-width-focus: var(--lkt-btn-border-width);
     --lkt-btn-border-style: solid;
     --lkt-btn-border-style-focus: var(--lkt-btn-border-style);
@@ -59,4 +59,14 @@
     /** Split Button */
     --lkt-button-split-arrow-width: 40px;
     --lkt-button-split-arrow-bg: transparent;
+
+    /** Icon dot */
+    --lkt-button--dot--bg: var(--lkt-btn-bg-hover);
+    --lkt-button--dot--color: var(--lkt-btn-color-hover);
+    --lkt-button--dot--font-size: 12px;
+    --lkt-button--dot--width: 16px;
+    --lkt-button--dot--height: 16px;
+    --lkt-button--dot--line-height: var(--lkt-button--dot--height);
+    --lkt-button--dot--right: 2px;
+    --lkt-button--dot--top: 2px;
 }

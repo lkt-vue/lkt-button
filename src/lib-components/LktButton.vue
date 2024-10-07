@@ -37,6 +37,7 @@ const props = withDefaults(defineProps<{
     confirmData?: LktObject,
     text?: string,
     icon?: string,
+    iconDot?: boolean|string,
     iconEnd?: string,
     img?: string,
     newTab?: boolean,
@@ -81,6 +82,7 @@ const props = withDefaults(defineProps<{
     confirmData: () => ({}),
     text: '',
     icon: '',
+    iconDot: false,
     iconEnd: '',
     img: '',
     newTab: false,
@@ -153,6 +155,10 @@ const classes = computed(() => {
     }),
     customSplitIconSlot = computed(() => {
         return Settings.defaultSplitIcon;
+    }),
+    computedIconDotText = computed(() => {
+      if (typeof props.iconDot === 'boolean') return '';
+      return props.iconDot;
     });
 
 const doResourceClick = async ($event: MouseEvent | null) => {
@@ -351,6 +357,7 @@ defineExpose({
             imposter
         >
             <i v-if="icon" :class="icon"/>
+            <i v-if="icon && iconDot" class="lkt-button--icon-dot">{{computedIconDotText}}</i>
             <img v-if="img" :src="img" :alt="computedText"/>
 
             <template v-if="computedText">
@@ -373,6 +380,7 @@ defineExpose({
             :disabled="disabled"
             v-on:click="onClick">
                 <i v-if="icon" :class="icon"/>
+                <i v-if="icon && iconDot" class="lkt-button--icon-dot">{{computedIconDotText}}</i>
                 <img v-if="img" :src="img" :alt="computedText"/>
 
                 <template v-if="computedText">
