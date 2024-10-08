@@ -165,7 +165,8 @@ const doResourceClick = async ($event: MouseEvent | null) => {
         debug('Resource Click', props.resource, props.resourceData);
         isLoading.value = true;
         emit('loading');
-        return httpCall(props.resource, props.resourceData).then((r: any) => {
+        let data = {...props.resourceData, isChecked: isChecked.value};
+        return httpCall(props.resource, data).then((r: any) => {
             isLoading.value = false;
             emit('loaded');
             debug('Resource Click -> Received response', r);
