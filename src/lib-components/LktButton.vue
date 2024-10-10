@@ -35,9 +35,9 @@ const props = withDefaults(defineProps<{
     confirmModal?: string,
     confirmModalKey?: string,
     confirmData?: LktObject,
-    text?: string,
+    text?: string|number,
     icon?: string,
-    iconDot?: boolean|string,
+    iconDot?: boolean|string|number,
     iconEnd?: string,
     img?: string,
     newTab?: boolean,
@@ -137,6 +137,7 @@ const classes = computed(() => {
         if (routeIsActive.value) r.push('is-active-route');
         if (showTooltip.value) r.push('show-tooltip');
         if (showDropdown.value) r.push('show-split');
+        if (isChecked.value) r.push('is-checked');
         return r.join(' ');
     }),
     computedContainerClass = computed(() => {
