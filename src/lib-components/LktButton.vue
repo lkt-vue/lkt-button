@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<{
     downloadFileName?: string,
     showSwitch?: false,
     hiddenSwitch?: false,
-    tooltip?: boolean,
+    tooltip?: boolean|'lazy'|'ever',
     showTooltipOnHover?: boolean,
     showTooltipOnHoverDelay?: number,
     hideTooltipOnLeave?: boolean,
@@ -181,6 +181,15 @@ const doResourceClick = async ($event: MouseEvent | null) => {
     }
 ;
 
+const tooltipOpened = ref(false);
+
+const computedRenderTooltip = computed(() => {
+    if (!container.value) return false;
+    if (props.tooltip === 'lazy') return tooltipOpened.value;
+    if (props.tooltip === 'ever') return showTooltip.value;
+    return props.tooltip === true;
+})
+
 const onClick = ($event: MouseEvent | null) => {
 
     debug('Click');
@@ -194,6 +203,7 @@ const onClick = ($event: MouseEvent | null) => {
         }
         else if (props.tooltip) {
             showTooltip.value = !showTooltip.value;
+            if (showTooltip.value) tooltipOpened.value = true;
         } else {
             showDropdown.value = !showDropdown.value;
         }
@@ -328,9 +338,6 @@ watch(isHovered, v => {
     } else if (!isHovered.value) {
         clearTimeout(showTooltipOnHoverTimeout.value);
     }
-
-
-
 });
 
 checkIfActiveRoute();
@@ -437,7 +444,7 @@ defineExpose({
             :location-x="tooltipLocationX"
             :location-y="tooltipLocationY"
         >
-            <template #default="{doClose}">
+            <template #default="{doClose}" v-if="computedRenderTooltip">
                 <slot
                     name="tooltip"
                     :do-close="doClose"/>
