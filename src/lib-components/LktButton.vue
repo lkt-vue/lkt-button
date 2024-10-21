@@ -58,6 +58,7 @@
         checked?: boolean
         clickRef?: Element | VueElement
         openTooltip?: boolean
+        tabindex?: string|number|undefined
     }>(), {
         type: ButtonType.button,
         name: generateRandomString(10),
@@ -99,6 +100,7 @@
         checked: false,
         clickRef: false,
         openTooltip: false,
+        tabindex: undefined,
     });
 
     const emit = defineEmits(['click', 'focus', 'blur', 'loading', 'loaded', 'update:checked', 'update:openTooltip']);
@@ -119,6 +121,8 @@
         showTooltipOnHoverTimeout = ref(undefined),
         isChecked = ref(props.checked)
     ;
+
+    const nextFocusEventless = ref(false);
 
     watch(() => props.openTooltip, v => showTooltip.value = v);
     watch(showTooltip, v => emit('update:openTooltip', v));
@@ -151,10 +155,11 @@
             return r.join(' ');
         }),
         computedText = computed(() => {
-            if (props.text.startsWith('__:')) {
-                return __(props.text.substring(3));
+            let txt = String(props.text);
+            if (txt.startsWith('__:')) {
+                return __(txt.substring(3));
             }
-            return props.text;
+            return txt;
         }),
         hasCustomSplitIconSlot = computed(() => {
             return typeof Settings.defaultSplitIcon !== 'undefined';
@@ -195,7 +200,14 @@
         return props.tooltip === true;
     });
 
-    const onFocus = ($event) => emit('focus', $event);
+    const onFocus = ($event) => {
+        if (nextFocusEventless.value) {
+            nextFocusEventless.value = false;
+            emit('focus');
+            return;
+        }
+        emit('focus', $event);
+    };
     const onBlur = ($event) => emit('blur', $event);
 
     const onClick = ($event: MouseEvent | null) => {
@@ -211,7 +223,8 @@
             } else if (props.tooltip) {
                 showTooltip.value = !showTooltip.value;
                 if (showTooltip.value) tooltipOpened.value = true;
-            } else {
+
+            } else if (props.split) {
                 showDropdown.value = !showDropdown.value;
             }
         }
@@ -350,6 +363,17 @@
 
     defineExpose({
         click: () => onClick(null),
+        focus: (eventless: boolean) => {
+            if (button.value) {
+
+                if (eventless) {
+                    nextFocusEventless.value = true;
+                }
+
+                //@ts-ignore
+                button.value.focus();
+            }
+        }
     });
 </script>
 
@@ -393,6 +417,7 @@
             :name="name"
             :type="type"
             :disabled="disabled"
+            :tabindex="tabindex"
             @click="onClick"
             @focus="onFocus"
             @blur="onBlur"
