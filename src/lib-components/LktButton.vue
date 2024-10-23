@@ -29,7 +29,7 @@
         isAnchor?: boolean,
         resource?: string,
         resourceData?: LktObject
-        modal?: string,
+        modal?: string|Function,
         modalKey?: string,
         modalData?: LktObject
         confirmModal?: string,
@@ -129,7 +129,7 @@
 
     const checkIfActiveRoute = () => {
         if (!props.onClickTo) return;
-        let currentRoute = router.currentRoute;
+        let currentRoute = router?.currentRoute;
         routeIsActive.value = currentRoute.value.path === props.onClickTo;
     };
 
@@ -271,7 +271,11 @@
                 };
                 debug('Click -> New beforeClose function: ', props.modalData.beforeClose);
             }
-            return openModal(props.modal, props.modalKey, props.modalData);
+
+            let modal = props.modal;
+            if (typeof props.modal === 'function') modal = props.modal();
+
+            return openModal(modal, props.modalKey, props.modalData);
         }
 
         if (props.confirmModal) {
