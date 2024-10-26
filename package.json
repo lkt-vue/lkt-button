@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "description": "",
   "keywords": [
     "lkt",
@@ -52,11 +52,13 @@
     "node": ">=18"
   },
   "dependencies": {
+    "lkt-anchor": "^1.1.9",
     "lkt-control-tools": "^1.0.3",
     "lkt-events": "^1.0.2",
+    "lkt-field": "^0.0.12",
     "lkt-http-client": "^1.0.21",
     "lkt-i18n": "^1.0.4",
-    "lkt-loader": "^1.0.1",
+    "lkt-loader": "^1.1.6",
     "lkt-modal-confirm": "^1.0.0",
     "lkt-string-tools": "^1.0.1",
     "lkt-tooltip": "^1.0.0",

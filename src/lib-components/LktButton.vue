@@ -216,7 +216,7 @@
         if ($event) {
             if (props.showSwitch || props.hiddenSwitch) {
                 //@ts-ignore
-                let fieldContainer = $event.target?.closest('.lkt-field-switch');
+                let fieldContainer = $event.target?.closest('.lkt-field.is-switch');
                 if (!fieldContainer) {
                     isChecked.value = !isChecked.value;
                 }
@@ -440,8 +440,9 @@
 
             <lkt-spinner v-if="isLoading" />
 
-            <lkt-field-switch
+            <lkt-field
                 v-if="showSwitch || hiddenSwitch"
+                type="switch"
                 v-show="!hiddenSwitch"
                 v-model="isChecked" />
 

@@ -24,7 +24,9 @@ export default {
             external: [
                 'vue',
                 'vue-router',
+                'lkt-anchor',
                 'lkt-loader',
+                'lkt-field',
                 'lkt-http-client',
                 'lkt-i18n',
                 'lkt-tooltip',
