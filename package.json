@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "1.2.13",
+  "version": "1.2.14",
   "description": "",
   "keywords": [
     "lkt",
@@ -24,7 +24,7 @@
     "./theme": "./theme/default.css",
     "./theme/default": "./theme/default.css"
   },
-  "types": "./dist/index.d.ts",
+  "types": "./dist/build.d.ts",
   "files": [
     "dist/*",
     "src/**/*.vue",
