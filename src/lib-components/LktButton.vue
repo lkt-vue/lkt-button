@@ -24,7 +24,7 @@
         disabled?: boolean,
         loading?: boolean,
         wrapContent?: boolean,
-        split?: boolean,
+        split?: boolean | 'lazy' | 'ever',
         splitIcon?: string,
         isAnchor?: boolean,
         resource?: string,
@@ -192,12 +192,19 @@
     ;
 
     const tooltipOpened = ref(false);
-
     const computedRenderTooltip = computed(() => {
         if (!container.value) return false;
         if (props.tooltip === 'lazy') return tooltipOpened.value;
         if (props.tooltip === 'ever') return showTooltip.value;
         return props.tooltip === true;
+    });
+
+    const splitOpened = ref(false);
+    const computedRenderSplit = computed(() => {
+        if (!container.value) return false;
+        if (props.split === 'lazy') return splitOpened.value;
+        if (props.split === 'ever') return showDropdown.value;
+        return props.split === true;
     });
 
     const onFocus = ($event) => {
@@ -467,7 +474,7 @@
             class="lkt-split-button-dropdown-content"
             :class="splitClass"
         >
-            <template #default="{doClose}">
+            <template #default="{doClose}" v-if="computedRenderSplit">
                 <slot name="split"
                       :do-close="doClose" />
             </template>
