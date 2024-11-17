@@ -46,6 +46,7 @@
         showSwitch?: false,
         hiddenSwitch?: false,
         tooltip?: boolean | 'lazy' | 'ever',
+        tooltipEngine?: 'fixed' | 'absolute',
         showTooltipOnHover?: boolean,
         showTooltipOnHoverDelay?: number,
         hideTooltipOnLeave?: boolean,
@@ -473,6 +474,7 @@
             :referrer-margin="tooltipReferrerMargin"
             class="lkt-split-button-dropdown-content"
             :class="splitClass"
+            :engine="tooltipEngine"
         >
             <template #default="{doClose}" v-if="computedRenderSplit">
                 <slot name="split"
@@ -489,6 +491,7 @@
             :class="tooltipClass"
             :location-x="tooltipLocationX"
             :location-y="tooltipLocationY"
+            :engine="tooltipEngine"
         >
             <template #default="{doClose}" v-if="computedRenderTooltip">
                 <slot
