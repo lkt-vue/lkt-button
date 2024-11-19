@@ -387,6 +387,11 @@
             }
         }
     });
+
+    const computedButtonComponent = computed(() => {
+        if (props.type === ButtonType.content) return 'div';
+        return 'button';
+    })
 </script>
 
 <template>
@@ -421,8 +426,9 @@
             <lkt-spinner v-if="isLoading" />
         </lkt-anchor>
 
-        <button
+        <component
             v-else
+            :is="computedButtonComponent"
             class="lkt-button"
             ref="button"
             :class="classes"
@@ -464,7 +470,7 @@
                     <component :is="customSplitIconSlot" />
                 </template>
             </div>
-        </button>
+        </component>
 
         <lkt-tooltip
             v-if="split && container"
