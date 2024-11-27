@@ -253,37 +253,36 @@
         }
 
         if (props.modal) {
-            debug('Click -> has modal', props.confirmModal, props.modalData);
-            debug('Click -> typeof beforeClose: ', typeof props.modalData.beforeClose);
-            if (typeof props.modalData.beforeClose === 'function') {
-                let externalConfirmAction = props.modalData.beforeClose.bind({});
-                debug('Click -> Has beforeClose function: ', externalConfirmAction);
-                props.modalData.beforeClose = () => {
+            let modalData = {...props.modalData};
+            debug('Click -> has modal', props.confirmModal, modalData);
+            debug('Click -> typeof beforeClose: ', typeof modalData.beforeClose);
+            if (typeof modalData.beforeClose === 'function') {
+                modalData.beforeClose = (modalData: LktObject) => {
                     if (props.resource) {
                         return doResourceClick($event).then(() => {
-                            externalConfirmAction();
+                            props.modalData.beforeClose(modalData);
                         });
                     } else {
-                        externalConfirmAction();
+                        props.modalData.beforeClose(modalData);
                         emit('click', $event, createLktEvent(props.name, props.value));
                     }
                 };
-                debug('Click -> New beforeClose function: ', props.modalData.beforeClose);
+                debug('Click -> New beforeClose function: ', modalData.beforeClose);
             } else {
-                props.modalData.beforeClose = () => {
+                modalData.beforeClose = () => {
                     if (props.resource) {
                         return doResourceClick($event);
                     } else {
                         emit('click', $event, createLktEvent(props.name, props.value));
                     }
                 };
-                debug('Click -> New beforeClose function: ', props.modalData.beforeClose);
+                debug('Click -> New beforeClose function: ', modalData.beforeClose);
             }
 
             let modal = props.modal;
             if (typeof props.modal === 'function') modal = props.modal();
 
-            return openModal(modal, props.modalKey, props.modalData);
+            return openModal(modal, props.modalKey, modalData);
         }
 
         if (props.confirmModal) {
