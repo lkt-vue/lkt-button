@@ -391,6 +391,10 @@
         if (props.type === ButtonType.content) return 'div';
         return 'button';
     })
+
+    const doRootClick = ($event: MouseEvent) => {
+        return onClick($event);
+    }
 </script>
 
 <template>
@@ -481,9 +485,10 @@
             :class="splitClass"
             :engine="tooltipEngine"
         >
-            <template #default="{doClose}" v-if="computedRenderSplit">
+            <template #default="{doClose, doRootClick}" v-if="computedRenderSplit">
                 <slot name="split"
-                      :do-close="doClose" />
+                      :do-close="doClose"
+                      :do-root-click="doRootClick" />
             </template>
         </lkt-tooltip>
 
@@ -498,10 +503,11 @@
             :location-y="tooltipLocationY"
             :engine="tooltipEngine"
         >
-            <template #default="{doClose}" v-if="computedRenderTooltip">
+            <template #default="{doClose, doRootClick}" v-if="computedRenderTooltip">
                 <slot
                     name="tooltip"
-                    :do-close="doClose" />
+                    :do-close="doClose"
+                    :do-root-click="doRootClick" />
             </template>
         </lkt-tooltip>
     </div>
