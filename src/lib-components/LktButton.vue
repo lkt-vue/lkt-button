@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { createLktEvent } from 'lkt-events';
-    import { ComponentPublicInstance, computed, ref, useSlots, VueElement, watch } from 'vue';
+    import { ComponentPublicInstance, computed, nextTick, ref, useSlots, watch } from 'vue';
     import { ButtonType } from '../enums/enums';
     import { Settings } from '../settings/Settings';
     import { generateRandomString } from 'lkt-string-tools';
@@ -11,56 +11,9 @@
     import { debug } from '../functions/settings-functions';
     import { useRoute, useRouter } from 'vue-router';
     import { __ } from 'lkt-i18n';
+    import { LktButtonConfig } from '../interfaces/LktButtonConfig';
 
-    const props = withDefaults(defineProps<{
-        type?: ButtonType,
-        name?: string,
-        onClickTo?: string,
-        onClickToExternal?: boolean,
-        class?: string,
-        containerClass?: string,
-        palette?: string,
-        value?: string,
-        disabled?: boolean,
-        loading?: boolean,
-        wrapContent?: boolean,
-        split?: boolean | 'lazy' | 'ever',
-        splitIcon?: string,
-        isAnchor?: boolean,
-        resource?: string,
-        resourceData?: LktObject
-        modal?: string|Function,
-        modalKey?: string,
-        modalData?: LktObject
-        confirmModal?: string,
-        confirmModalKey?: string,
-        confirmData?: LktObject,
-        text?: string | number,
-        icon?: string,
-        iconDot?: boolean | string | number,
-        iconEnd?: string,
-        img?: string,
-        newTab?: boolean,
-        download?: boolean,
-        downloadFileName?: string,
-        showSwitch?: false,
-        hiddenSwitch?: false,
-        tooltip?: boolean | 'lazy' | 'ever',
-        tooltipEngine?: 'fixed' | 'absolute',
-        showTooltipOnHover?: boolean,
-        showTooltipOnHoverDelay?: number,
-        hideTooltipOnLeave?: boolean,
-        tooltipWindowMargin?: number
-        tooltipReferrerMargin?: number
-        tooltipClass?: string
-        tooltipLocationY?: string
-        tooltipLocationX?: string
-        splitClass?: string
-        checked?: boolean
-        clickRef?: Element | VueElement
-        openTooltip?: boolean
-        tabindex?: string|number|undefined
-    }>(), {
+    const props = withDefaults(defineProps<LktButtonConfig>(), {
         type: ButtonType.button,
         name: generateRandomString(10),
         palette: Settings.DEFAULT_PALETTE,
@@ -218,11 +171,21 @@
     };
     const onBlur = ($event) => emit('blur', $event);
 
+    const canRenderSwitch = computed(() => {
+        //@todo: drop support for old switch props
+        return props.type === ButtonType.switch || props.type === ButtonType.hiddenSwitch || props.showSwitch || props.hiddenSwitch;
+    })
+
+    const canDisplaySwitch = computed(() => {
+        //@todo: drop support for old switch props
+        return props.type === ButtonType.switch || props.showSwitch;
+    })
+
     const onClick = ($event: MouseEvent | null) => {
 
         debug('Click');
         if ($event) {
-            if (props.showSwitch || props.hiddenSwitch) {
+            if (canRenderSwitch.value) {
                 //@ts-ignore
                 let fieldContainer = $event.target?.closest('.lkt-field.is-switch');
                 if (!fieldContainer) {
@@ -342,6 +305,12 @@
             }
             return;
         }
+        if (canRenderSwitch.value){
+            nextTick(() => {
+                emit('click', $event, createLktEvent(props.name, props.value));
+            })
+            return;
+        }
         emit('click', $event, createLktEvent(props.name, props.value));
     };
 
@@ -458,9 +427,9 @@
             <lkt-spinner v-if="isLoading" />
 
             <lkt-field
-                v-if="showSwitch || hiddenSwitch"
+                v-if="canRenderSwitch"
                 type="switch"
-                v-show="!hiddenSwitch"
+                v-show="canDisplaySwitch"
                 v-model="isChecked" />
 
             <i v-if="iconEnd" :class="iconEnd" class="lkt-button-icon-end" />
