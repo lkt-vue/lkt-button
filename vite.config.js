@@ -35,6 +35,7 @@ export default {
                 'lkt-events',
                 'lkt-control-tools',
                 'lkt-string-tools',
+                'lkt-vue-kernel',
             ],
             output: {
                 globals: {

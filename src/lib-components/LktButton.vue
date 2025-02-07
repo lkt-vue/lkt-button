@@ -1,7 +1,6 @@
 <script setup lang="ts">
     import { createLktEvent } from 'lkt-events';
     import { ComponentPublicInstance, computed, nextTick, ref, useSlots, watch } from 'vue';
-    import { ButtonType } from '../enums/enums';
     import { Settings } from '../settings/Settings';
     import { generateRandomString } from 'lkt-string-tools';
     import { httpCall } from 'lkt-http-client';
@@ -9,59 +8,16 @@
     import { openConfirm } from 'lkt-modal-confirm';
     import { LktObject } from 'lkt-ts-interfaces';
     import { debug } from '../functions/settings-functions';
-    import { useRoute, useRouter } from 'vue-router';
+    import { useRouter } from 'vue-router';
     import { __ } from 'lkt-i18n';
-    import { LktButtonConfig } from '../interfaces/LktButtonConfig';
+    import { Anchor, Button, ButtonConfig, ButtonType, getDefaultValues } from 'lkt-vue-kernel';
 
-    const props = withDefaults(defineProps<LktButtonConfig>(), {
-        type: ButtonType.button,
-        name: generateRandomString(10),
-        palette: Settings.DEFAULT_PALETTE,
-        onClickTo: '',
-        onClickToExternal: false,
-        class: '',
-        containerClass: '',
-        value: '',
-        disabled: false,
-        loading: false,
-        wrapContent: false,
-        split: false,
-        splitIcon: '',
-        isAnchor: false,
-        resource: '',
-        resourceData: () => ({}),
-        modal: '',
-        modalKey: '_',
-        modalData: () => ({}),
-        confirmModal: '',
-        confirmModalKey: '_',
-        confirmData: () => ({}),
-        text: '',
-        icon: '',
-        iconDot: false,
-        iconEnd: '',
-        img: '',
-        newTab: false,
-        download: false,
-        downloadFileName: '',
-        showSwitch: false,
-        tooltip: false,
-        showTooltipOnHoverDelay: 0,
-        tooltipWindowMargin: 0,
-        tooltipReferrerMargin: 0,
-        tooltipLocationY: 'bottom',
-        tooltipLocationX: 'left-corner',
-        checked: false,
-        clickRef: false,
-        openTooltip: false,
-        tabindex: undefined,
-    });
+    const props = withDefaults(defineProps<ButtonConfig>(), getDefaultValues(Button));
 
     const emit = defineEmits(['click', 'focus', 'blur', 'loading', 'loaded', 'update:checked', 'update:openTooltip']);
 
     const slots = useSlots(),
-        router = useRouter(),
-        route = useRoute();
+        router = useRouter();
 
     const Identifier = 'lkt-button-' + generateRandomString();
 
@@ -80,16 +36,6 @@
 
     watch(() => props.openTooltip, v => showTooltip.value = v);
     watch(showTooltip, v => emit('update:openTooltip', v));
-
-    const checkIfActiveRoute = () => {
-        if (!props.onClickTo) return;
-        let currentRoute = router?.currentRoute;
-        routeIsActive.value = currentRoute.value.path === props.onClickTo;
-    };
-
-    watch(route, (to) => {
-        checkIfActiveRoute();
-    }, { flush: 'pre', immediate: true, deep: true });
 
     const classes = computed(() => {
             let r = [];
@@ -148,16 +94,16 @@
     const tooltipOpened = ref(false);
     const computedRenderTooltip = computed(() => {
         if (!container.value) return false;
-        if (props.tooltip === 'lazy') return tooltipOpened.value;
-        if (props.tooltip === 'ever') return showTooltip.value;
+        if (props.type === ButtonType.TooltipLazy) return tooltipOpened.value;
+        if (props.type === ButtonType.TooltipEver) return showTooltip.value;
         return props.tooltip === true;
     });
 
     const splitOpened = ref(false);
     const computedRenderSplit = computed(() => {
         if (!container.value) return false;
-        if (props.split === 'lazy') return splitOpened.value;
-        if (props.split === 'ever') return showDropdown.value;
+        if (props.type === ButtonType.SplitLazy) return splitOpened.value;
+        if (props.type === ButtonType.SplitEver) return showDropdown.value;
         return props.split === true;
     });
 
@@ -172,13 +118,11 @@
     const onBlur = ($event) => emit('blur', $event);
 
     const canRenderSwitch = computed(() => {
-        //@todo: drop support for old switch props
-        return props.type === ButtonType.switch || props.type === ButtonType.hiddenSwitch || props.showSwitch || props.hiddenSwitch;
+        return props.type === ButtonType.Switch || props.type === ButtonType.HiddenSwitch;
     })
 
     const canDisplaySwitch = computed(() => {
-        //@todo: drop support for old switch props
-        return props.type === ButtonType.switch || props.showSwitch;
+        return props.type === ButtonType.Switch;
     })
 
     const onClick = ($event: MouseEvent | null) => {
@@ -271,15 +215,15 @@
                     if (props.resource) {
                         return doResourceClick($event);
                     } else {
-                        if (props.onClickTo !== '') {
+                        if (props.anchor?.to !== '') {
                             if ($event) {
                                 $event.preventDefault();
                                 $event.stopPropagation();
                             }
-                            if (props.onClickToExternal) {
+                            if (props.anchor.external) {
 
-                            } else {
-                                router.push(props.onClickTo);
+                            } else if (typeof props.anchor.to !== 'undefined') {
+                                router.push(props.anchor.to);
                             }
                             return;
                         }
@@ -297,11 +241,14 @@
         }
 
         debug('Click -> Emit');
-        if (props.onClickTo !== '') {
-            if (props.onClickToExternal) {
-                window.location.href = props.onClickTo;
-            } else {
-                router.push(props.onClickTo);
+        if (props.anchor?.to !== '') {
+            if (props.anchor.external) {
+                if (typeof props.anchor.to === 'string') {
+                    window.location.href = props.anchor.to;
+                }
+
+            } else if (typeof props.anchor.to !== 'undefined') {
+                router.push(props.anchor.to);
             }
             return;
         }
@@ -339,8 +286,6 @@
         }
     });
 
-    checkIfActiveRoute();
-
     defineExpose({
         click: () => onClick(null),
         focus: (eventless: boolean) => {
@@ -357,13 +302,26 @@
     });
 
     const computedButtonComponent = computed(() => {
-        if (props.type === ButtonType.content) return 'div';
+        if (props.type === ButtonType.Content) return 'div';
         return 'button';
     })
 
     const doRootClick = ($event: MouseEvent) => {
         return onClick($event);
     }
+
+    const onRouteActive= (v) => routeIsActive.value = v;
+
+    const computedIsAnchor = computed(() => {
+        return props.type === ButtonType.Anchor
+            && typeof props.anchor === 'object'
+            && Object.keys(props.anchor).length > 0;
+    });
+
+    const computedAnchor = computed(() => {
+        if (computedIsAnchor.value) return new Anchor({ ...props.anchor, ...{"class": classes.value} });
+        return {};
+    })
 </script>
 
 <template>
@@ -375,14 +333,10 @@
          @mouseleave="isHovered = false"
     >
         <lkt-anchor
-            v-if="isAnchor"
+            v-if="computedIsAnchor"
+            v-bind="computedAnchor"
             class="lkt-button"
-            :href="onClickToExternal ? onClickTo : ''"
-            :to="onClickToExternal ? '' : onClickTo"
-            :download="download"
-            :target="newTab ? '_blank' : ''"
-            :download-file-name="downloadFileName"
-            imposter
+            @active="onRouteActive"
         >
             <i v-if="icon" :class="icon" />
             <i v-if="icon && iconDot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
