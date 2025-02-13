@@ -10,7 +10,7 @@
     import { debug } from '../functions/settings-functions';
     import { useRouter } from 'vue-router';
     import { __ } from 'lkt-i18n';
-    import { Anchor, Button, ButtonConfig, ButtonType, getDefaultValues } from 'lkt-vue-kernel';
+    import { Anchor, Button, ButtonConfig, ButtonType, extractPropValue, getDefaultValues } from 'lkt-vue-kernel';
 
     const props = withDefaults(defineProps<ButtonConfig>(), getDefaultValues(Button));
 
@@ -18,6 +18,11 @@
 
     const slots = useSlots(),
         router = useRouter();
+
+    // Calculated data
+    let calculatedModal = extractPropValue(props.modal, props.prop);
+    let calculatedModalKey = extractPropValue(props.modalKey, props.prop);
+    let calculatedIcon = extractPropValue(props.icon, props.prop);
 
     const Identifier = 'lkt-button-' + generateRandomString();
 
@@ -81,11 +86,13 @@
                 isLoading.value = false;
                 emit('loaded');
                 debug('Resource Click -> Received response', r);
+                doConfigClick();
                 emit('click', $event, r);
             }).catch((r: any) => {
                 isLoading.value = false;
                 emit('loaded');
                 debug('Resource Click -> Received response error', r);
+                doConfigClick();
                 emit('click', $event, r);
             });
         }
@@ -125,9 +132,30 @@
         return props.type === ButtonType.Switch;
     })
 
-    const onClick = ($event: MouseEvent | null) => {
+    const doConfigClick = () => {
+        debug('doConfigClick: ', props)
+        if (typeof props.onClick === 'function') props.onClick();
+    }
 
-        debug('Click');
+    const computedIsSplit = computed(() => {
+        return [
+            ButtonType.Split,
+            ButtonType.SplitLazy,
+            ButtonType.SplitEver,
+        ].includes(props.type)
+    })
+
+    const computedIsTooltip = computed(() => {
+        return [
+            ButtonType.Tooltip,
+            ButtonType.TooltipLazy,
+            ButtonType.TooltipEver,
+        ].includes(props.type)
+    })
+
+    const doClick = ($event: MouseEvent | null) => {
+
+        debug('Click', props);
         if ($event) {
             if (canRenderSwitch.value) {
                 //@ts-ignore
@@ -154,14 +182,15 @@
             }
         }
 
-        if (props.split || props.tooltip) {
+        if (computedIsSplit.value || computedIsTooltip.value) {
+            doConfigClick();
             emit('click', $event, createLktEvent(props.name, props.value));
             return;
         }
 
-        if (props.modal) {
+        if (calculatedModal) {
             let modalData = {...props.modalData};
-            debug('Click -> has modal', props.confirmModal, modalData);
+            debug('Click -> has modal', props.modal, modalData);
             debug('Click -> typeof beforeClose: ', typeof modalData.beforeClose);
             if (typeof modalData.beforeClose === 'function') {
                 modalData.beforeClose = (modalData: LktObject) => {
@@ -171,6 +200,7 @@
                         });
                     } else {
                         props.modalData.beforeClose(modalData);
+                        doConfigClick();
                         emit('click', $event, createLktEvent(props.name, props.value));
                     }
                 };
@@ -180,38 +210,40 @@
                     if (props.resource) {
                         return doResourceClick($event);
                     } else {
+                        doConfigClick();
                         emit('click', $event, createLktEvent(props.name, props.value));
                     }
                 };
                 debug('Click -> New beforeClose function: ', modalData.beforeClose);
             }
 
-            let modal = props.modal;
-            if (typeof props.modal === 'function') modal = props.modal();
+            let modal = calculatedModal;
+            if (typeof calculatedModal === 'function') modal = calculatedModal();
 
-            return openModal(modal, props.modalKey, modalData);
+            return openModal(modal, calculatedModalKey, modalData);
         }
 
         if (props.confirmModal) {
             debug('Click -> has confirm modal', props.confirmModal, props.confirmData);
             debug('Click -> typeof onConfirm: ', typeof props.confirmData.onConfirm);
 
-            if (typeof props.confirmData.onConfirm === 'function') {
-                let externalConfirmAction = props.confirmData.onConfirm;
+            if (typeof props.confirmData.onClick === 'function') {
+                let externalConfirmAction = props.confirmData.onClick;
                 debug('Click -> Has onConfirm function: ', externalConfirmAction);
-                props.confirmData.onConfirm = () => {
+                props.confirmData.onClick = () => {
                     if (props.resource) {
                         return doResourceClick($event).then(() => {
                             externalConfirmAction();
                         });
                     } else {
                         externalConfirmAction();
+                        doConfigClick();
                         emit('click', $event, createLktEvent(props.name, props.value));
                     }
                 };
-                debug('Click -> New onConfirm function: ', props.confirmData.onConfirm);
+                debug('Click -> New onConfirm function: ', props.confirmData.onClick);
             } else {
-                props.confirmData.onConfirm = () => {
+                props.confirmData.onClick = () => {
                     if (props.resource) {
                         return doResourceClick($event);
                     } else {
@@ -227,6 +259,7 @@
                             }
                             return;
                         }
+                        doConfigClick();
                         emit('click', $event, createLktEvent(props.name, props.value));
                     }
                 };
@@ -254,10 +287,13 @@
         }
         if (canRenderSwitch.value){
             nextTick(() => {
+                doConfigClick();
                 emit('click', $event, createLktEvent(props.name, props.value));
             })
             return;
         }
+
+        // doConfigClick();
         emit('click', $event, createLktEvent(props.name, props.value));
     };
 
@@ -287,7 +323,7 @@
     });
 
     defineExpose({
-        click: () => onClick(null),
+        click: () => doClick(null),
         focus: (eventless: boolean) => {
             if (button.value) {
 
@@ -307,7 +343,7 @@
     })
 
     const doRootClick = ($event: MouseEvent) => {
-        return onClick($event);
+        return doClick($event);
     }
 
     const onRouteActive= (v) => routeIsActive.value = v;
@@ -338,8 +374,8 @@
             class="lkt-button"
             @active="onRouteActive"
         >
-            <i v-if="icon" :class="icon" />
-            <i v-if="icon && iconDot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
+            <i v-if="calculatedIcon" :class="calculatedIcon" />
+            <i v-if="calculatedIcon && iconDot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
             <img v-if="img" :src="img" :alt="computedText" />
 
             <template v-if="computedText">
@@ -362,7 +398,7 @@
             :type="type"
             :disabled="disabled"
             :tabindex="tabindex"
-            @click="onClick"
+            @click="doClick"
             @focus="onFocus"
             @blur="onBlur"
         >
