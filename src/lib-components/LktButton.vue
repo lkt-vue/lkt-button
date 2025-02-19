@@ -1,16 +1,22 @@
 <script setup lang="ts">
-    import { createLktEvent } from 'lkt-events';
     import { ComponentPublicInstance, computed, nextTick, ref, useSlots, watch } from 'vue';
     import { Settings } from '../settings/Settings';
     import { generateRandomString } from 'lkt-string-tools';
     import { httpCall } from 'lkt-http-client';
-    import { openModal } from 'lkt-modal';
-    import { openConfirm } from 'lkt-modal-confirm';
+    import { openConfirm, openModal } from 'lkt-modal';
     import { LktObject } from 'lkt-ts-interfaces';
     import { debug } from '../functions/settings-functions';
     import { useRouter } from 'vue-router';
-    import { __ } from 'lkt-i18n';
-    import { Anchor, Button, ButtonConfig, ButtonType, extractPropValue, getDefaultValues } from 'lkt-vue-kernel';
+    import {
+        Anchor,
+        Button,
+        ButtonConfig,
+        ButtonType,
+        extractI18nValue,
+        extractPropValue,
+        getDefaultValues,
+        LktSettings,
+    } from 'lkt-vue-kernel';
 
     const props = withDefaults(defineProps<ButtonConfig>(), getDefaultValues(Button));
 
@@ -45,8 +51,9 @@
     const classes = computed(() => {
             let r = [];
             if (props.class) r.push(props.class);
-            if (props.split) r.push('lkt-split-button');
+            if (computedIsSplit.value) r.push('lkt-split-button');
             if (props.palette) r.push(`lkt-button--${props.palette}`, `palette--${props.palette}`);
+            r.push(`lkt-button--${props.type}`);
             if (isLoading.value) r.push('is-loading');
             if (routeIsActive.value) r.push('is-active-route');
             if (showTooltip.value) r.push('show-tooltip');
@@ -60,11 +67,7 @@
             return r.join(' ');
         }),
         computedText = computed(() => {
-            let txt = String(props.text);
-            if (txt.startsWith('__:')) {
-                return __(txt.substring(3));
-            }
-            return txt;
+            return extractI18nValue(props.text)
         }),
         hasCustomSplitIconSlot = computed(() => {
             return typeof Settings.defaultSplitIcon !== 'undefined';
@@ -103,7 +106,7 @@
         if (!container.value) return false;
         if (props.type === ButtonType.TooltipLazy) return tooltipOpened.value;
         if (props.type === ButtonType.TooltipEver) return showTooltip.value;
-        return props.tooltip === true;
+        return props.type === ButtonType.Tooltip;
     });
 
     const splitOpened = ref(false);
@@ -111,10 +114,10 @@
         if (!container.value) return false;
         if (props.type === ButtonType.SplitLazy) return splitOpened.value;
         if (props.type === ButtonType.SplitEver) return showDropdown.value;
-        return props.split === true;
+        return props.type === ButtonType.Split;
     });
 
-    const onFocus = ($event) => {
+    const onFocus = ($event: FocusEvent) => {
         if (nextFocusEventless.value) {
             nextFocusEventless.value = false;
             emit('focus');
@@ -122,7 +125,9 @@
         }
         emit('focus', $event);
     };
-    const onBlur = ($event) => emit('blur', $event);
+    const onBlur = ($event: Event) => {
+        emit('blur', $event);
+    };
 
     const canRenderSwitch = computed(() => {
         return props.type === ButtonType.Switch || props.type === ButtonType.HiddenSwitch;
@@ -163,11 +168,11 @@
                 if (!fieldContainer) {
                     isChecked.value = !isChecked.value;
                 }
-            } else if (props.tooltip) {
+            } else if (computedIsTooltip.value) {
                 showTooltip.value = !showTooltip.value;
                 if (showTooltip.value) tooltipOpened.value = true;
 
-            } else if (props.split) {
+            } else if (computedIsSplit.value) {
                 showDropdown.value = !showDropdown.value;
             }
         }
@@ -184,7 +189,7 @@
 
         if (computedIsSplit.value || computedIsTooltip.value) {
             doConfigClick();
-            emit('click', $event, createLktEvent(props.name, props.value));
+            emit('click', $event);
             return;
         }
 
@@ -196,12 +201,12 @@
                 modalData.beforeClose = (modalData: LktObject) => {
                     if (props.resource) {
                         return doResourceClick($event).then(() => {
-                            props.modalData.beforeClose(modalData);
+                            modalData.beforeClose(modalData);
                         });
                     } else {
-                        props.modalData.beforeClose(modalData);
+                        modalData.beforeClose(modalData);
                         doConfigClick();
-                        emit('click', $event, createLktEvent(props.name, props.value));
+                        emit('click', $event);
                     }
                 };
                 debug('Click -> New beforeClose function: ', modalData.beforeClose);
@@ -211,7 +216,7 @@
                         return doResourceClick($event);
                     } else {
                         doConfigClick();
-                        emit('click', $event, createLktEvent(props.name, props.value));
+                        emit('click', $event);
                     }
                 };
                 debug('Click -> New beforeClose function: ', modalData.beforeClose);
@@ -227,10 +232,19 @@
             debug('Click -> has confirm modal', props.confirmModal, props.confirmData);
             debug('Click -> typeof onConfirm: ', typeof props.confirmData.onConfirm);
 
-            if (typeof props.confirmData.onClick === 'function') {
-                let externalConfirmAction = props.confirmData.onClick;
+            let confirmData = {...props.confirmData};
+
+            if (!confirmData.confirmButton) {
+                confirmData.confirmButton = {...LktSettings.defaultConfirmButton };
+            } else {
+                confirmData.confirmButton = {...LktSettings.defaultConfirmButton, ...confirmData.confirmButton };
+            }
+
+            if (typeof confirmData.confirmButton?.onClick === 'function') {
+                let externalConfirmAction = confirmData.confirmButton?.onClick;
                 debug('Click -> Has onConfirm function: ', externalConfirmAction);
-                props.confirmData.onClick = () => {
+                confirmData.confirmButton.onClick = () => {
+                    debug('OnConfirm -> Already: ', props);
                     if (props.resource) {
                         return doResourceClick($event).then(() => {
                             externalConfirmAction();
@@ -238,12 +252,14 @@
                     } else {
                         externalConfirmAction();
                         doConfigClick();
-                        emit('click', $event, createLktEvent(props.name, props.value));
+                        emit('click', $event);
                     }
                 };
-                debug('Click -> New onConfirm function: ', props.confirmData.onClick);
+                debug('Click -> New onConfirm function created: ', confirmData.confirmButton?.onClick);
+
             } else {
-                props.confirmData.onClick = () => {
+                confirmData.confirmButton.onClick = () => {
+                    debug('OnConfirm -> Created: ', props);
                     if (props.resource) {
                         return doResourceClick($event);
                     } else {
@@ -260,12 +276,12 @@
                             return;
                         }
                         doConfigClick();
-                        emit('click', $event, createLktEvent(props.name, props.value));
+                        emit('click', $event);
                     }
                 };
-                debug('Click -> New onConfirm function: ', props.confirmData.onConfirm);
+                debug('Click -> New onConfirm function created: ', confirmData.confirmButton?.onClick);
             }
-            return openConfirm(props.confirmModal, props.confirmModalKey, props.confirmData);
+            return openConfirm(props.confirmModal, props.confirmModalKey, confirmData);
         }
 
         if (props.resource) {
@@ -273,8 +289,8 @@
             return doResourceClick($event);
         }
 
-        debug('Click -> Emit');
         if (props.anchor?.to !== '') {
+            debug('Click -> Is Anchor', props.anchor);
             if (props.anchor.external) {
                 if (typeof props.anchor.to === 'string') {
                     window.location.href = props.anchor.to;
@@ -286,15 +302,17 @@
             return;
         }
         if (canRenderSwitch.value){
+            debug('Click -> Is Switch');
             nextTick(() => {
                 doConfigClick();
-                emit('click', $event, createLktEvent(props.name, props.value));
+                emit('click', $event);
             })
             return;
         }
 
         // doConfigClick();
-        emit('click', $event, createLktEvent(props.name, props.value));
+        debug('Click -> Emit', props);
+        emit('click', $event);
     };
 
     watch(() => props.loading, () => isLoading.value = props.loading);
@@ -340,6 +358,13 @@
     const computedButtonComponent = computed(() => {
         if (props.type === ButtonType.Content) return 'div';
         return 'button';
+    });
+
+    const computedIsDisabled = computed(() => {
+        if (props.disabled === undefined) return false;
+        if (typeof props.disabled === 'function') return props.disabled({});
+        if (typeof props.disabled === 'boolean') return props.disabled;
+        return false;
     })
 
     const doRootClick = ($event: MouseEvent) => {
@@ -396,7 +421,7 @@
             :class="classes"
             :name="name"
             :type="type"
-            :disabled="disabled"
+            :disabled="computedIsDisabled"
             :tabindex="tabindex"
             @click="doClick"
             @focus="onFocus"
@@ -424,7 +449,7 @@
 
             <i v-if="iconEnd" :class="iconEnd" class="lkt-button-icon-end" />
 
-            <div v-if="split" class="lkt-split-button-arrow">
+            <div v-if="computedIsSplit" class="lkt-split-button-arrow">
                 <template v-if="splitIcon">
                     <i :class="splitIcon" />
                 </template>
@@ -435,7 +460,7 @@
         </component>
 
         <lkt-tooltip
-            v-if="split && container"
+            v-if="computedIsSplit && container"
             v-model="showDropdown"
             :referrer="container"
             :window-margin="tooltipWindowMargin"
@@ -452,7 +477,7 @@
         </lkt-tooltip>
 
         <lkt-tooltip
-            v-if="tooltip && container"
+            v-if="computedIsTooltip && container"
             v-model="showTooltip"
             :referrer="container"
             :window-margin="tooltipWindowMargin"
