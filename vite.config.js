@@ -31,7 +31,6 @@ export default {
                 'lkt-i18n',
                 'lkt-tooltip',
                 'lkt-modal',
-                'lkt-events',
                 'lkt-string-tools',
                 'lkt-vue-kernel',
             ],

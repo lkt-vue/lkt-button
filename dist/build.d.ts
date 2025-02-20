@@ -1,7 +1,7 @@
-declare function $e(f?: boolean): void;
-declare namespace eo {
+declare function oo(f?: boolean): void;
+declare namespace to {
     function install(f: any): void;
 }
-declare function xe(f: any): void;
-declare function oo(f: any): void;
-export { $e as debugLktButton, eo as default, xe as setDefaultButtonPalette, oo as setDefaultButtonSplitSlot };
+declare function eo(f: any): void;
+declare function lo(f: any): void;
+export { oo as debugLktButton, to as default, eo as setDefaultButtonPalette, lo as setDefaultButtonSplitSlot };

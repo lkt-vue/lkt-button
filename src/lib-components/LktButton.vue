@@ -1,10 +1,9 @@
 <script setup lang="ts">
-    import { ComponentPublicInstance, computed, nextTick, ref, useSlots, watch } from 'vue';
+    import { ComponentPublicInstance, computed, nextTick, ref, SetupContext, useSlots, watch } from 'vue';
     import { Settings } from '../settings/Settings';
     import { generateRandomString } from 'lkt-string-tools';
     import { httpCall } from 'lkt-http-client';
-    import { openConfirm, openModal } from 'lkt-modal';
-    import { LktObject } from 'lkt-ts-interfaces';
+    import { openConfirm, openModal, runModalCallback } from 'lkt-modal';
     import { debug } from '../functions/settings-functions';
     import { useRouter } from 'vue-router';
     import {
@@ -15,19 +14,20 @@
         extractI18nValue,
         extractPropValue,
         getDefaultValues,
-        LktSettings,
+        LktObject,
+        LktSettings, ValidModalKey, ValidModalName,
     } from 'lkt-vue-kernel';
 
     const props = withDefaults(defineProps<ButtonConfig>(), getDefaultValues(Button));
 
     const emit = defineEmits(['click', 'focus', 'blur', 'loading', 'loaded', 'update:checked', 'update:openTooltip']);
 
-    const slots = useSlots(),
+    const slots: SetupContext['slots'] = useSlots(),
         router = useRouter();
 
     // Calculated data
-    let calculatedModal = extractPropValue(props.modal, props.prop);
-    let calculatedModalKey = extractPropValue(props.modalKey, props.prop);
+    let calculatedModal = extractPropValue(props.modal, props.prop) as ValidModalName;
+    let calculatedModalKey = extractPropValue(props.modalKey, props.prop) as ValidModalKey;
     let calculatedIcon = extractPropValue(props.icon, props.prop);
 
     const Identifier = 'lkt-button-' + generateRandomString();
@@ -89,12 +89,14 @@
                 isLoading.value = false;
                 emit('loaded');
                 debug('Resource Click -> Received response', r);
+                doModalCallbackActions();
                 doConfigClick();
                 emit('click', $event, r);
             }).catch((r: any) => {
                 isLoading.value = false;
                 emit('loaded');
                 debug('Resource Click -> Received response error', r);
+                doModalCallbackActions();
                 doConfigClick();
                 emit('click', $event, r);
             });
@@ -136,6 +138,12 @@
     const canDisplaySwitch = computed(() => {
         return props.type === ButtonType.Switch;
     })
+
+    const doModalCallbackActions = () => {
+        props.modalCallbacks.forEach(config => {
+            runModalCallback(config)
+        })
+    }
 
     const doConfigClick = () => {
         debug('doConfigClick: ', props)
@@ -188,6 +196,7 @@
         }
 
         if (computedIsSplit.value || computedIsTooltip.value) {
+            doModalCallbackActions();
             doConfigClick();
             emit('click', $event);
             return;
@@ -205,6 +214,7 @@
                         });
                     } else {
                         modalData.beforeClose(modalData);
+                        doModalCallbackActions();
                         doConfigClick();
                         emit('click', $event);
                     }
@@ -215,6 +225,7 @@
                     if (props.resource) {
                         return doResourceClick($event);
                     } else {
+                        doModalCallbackActions();
                         doConfigClick();
                         emit('click', $event);
                     }
@@ -251,6 +262,7 @@
                         });
                     } else {
                         externalConfirmAction();
+                        doModalCallbackActions();
                         doConfigClick();
                         emit('click', $event);
                     }
@@ -275,6 +287,7 @@
                             }
                             return;
                         }
+                        doModalCallbackActions();
                         doConfigClick();
                         emit('click', $event);
                     }
@@ -304,6 +317,7 @@
         if (canRenderSwitch.value){
             debug('Click -> Is Switch');
             nextTick(() => {
+                doModalCallbackActions();
                 doConfigClick();
                 emit('click', $event);
             })
@@ -371,7 +385,7 @@
         return doClick($event);
     }
 
-    const onRouteActive= (v) => routeIsActive.value = v;
+    const onRouteActive= (v: any) => routeIsActive.value = v;
 
     const computedIsAnchor = computed(() => {
         return props.type === ButtonType.Anchor
