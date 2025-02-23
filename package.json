@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "keywords": [
     "lkt",
@@ -20,7 +20,7 @@
     ".": {
       "import": "./dist/build.js"
     },
-    "./styles": "./dist/style.css",
+    "./styles": "./dist/build.css",
     "./theme": "./theme/default.css",
     "./theme/default": "./theme/default.css"
   },

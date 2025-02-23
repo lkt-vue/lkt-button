@@ -20,7 +20,15 @@
 
     const props = withDefaults(defineProps<ButtonConfig>(), getDefaultValues(Button));
 
-    const emit = defineEmits(['click', 'focus', 'blur', 'loading', 'loaded', 'update:checked', 'update:openTooltip']);
+    const emit = defineEmits([
+        'click',
+        'focus',
+        'blur',
+        'loading',
+        'loaded',
+        'update:checked',
+        'update:openTooltip'
+    ]);
 
     const slots: SetupContext['slots'] = useSlots(),
         router = useRouter();
@@ -476,12 +484,10 @@
         <lkt-tooltip
             v-if="computedIsSplit && container"
             v-model="showDropdown"
+            v-bind="tooltip"
             :referrer="container"
-            :window-margin="tooltipWindowMargin"
-            :referrer-margin="tooltipReferrerMargin"
             class="lkt-split-button-dropdown-content"
             :class="splitClass"
-            :engine="tooltipEngine"
         >
             <template #default="{doClose, doRootClick}" v-if="computedRenderSplit">
                 <slot name="split"
@@ -493,13 +499,8 @@
         <lkt-tooltip
             v-if="computedIsTooltip && container"
             v-model="showTooltip"
+            v-bind="tooltip"
             :referrer="container"
-            :window-margin="tooltipWindowMargin"
-            :referrer-margin="tooltipReferrerMargin"
-            :class="tooltipClass"
-            :location-x="tooltipLocationX"
-            :location-y="tooltipLocationY"
-            :engine="tooltipEngine"
         >
             <template #default="{doClose, doRootClick}" v-if="computedRenderTooltip">
                 <slot
