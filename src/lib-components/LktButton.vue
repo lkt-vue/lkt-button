@@ -75,7 +75,18 @@
             return r.join(' ');
         }),
         computedText = computed(() => {
-            return extractI18nValue(props.text)
+            if (props.type === ButtonType.Switch || props.type === ButtonType.HiddenSwitch) {
+                if (isChecked.value && typeof props.textOn !== 'undefined') return extractI18nValue(props.textOn);
+                if (!isChecked.value && typeof props.textOff !== 'undefined') return extractI18nValue(props.textOff);
+            }
+            return extractI18nValue(props.text);
+        }),
+        computedIcon = computed(() => {
+            if (props.type === ButtonType.Switch || props.type === ButtonType.HiddenSwitch) {
+                if (isChecked.value && typeof props.iconOn !== 'undefined') return props.iconOn;
+                if (!isChecked.value && typeof props.iconOff !== 'undefined') return props.iconOff;
+            }
+            return calculatedIcon;
         }),
         hasCustomSplitIconSlot = computed(() => {
             return typeof Settings.defaultSplitIcon !== 'undefined';
@@ -421,8 +432,8 @@
             class="lkt-button"
             @active="onRouteActive"
         >
-            <i v-if="calculatedIcon" :class="calculatedIcon" />
-            <i v-if="calculatedIcon && iconDot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
+            <i v-if="computedIcon" :class="computedIcon" />
+            <i v-if="computedIcon && iconDot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
             <img v-if="img" :src="img" :alt="computedText" />
 
             <template v-if="computedText">
@@ -449,8 +460,8 @@
             @focus="onFocus"
             @blur="onBlur"
         >
-            <i v-if="icon" :class="icon" />
-            <i v-if="icon && iconDot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
+            <i v-if="computedIcon" :class="computedIcon" />
+            <i v-if="computedIcon && iconDot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
             <img v-if="img" :src="img" :alt="computedText" />
 
             <template v-if="computedText">
