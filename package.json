@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "",
   "keywords": [
     "lkt",
@@ -53,15 +53,17 @@
   },
   "dependencies": {
     "lkt-anchor": "^1.2.2",
-    "lkt-data-state": "^1.0.10",
-    "lkt-field": "^0.0.12",
-    "lkt-http-client": "^1.0.21",
-    "lkt-i18n": "^1.0.4",
+    "lkt-data-state": "^1.0.11",
+    "lkt-field": "^0.0.34",
+    "lkt-http-client": "^1.0.34",
+    "lkt-i18n": "^1.0.6",
     "lkt-loader": "^1.1.6",
-    "lkt-modal": "^2.0",
-    "lkt-string-tools": "^1.0.1",
-    "lkt-tooltip": "^1.0.0",
-    "lkt-vue-kernel": "^1.0.4",
+    "lkt-modal": "^2.0.1",
+    "lkt-string-tools": "^1.0.8",
+    "lkt-tooltip": "^1.0.10",
+    "lkt-vue-kernel": "^1.0.22"
+  },
+  "peerDependencies": {
     "vue": "^3.3.0",
     "vue-router": "^4.4.0"
   }

@@ -1,7 +1,7 @@
-declare function to(f?: boolean): void;
-declare namespace lo {
+declare function uo(f?: boolean): void;
+declare namespace ao {
     function install(f: any): void;
 }
-declare function oo(f: any): void;
-declare function no(f: any): void;
-export { to as debugLktButton, lo as default, oo as setDefaultButtonPalette, no as setDefaultButtonSplitSlot };
+declare function io(f: any): void;
+declare function ro(f: any): void;
+export { uo as debugLktButton, ao as default, io as setDefaultButtonPalette, ro as setDefaultButtonSplitSlot };

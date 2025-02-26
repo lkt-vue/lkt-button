@@ -1,8 +1,8 @@
 <script setup lang="ts">
-    import { ComponentPublicInstance, computed, nextTick, ref, SetupContext, useSlots, watch } from 'vue';
+    import { ComponentPublicInstance, computed, ref, SetupContext, useSlots, watch } from 'vue';
     import { Settings } from '../settings/Settings';
     import { generateRandomString } from 'lkt-string-tools';
-    import { httpCall } from 'lkt-http-client';
+    import { httpCall, HTTPResponse } from 'lkt-http-client';
     import { openConfirm, openModal, runModalCallback } from 'lkt-modal';
     import { debug } from '../functions/settings-functions';
     import { useRouter } from 'vue-router';
@@ -15,7 +15,9 @@
         extractPropValue,
         getDefaultValues,
         LktObject,
-        LktSettings, ValidModalKey, ValidModalName,
+        LktSettings,
+        ValidModalKey,
+        ValidModalName,
     } from 'lkt-vue-kernel';
 
     const props = withDefaults(defineProps<ButtonConfig>(), getDefaultValues(Button));
@@ -27,7 +29,7 @@
         'loading',
         'loaded',
         'update:checked',
-        'update:openTooltip'
+        'update:openTooltip',
     ]);
 
     const slots: SetupContext['slots'] = useSlots(),
@@ -37,6 +39,7 @@
     let calculatedModal = extractPropValue(props.modal, props.prop) as ValidModalName;
     let calculatedModalKey = extractPropValue(props.modalKey, props.prop) as ValidModalKey;
     let calculatedIcon = extractPropValue(props.icon, props.prop);
+    let calculatedIconEnd = extractPropValue(props.iconEnd, props.prop);
 
     const Identifier = 'lkt-button-' + generateRandomString();
 
@@ -60,7 +63,6 @@
             let r = [];
             if (props.class) r.push(props.class);
             if (computedIsSplit.value) r.push('lkt-split-button');
-            if (props.palette) r.push(`lkt-button--${props.palette}`, `palette--${props.palette}`);
             r.push(`lkt-button--${props.type}`);
             if (isLoading.value) r.push('is-loading');
             if (routeIsActive.value) r.push('is-active-route');
@@ -88,6 +90,13 @@
             }
             return calculatedIcon;
         }),
+        computedIconEnd = computed(() => {
+            if (props.type === ButtonType.Switch || props.type === ButtonType.HiddenSwitch) {
+                if (isChecked.value && typeof props.iconEndOn !== 'undefined') return props.iconEndOn;
+                if (!isChecked.value && typeof props.iconEndOff !== 'undefined') return props.iconEndOff;
+            }
+            return calculatedIconEnd;
+        }),
         hasCustomSplitIconSlot = computed(() => {
             return typeof Settings.defaultSplitIcon !== 'undefined';
         }),
@@ -95,9 +104,16 @@
             return Settings.defaultSplitIcon;
         }),
         computedIconDotText = computed(() => {
-            if (typeof props.iconDot === 'boolean') return '';
-            return props.iconDot;
+            if (typeof props.dot === 'boolean') return '';
+            return props.dot;
         });
+
+    const endClickMethod = ($event: MouseEvent | null, httpResponse: HTTPResponse | undefined = undefined) => {
+        debug('endClickMethod', $event, httpResponse);
+        doModalCallbackActions();
+        doConfigClick();
+        emit('click', $event, httpResponse);
+    };
 
     const doResourceClick = async ($event: MouseEvent | null) => {
             debug('Resource Click', props.resource, props.resourceData);
@@ -108,16 +124,12 @@
                 isLoading.value = false;
                 emit('loaded');
                 debug('Resource Click -> Received response', r);
-                doModalCallbackActions();
-                doConfigClick();
-                emit('click', $event, r);
+                endClickMethod($event, r);
             }).catch((r: any) => {
                 isLoading.value = false;
                 emit('loaded');
                 debug('Resource Click -> Received response error', r);
-                doModalCallbackActions();
-                doConfigClick();
-                emit('click', $event, r);
+                endClickMethod($event, r);
             });
         }
     ;
@@ -152,42 +164,42 @@
 
     const canRenderSwitch = computed(() => {
         return props.type === ButtonType.Switch || props.type === ButtonType.HiddenSwitch;
-    })
+    });
 
     const canDisplaySwitch = computed(() => {
         return props.type === ButtonType.Switch;
-    })
+    });
 
     const doModalCallbackActions = () => {
         props.modalCallbacks.forEach(config => {
-            runModalCallback(config)
-        })
-    }
+            runModalCallback(config);
+        });
+    };
 
     const doConfigClick = () => {
-        debug('doConfigClick: ', props)
+        debug('doConfigClick: ', props);
         if (typeof props.onClick === 'function') props.onClick();
-    }
+    };
 
     const computedIsSplit = computed(() => {
         return [
             ButtonType.Split,
             ButtonType.SplitLazy,
             ButtonType.SplitEver,
-        ].includes(props.type)
-    })
+        ].includes(props.type);
+    });
 
     const computedIsTooltip = computed(() => {
         return [
             ButtonType.Tooltip,
             ButtonType.TooltipLazy,
             ButtonType.TooltipEver,
-        ].includes(props.type)
-    })
+        ].includes(props.type);
+    });
 
     const doClick = ($event: MouseEvent | null) => {
 
-        debug('Click', props);
+        debug('Click', props, $event);
         if ($event) {
             if (canRenderSwitch.value) {
                 //@ts-ignore
@@ -215,14 +227,12 @@
         }
 
         if (computedIsSplit.value || computedIsTooltip.value) {
-            doModalCallbackActions();
-            doConfigClick();
-            emit('click', $event);
+            endClickMethod($event);
             return;
         }
 
         if (calculatedModal) {
-            let modalData = {...props.modalData};
+            let modalData = { ...props.modalData };
             debug('Click -> has modal', props.modal, modalData);
             debug('Click -> typeof beforeClose: ', typeof modalData.beforeClose);
             if (typeof modalData.beforeClose === 'function') {
@@ -233,9 +243,7 @@
                         });
                     } else {
                         modalData.beforeClose(modalData);
-                        doModalCallbackActions();
-                        doConfigClick();
-                        emit('click', $event);
+                        endClickMethod($event);
                     }
                 };
                 debug('Click -> New beforeClose function: ', modalData.beforeClose);
@@ -244,9 +252,7 @@
                     if (props.resource) {
                         return doResourceClick($event);
                     } else {
-                        doModalCallbackActions();
-                        doConfigClick();
-                        emit('click', $event);
+                        endClickMethod($event);
                     }
                 };
                 debug('Click -> New beforeClose function: ', modalData.beforeClose);
@@ -262,12 +268,12 @@
             debug('Click -> has confirm modal', props.confirmModal, props.confirmData);
             debug('Click -> typeof onConfirm: ', typeof props.confirmData.onConfirm);
 
-            let confirmData = {...props.confirmData};
+            let confirmData = { ...props.confirmData };
 
             if (!confirmData.confirmButton) {
-                confirmData.confirmButton = {...LktSettings.defaultConfirmButton };
+                confirmData.confirmButton = { ...LktSettings.defaultConfirmButton };
             } else {
-                confirmData.confirmButton = {...LktSettings.defaultConfirmButton, ...confirmData.confirmButton };
+                confirmData.confirmButton = { ...LktSettings.defaultConfirmButton, ...confirmData.confirmButton };
             }
 
             if (typeof confirmData.confirmButton?.onClick === 'function') {
@@ -281,9 +287,7 @@
                         });
                     } else {
                         externalConfirmAction();
-                        doModalCallbackActions();
-                        doConfigClick();
-                        emit('click', $event);
+                        endClickMethod($event);
                     }
                 };
                 debug('Click -> New onConfirm function created: ', confirmData.confirmButton?.onClick);
@@ -306,9 +310,7 @@
                             }
                             return;
                         }
-                        doModalCallbackActions();
-                        doConfigClick();
-                        emit('click', $event);
+                        endClickMethod($event);
                     }
                 };
                 debug('Click -> New onConfirm function created: ', confirmData.confirmButton?.onClick);
@@ -333,19 +335,16 @@
             }
             return;
         }
-        if (canRenderSwitch.value){
+
+        if (canRenderSwitch.value) {
             debug('Click -> Is Switch');
-            nextTick(() => {
-                doModalCallbackActions();
-                doConfigClick();
-                emit('click', $event);
-            })
+            endClickMethod($event);
             return;
         }
 
         // doConfigClick();
         debug('Click -> Emit', props);
-        emit('click', $event);
+        endClickMethod($event);
     };
 
     watch(() => props.loading, () => isLoading.value = props.loading);
@@ -385,7 +384,7 @@
                 //@ts-ignore
                 button.value.focus();
             }
-        }
+        },
     });
 
     const computedButtonComponent = computed(() => {
@@ -398,13 +397,13 @@
         if (typeof props.disabled === 'function') return props.disabled({});
         if (typeof props.disabled === 'boolean') return props.disabled;
         return false;
-    })
+    });
 
     const doRootClick = ($event: MouseEvent) => {
         return doClick($event);
-    }
+    };
 
-    const onRouteActive= (v: any) => routeIsActive.value = v;
+    const onRouteActive = (v: any) => routeIsActive.value = v;
 
     const computedIsAnchor = computed(() => {
         return props.type === ButtonType.Anchor
@@ -413,9 +412,9 @@
     });
 
     const computedAnchor = computed(() => {
-        if (computedIsAnchor.value) return new Anchor({ ...props.anchor, ...{"class": classes.value} });
+        if (computedIsAnchor.value) return new Anchor({ ...props.anchor, ...{ 'class': classes.value } });
         return {};
-    })
+    });
 </script>
 
 <template>
@@ -433,7 +432,7 @@
             @active="onRouteActive"
         >
             <i v-if="computedIcon" :class="computedIcon" />
-            <i v-if="computedIcon && iconDot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
+            <i v-if="computedIcon && dot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
             <img v-if="img" :src="img" :alt="computedText" />
 
             <template v-if="computedText">
@@ -461,7 +460,7 @@
             @blur="onBlur"
         >
             <i v-if="computedIcon" :class="computedIcon" />
-            <i v-if="computedIcon && iconDot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
+            <i v-if="computedIcon && dot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
             <img v-if="img" :src="img" :alt="computedText" />
 
             <template v-if="computedText">
@@ -478,9 +477,11 @@
                 v-if="canRenderSwitch"
                 type="switch"
                 v-show="canDisplaySwitch"
-                v-model="isChecked" />
+                v-model="isChecked"
+                @click.stop="() => {}"
+            />
 
-            <i v-if="iconEnd" :class="iconEnd" class="lkt-button-icon-end" />
+            <i v-if="computedIconEnd" :class="computedIconEnd" class="lkt-button-icon-end" />
 
             <div v-if="computedIsSplit" class="lkt-split-button-arrow">
                 <template v-if="splitIcon">
@@ -500,7 +501,7 @@
             class="lkt-split-button-dropdown-content"
             :class="splitClass"
         >
-            <template #default="{doClose, doRootClick}" v-if="computedRenderSplit">
+            <template #default="{doClose}" v-if="computedRenderSplit">
                 <slot name="split"
                       :do-close="doClose"
                       :do-root-click="doRootClick" />
@@ -513,7 +514,7 @@
             v-bind="tooltip"
             :referrer="container"
         >
-            <template #default="{doClose, doRootClick}" v-if="computedRenderTooltip">
+            <template #default="{doClose}" v-if="computedRenderTooltip">
                 <slot
                     name="tooltip"
                     :do-close="doClose"
