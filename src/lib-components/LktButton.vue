@@ -7,7 +7,7 @@
     import { debug } from '../functions/settings-functions';
     import { useRouter } from 'vue-router';
     import {
-        Anchor,
+        Anchor, BeforeCloseModalData,
         Button,
         ButtonConfig,
         ButtonType,
@@ -239,10 +239,14 @@
                 modalData.beforeClose = (modalData: LktObject) => {
                     if (props.resource) {
                         return doResourceClick($event).then(() => {
-                            modalData.beforeClose(modalData);
+                            if (typeof props.modalData.beforeClose === 'function') {
+                                props.modalData.beforeClose(<BeforeCloseModalData>modalData);
+                            }
                         });
                     } else {
-                        modalData.beforeClose(modalData);
+                        if (typeof props.modalData.beforeClose === 'function') {
+                            props.modalData.beforeClose(<BeforeCloseModalData>modalData);
+                        }
                         endClickMethod($event);
                     }
                 };
