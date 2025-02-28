@@ -98,7 +98,6 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     dot: import("lkt-vue-kernel").ValidButtonDot;
     icon: string;
     tooltip: import("lkt-vue-kernel").TooltipConfig;
-    onClick: Function;
     tabindex: string | number;
     resource: string;
     checked: boolean;
@@ -107,6 +106,7 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     confirmModal: string | Function;
     confirmModalKey: ValidModalKey;
     confirmData: Partial<import("lkt-vue-kernel").ModalConfig>;
+    events: import("lkt-vue-kernel").EventsConfig;
     openTooltip: boolean;
     containerClass: string;
     wrapContent: boolean;
@@ -160,7 +160,6 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     dot: import("lkt-vue-kernel").ValidButtonDot;
     icon: string;
     tooltip: import("lkt-vue-kernel").TooltipConfig;
-    onClick: Function;
     tabindex: string | number;
     resource: string;
     checked: boolean;
@@ -169,6 +168,7 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     confirmModal: string | Function;
     confirmModalKey: ValidModalKey;
     confirmData: Partial<import("lkt-vue-kernel").ModalConfig>;
+    events: import("lkt-vue-kernel").EventsConfig;
     openTooltip: boolean;
     containerClass: string;
     wrapContent: boolean;

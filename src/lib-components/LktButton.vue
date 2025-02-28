@@ -177,7 +177,7 @@
 
     const doConfigClick = () => {
         debug('doConfigClick: ', props);
-        if (typeof props.onClick === 'function') props.onClick();
+        if (typeof props.events?.click === 'function') props.events.click();
     };
 
     const computedIsSplit = computed(() => {
@@ -279,10 +279,12 @@
                 confirmData.confirmButton = { ...LktSettings.defaultConfirmButton, ...confirmData.confirmButton };
             }
 
-            if (typeof confirmData.confirmButton?.onClick === 'function') {
-                let externalConfirmAction = confirmData.confirmButton?.onClick;
+            if (!confirmData.confirmButton.events) confirmData.confirmButton.events = {};
+
+            if (typeof confirmData.confirmButton?.events?.click === 'function') {
+                let externalConfirmAction = confirmData.confirmButton?.events?.click;
                 debug('Click -> Has onConfirm function: ', externalConfirmAction);
-                confirmData.confirmButton.onClick = () => {
+                confirmData.confirmButton.events.click = () => {
                     debug('OnConfirm -> Already: ', props);
                     if (props.resource) {
                         return doResourceClick($event).then(() => {
@@ -293,10 +295,10 @@
                         endClickMethod($event);
                     }
                 };
-                debug('Click -> New onConfirm function created: ', confirmData.confirmButton?.onClick);
+                debug('Click -> New onConfirm function created: ', confirmData.confirmButton?.events?.click);
 
             } else {
-                confirmData.confirmButton.onClick = () => {
+                confirmData.confirmButton.events.click = () => {
                     debug('OnConfirm -> Created: ', props);
                     if (props.resource) {
                         return doResourceClick($event);
@@ -316,7 +318,7 @@
                         endClickMethod($event);
                     }
                 };
-                debug('Click -> New onConfirm function created: ', confirmData.confirmButton?.onClick);
+                debug('Click -> New onConfirm function created: ', confirmData.confirmButton?.events.click);
             }
             return openConfirm(props.confirmModal, props.confirmModalKey, confirmData);
         }

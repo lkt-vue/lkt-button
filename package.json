@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "",
   "keywords": [
     "lkt",
@@ -63,7 +63,7 @@
     "lkt-modal": "^2.0.1",
     "lkt-string-tools": "^1.0.8",
     "lkt-tooltip": "^1.0.10",
-    "lkt-vue-kernel": "^1.0.22",
+    "lkt-vue-kernel": "^1.0.30",
     "vue": "^3.3.0",
     "vue-router": "^4.4.0"
   }
