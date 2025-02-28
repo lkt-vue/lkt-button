@@ -116,23 +116,22 @@
     };
 
     const doResourceClick = async ($event: MouseEvent | null) => {
-            debug('Resource Click', props.resource, props.resourceData);
-            isLoading.value = true;
-            emit('loading');
-            let data = { ...props.resourceData, isChecked: isChecked.value };
-            return httpCall(props.resource, data).then((r: any) => {
-                isLoading.value = false;
-                emit('loaded');
-                debug('Resource Click -> Received response', r);
-                endClickMethod($event, r);
-            }).catch((r: any) => {
-                isLoading.value = false;
-                emit('loaded');
-                debug('Resource Click -> Received response error', r);
-                endClickMethod($event, r);
-            });
-        }
-    ;
+        debug('Resource Click', props.resource, props.resourceData);
+        isLoading.value = true;
+        emit('loading');
+        let data = { ...props.resourceData, isChecked: isChecked.value };
+        return httpCall(props.resource, data).then((r: any) => {
+            isLoading.value = false;
+            emit('loaded');
+            debug('Resource Click -> Received response', r);
+            endClickMethod($event, r);
+        }).catch((r: any) => {
+            isLoading.value = false;
+            emit('loaded');
+            debug('Resource Click -> Received response error', r);
+            endClickMethod($event, r);
+        });
+    };
 
     const tooltipOpened = ref(false);
     const computedRenderTooltip = computed(() => {
