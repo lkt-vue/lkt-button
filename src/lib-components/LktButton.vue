@@ -15,7 +15,7 @@
         extractPropValue,
         getDefaultValues,
         LktObject,
-        LktSettings,
+        LktSettings, ModalConfig,
         ValidModalKey,
         ValidModalName,
     } from 'lkt-vue-kernel';
@@ -96,6 +96,10 @@
                 if (!isChecked.value && typeof props.iconEndOff !== 'undefined') return props.iconEndOff;
             }
             return calculatedIconEnd;
+        }),
+        computedModalData = computed((): ModalConfig => {
+            if (typeof props.modalData === 'function') return props.modalData(props.prop);
+            return props.modalData;
         }),
         hasCustomSplitIconSlot = computed(() => {
             return typeof Settings.defaultSplitIcon !== 'undefined';
@@ -231,20 +235,20 @@
         }
 
         if (calculatedModal) {
-            let modalData = { ...props.modalData };
+            let modalData = { ...computedModalData.value };
             debug('Click -> has modal', props.modal, modalData);
             debug('Click -> typeof beforeClose: ', typeof modalData.beforeClose);
             if (typeof modalData.beforeClose === 'function') {
                 modalData.beforeClose = (modalData: LktObject) => {
                     if (props.resource) {
                         return doResourceClick($event).then(() => {
-                            if (typeof props.modalData.beforeClose === 'function') {
-                                props.modalData.beforeClose(<BeforeCloseModalData>modalData);
+                            if (typeof computedModalData.value.beforeClose === 'function') {
+                                computedModalData.value.beforeClose(<BeforeCloseModalData>modalData);
                             }
                         });
                     } else {
-                        if (typeof props.modalData.beforeClose === 'function') {
-                            props.modalData.beforeClose(<BeforeCloseModalData>modalData);
+                        if (typeof computedModalData.value.beforeClose === 'function') {
+                            computedModalData.value.beforeClose(<BeforeCloseModalData>modalData);
                         }
                         endClickMethod($event);
                     }
@@ -269,7 +273,7 @@
 
         if (props.confirmModal) {
             debug('Click -> has confirm modal', props.confirmModal, props.confirmData);
-            debug('Click -> typeof onConfirm: ', typeof props.confirmData.onConfirm);
+            debug('Click -> typeof onConfirm: ', typeof props.confirmData.events?.click);
 
             let confirmData = { ...props.confirmData };
 
@@ -399,7 +403,9 @@
 
     const computedIsDisabled = computed(() => {
         if (props.disabled === undefined) return false;
-        if (typeof props.disabled === 'function') return props.disabled({});
+        if (typeof props.disabled === 'function') return props.disabled({
+            prop: props.prop
+        });
         if (typeof props.disabled === 'boolean') return props.disabled;
         return false;
     });

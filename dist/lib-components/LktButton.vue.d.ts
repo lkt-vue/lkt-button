@@ -1,5 +1,5 @@
 import { ComponentPublicInstance, SetupContext } from 'vue';
-import { Anchor, ButtonConfig, ButtonType, LktObject, ValidModalKey } from 'lkt-vue-kernel';
+import { Anchor, ButtonConfig, ButtonType, LktObject, ModalConfig } from 'lkt-vue-kernel';
 declare const slots: SetupContext['slots'];
 declare const Identifier: string;
 declare const isLoading: import("vue").Ref<boolean, boolean>, container: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, button: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, showDropdown: import("vue").Ref<boolean, boolean>, showTooltip: import("vue").Ref<boolean, boolean>, isHovered: import("vue").Ref<boolean, boolean>, isChecked: import("vue").Ref<boolean, boolean>;
@@ -102,10 +102,10 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     resource: string;
     checked: boolean;
     modal: string | Function;
-    modalKey: ValidModalKey;
+    modalKey: string | number | Function;
     confirmModal: string | Function;
-    confirmModalKey: ValidModalKey;
-    confirmData: Partial<import("lkt-vue-kernel").ModalConfig>;
+    confirmModalKey: string | number | Function;
+    confirmData: Partial<ModalConfig>;
     events: import("lkt-vue-kernel").EventsConfig;
     openTooltip: boolean;
     containerClass: string;
@@ -118,7 +118,7 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     iconEndOn: string | number;
     iconEndOff: string | number;
     resourceData: LktObject;
-    modalData: Partial<import("lkt-vue-kernel").ModalConfig>;
+    modalData: Partial<ModalConfig> | Function;
     modalCallbacks: Array<import("lkt-vue-kernel").ModalCallbackConfig>;
     splitIcon: string;
     showTooltipOnHover: boolean;
@@ -164,10 +164,10 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     resource: string;
     checked: boolean;
     modal: string | Function;
-    modalKey: ValidModalKey;
+    modalKey: string | number | Function;
     confirmModal: string | Function;
-    confirmModalKey: ValidModalKey;
-    confirmData: Partial<import("lkt-vue-kernel").ModalConfig>;
+    confirmModalKey: string | number | Function;
+    confirmData: Partial<ModalConfig>;
     events: import("lkt-vue-kernel").EventsConfig;
     openTooltip: boolean;
     containerClass: string;
@@ -180,7 +180,7 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     iconEndOn: string | number;
     iconEndOff: string | number;
     resourceData: LktObject;
-    modalData: Partial<import("lkt-vue-kernel").ModalConfig>;
+    modalData: Partial<ModalConfig> | Function;
     modalCallbacks: Array<import("lkt-vue-kernel").ModalCallbackConfig>;
     splitIcon: string;
     showTooltipOnHover: boolean;
