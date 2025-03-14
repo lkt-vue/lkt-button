@@ -7,15 +7,17 @@
     import { debug } from '../functions/settings-functions';
     import { useRouter } from 'vue-router';
     import {
-        Anchor, BeforeCloseModalData,
+        Anchor,
+        BeforeCloseModalData,
         Button,
         ButtonConfig,
         ButtonType,
         extractI18nValue,
-        extractPropValue,
+        extractPropValue, FieldConfig, FieldType,
         getDefaultValues,
         LktObject,
-        LktSettings, ModalConfig,
+        LktSettings,
+        ModalConfig,
         ValidModalKey,
         ValidModalName,
     } from 'lkt-vue-kernel';
@@ -51,7 +53,9 @@
         routeIsActive = ref(false),
         isHovered = ref(false),
         showTooltipOnHoverTimeout = ref(undefined),
-        isChecked = ref(props.checked)
+        isChecked = ref(props.checked),
+        fileFieldValue = ref(undefined),
+        fileFieldRef = ref(<ComponentPublicInstance | null>null)
     ;
 
     const nextFocusEventless = ref(false);
@@ -166,23 +170,28 @@
     };
 
     const canRenderSwitch = computed(() => {
-        return props.type === ButtonType.Switch || props.type === ButtonType.HiddenSwitch;
-    });
-
-    const canDisplaySwitch = computed(() => {
-        return props.type === ButtonType.Switch;
-    });
+            return props.type === ButtonType.Switch || props.type === ButtonType.HiddenSwitch;
+        }),
+        canDisplaySwitch = computed(() => {
+            return props.type === ButtonType.Switch;
+        }),
+        isFileUpload = computed(() => {
+            return props.type === ButtonType.FileUpload || props.type === ButtonType.ImageUpload;
+        }),
+        computedFileUploadType = computed(() => {
+            if (props.type === ButtonType.ImageUpload) return FieldType.Image;
+            return FieldType.File;
+        });
 
     const doModalCallbackActions = () => {
-        props.modalCallbacks.forEach(config => {
-            runModalCallback(config);
-        });
-    };
-
-    const doConfigClick = () => {
-        debug('doConfigClick: ', props);
-        if (typeof props.events?.click === 'function') props.events.click();
-    };
+            props.modalCallbacks.forEach(config => {
+                runModalCallback(config);
+            });
+        },
+        doConfigClick = () => {
+            debug('doConfigClick: ', props);
+            if (typeof props.events?.click === 'function') props.events.click();
+        };
 
     const computedIsSplit = computed(() => {
         return [
@@ -210,6 +219,9 @@
                 if (!fieldContainer) {
                     isChecked.value = !isChecked.value;
                 }
+            } else if (isFileUpload.value) {
+                if (fileFieldRef.value) fileFieldRef.value?.click();
+
             } else if (computedIsTooltip.value) {
                 showTooltip.value = !showTooltip.value;
                 if (showTooltip.value) tooltipOpened.value = true;
@@ -229,7 +241,7 @@
             }
         }
 
-        if (computedIsSplit.value || computedIsTooltip.value) {
+        if (computedIsSplit.value || computedIsTooltip.value || isFileUpload.value) {
             endClickMethod($event);
             return;
         }
@@ -404,7 +416,7 @@
     const computedIsDisabled = computed(() => {
         if (props.disabled === undefined) return false;
         if (typeof props.disabled === 'function') return props.disabled({
-            prop: props.prop
+            prop: props.prop,
         });
         if (typeof props.disabled === 'boolean') return props.disabled;
         return false;
@@ -489,6 +501,21 @@
                 type="switch"
                 v-show="canDisplaySwitch"
                 v-model="isChecked"
+                @click.stop="() => {}"
+            />
+
+            <lkt-field
+                ref="fileFieldRef"
+                v-if="isFileUpload"
+                :type="computedFileUploadType"
+                v-model="fileFieldValue"
+                hidden
+                v-bind="<FieldConfig>{
+                    fileUploadHttp: {
+                        resource: resource,
+                        data: resourceData,
+                    }
+                }"
                 @click.stop="() => {}"
             />
 

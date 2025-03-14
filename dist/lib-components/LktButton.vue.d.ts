@@ -1,15 +1,14 @@
 import { ComponentPublicInstance, SetupContext } from 'vue';
-import { Anchor, ButtonConfig, ButtonType, LktObject, ModalConfig } from 'lkt-vue-kernel';
+import { Anchor, ButtonConfig, ButtonType, FieldType, LktObject, ModalConfig } from 'lkt-vue-kernel';
 declare const slots: SetupContext['slots'];
 declare const Identifier: string;
-declare const isLoading: import("vue").Ref<boolean, boolean>, container: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, button: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, showDropdown: import("vue").Ref<boolean, boolean>, showTooltip: import("vue").Ref<boolean, boolean>, isHovered: import("vue").Ref<boolean, boolean>, isChecked: import("vue").Ref<boolean, boolean>;
+declare const isLoading: import("vue").Ref<boolean, boolean>, container: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, button: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, showDropdown: import("vue").Ref<boolean, boolean>, showTooltip: import("vue").Ref<boolean, boolean>, isHovered: import("vue").Ref<boolean, boolean>, isChecked: import("vue").Ref<boolean, boolean>, fileFieldValue: import("vue").Ref<undefined, undefined>, fileFieldRef: import("vue").Ref<ComponentPublicInstance | null, ComponentPublicInstance | null>;
 declare const classes: import("vue").ComputedRef<string>, computedContainerClass: import("vue").ComputedRef<string>, computedText: import("vue").ComputedRef<any>, computedIcon: import("vue").ComputedRef<import("lkt-vue-kernel").ValidScanPropTarget>, computedIconEnd: import("vue").ComputedRef<import("lkt-vue-kernel").ValidScanPropTarget>, hasCustomSplitIconSlot: import("vue").ComputedRef<boolean>, customSplitIconSlot: import("vue").ComputedRef<string | import("vue").Component | undefined>, computedIconDotText: import("vue").ComputedRef<string | number>;
 declare const computedRenderTooltip: import("vue").ComputedRef<boolean>;
 declare const computedRenderSplit: import("vue").ComputedRef<boolean>;
 declare const onFocus: ($event: FocusEvent) => void;
 declare const onBlur: ($event: Event) => void;
-declare const canRenderSwitch: import("vue").ComputedRef<boolean>;
-declare const canDisplaySwitch: import("vue").ComputedRef<boolean>;
+declare const canRenderSwitch: import("vue").ComputedRef<boolean>, canDisplaySwitch: import("vue").ComputedRef<boolean>, isFileUpload: import("vue").ComputedRef<boolean>, computedFileUploadType: import("vue").ComputedRef<FieldType.File | FieldType.Image>;
 declare const computedIsSplit: import("vue").ComputedRef<boolean>;
 declare const computedIsTooltip: import("vue").ComputedRef<boolean>;
 declare const doClick: ($event: MouseEvent | null) => void | Promise<void>;
@@ -20,10 +19,10 @@ declare const onRouteActive: (v: any) => any;
 declare const computedIsAnchor: import("vue").ComputedRef<boolean>;
 declare const computedAnchor: import("vue").ComputedRef<{}>;
 declare const __VLS_ctx: InstanceType<__VLS_PickNotAny<typeof __VLS_self, new () => {}>>;
-declare var __VLS_9: {}, __VLS_27: {}, __VLS_49: {
+declare var __VLS_9: {}, __VLS_27: {}, __VLS_59: {
     doClose: any;
     doRootClick: ($event: MouseEvent) => void | Promise<void>;
-}, __VLS_55: {
+}, __VLS_65: {
     doClose: any;
     doRootClick: ($event: MouseEvent) => void | Promise<void>;
 };
@@ -32,9 +31,9 @@ type __VLS_Slots = __VLS_PrettifyGlobal<__VLS_OmitStringIndex<typeof __VLS_ctx.$
 } & {
     default?: (props: typeof __VLS_27) => any;
 } & {
-    split?: (props: typeof __VLS_49) => any;
+    split?: (props: typeof __VLS_59) => any;
 } & {
-    tooltip?: (props: typeof __VLS_55) => any;
+    tooltip?: (props: typeof __VLS_65) => any;
 }>;
 declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     slots: typeof slots;
@@ -46,6 +45,8 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     showTooltip: typeof showTooltip;
     isHovered: typeof isHovered;
     isChecked: typeof isChecked;
+    fileFieldValue: typeof fileFieldValue;
+    fileFieldRef: typeof fileFieldRef;
     classes: typeof classes;
     computedContainerClass: typeof computedContainerClass;
     computedText: typeof computedText;
@@ -60,6 +61,8 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     onBlur: typeof onBlur;
     canRenderSwitch: typeof canRenderSwitch;
     canDisplaySwitch: typeof canDisplaySwitch;
+    isFileUpload: typeof isFileUpload;
+    computedFileUploadType: typeof computedFileUploadType;
     computedIsSplit: typeof computedIsSplit;
     computedIsTooltip: typeof computedIsTooltip;
     doClick: typeof doClick;
