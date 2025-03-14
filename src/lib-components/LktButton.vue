@@ -458,7 +458,13 @@
             <i v-if="computedIcon && dot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
             <img v-if="img" :src="img" :alt="computedText" />
 
-            <template v-if="computedText">
+            <template v-if="slots.text">
+                <slot
+                    name="text"
+                    :text="computedText"
+                />
+            </template>
+            <template v-else-if="computedText">
                 {{ computedText }}
             </template>
 
@@ -486,7 +492,13 @@
             <i v-if="computedIcon && dot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
             <img v-if="img" :src="img" :alt="computedText" />
 
-            <template v-if="computedText">
+            <template v-if="slots.text">
+                <slot
+                    name="text"
+                    :text="computedText"
+                />
+            </template>
+            <template v-else-if="computedText">
                 {{ computedText }}
             </template>
 

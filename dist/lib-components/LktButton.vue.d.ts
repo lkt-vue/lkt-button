@@ -19,21 +19,29 @@ declare const onRouteActive: (v: any) => any;
 declare const computedIsAnchor: import("vue").ComputedRef<boolean>;
 declare const computedAnchor: import("vue").ComputedRef<{}>;
 declare const __VLS_ctx: InstanceType<__VLS_PickNotAny<typeof __VLS_self, new () => {}>>;
-declare var __VLS_9: {}, __VLS_27: {}, __VLS_59: {
+declare var __VLS_9: {
+    text: any;
+}, __VLS_11: {}, __VLS_29: {
+    text: any;
+}, __VLS_31: {}, __VLS_63: {
     doClose: any;
     doRootClick: ($event: MouseEvent) => void | Promise<void>;
-}, __VLS_65: {
+}, __VLS_69: {
     doClose: any;
     doRootClick: ($event: MouseEvent) => void | Promise<void>;
 };
 type __VLS_Slots = __VLS_PrettifyGlobal<__VLS_OmitStringIndex<typeof __VLS_ctx.$slots> & {
-    default?: (props: typeof __VLS_9) => any;
+    text?: (props: typeof __VLS_9) => any;
 } & {
-    default?: (props: typeof __VLS_27) => any;
+    default?: (props: typeof __VLS_11) => any;
 } & {
-    split?: (props: typeof __VLS_59) => any;
+    text?: (props: typeof __VLS_29) => any;
 } & {
-    tooltip?: (props: typeof __VLS_65) => any;
+    default?: (props: typeof __VLS_31) => any;
+} & {
+    split?: (props: typeof __VLS_63) => any;
+} & {
+    tooltip?: (props: typeof __VLS_69) => any;
 }>;
 declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     slots: typeof slots;
