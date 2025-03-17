@@ -513,6 +513,7 @@
                 type="switch"
                 v-show="canDisplaySwitch"
                 v-model="isChecked"
+                :disabled="disabled"
                 @click.stop="() => {}"
             />
 
@@ -528,6 +529,7 @@
                         data: resourceData,
                     }
                 }"
+                :disabled="disabled"
                 @click.stop="() => {}"
             />
 
