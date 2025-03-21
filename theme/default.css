@@ -1,4 +1,17 @@
 :root {
+    --lkt-btn-display: flex;
+    --lkt-btn-align-items: center;
+    --lkt-btn-justify-content: center;
+
+    --lkt-btn--container--display: inline-flex;
+    --lkt-btn--container--position: relative;
+
+    --lkt-btn--arrow--display: flex;
+    --lkt-btn--arrow--align-items: center;
+    --lkt-btn--arrow--justify-content: center;
+
+
+
     /** Font */
     --lkt-btn-font-family: system-ui, Helvetica;
     --lkt-btn-font-size: 17px;
@@ -53,20 +66,25 @@
     --lkt-btn-shadow-disabled-hover: none;
 
     /** Internal image */
-    --lkt-button-img-max-width: 50px;
-    --lkt-button-img-max-height: 50px;
+    --lkt-button--img--max-width: 50px;
+    --lkt-button--img--max-height: 50px;
 
     /** Split Button */
-    --lkt-button-split-arrow-width: 40px;
-    --lkt-button-split-arrow-bg: transparent;
+    --lkt-button--split--arrow-width: 40px;
+    --lkt-button--split--arrow-bg: transparent;
 
     /** Icon dot */
     --lkt-button--dot--bg: var(--lkt-btn-bg-hover);
     --lkt-button--dot--color: var(--lkt-btn-color-hover);
     --lkt-button--dot--font-size: 12px;
+    --lkt-button--dot--font-style: normal;
     --lkt-button--dot--width: 16px;
     --lkt-button--dot--height: 16px;
     --lkt-button--dot--line-height: var(--lkt-button--dot--height);
     --lkt-button--dot--right: 2px;
     --lkt-button--dot--top: 2px;
+    --lkt-button--dot--text-align: center;
+    --lkt-button--dot--position: absolute;
+    --lkt-button--dot--display: block;
+    --lkt-button--dot--border-radius: 100%;
 }
