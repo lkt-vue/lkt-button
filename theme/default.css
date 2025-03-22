@@ -1,81 +1,38 @@
 :root {
-    --lkt-btn-display: flex;
-    --lkt-btn-align-items: center;
-    --lkt-btn-justify-content: center;
+    --lkt-button--display: flex;
+    --lkt-button--align-items: center;
+    --lkt-button--justify-content: center;
+    --lkt-button--font-family: system-ui, Helvetica;
+    --lkt-button--font-size: 17px;
+    --lkt-button--font-weight: 400;
+    --lkt-button--line-height: 1;
+    --lkt-button--text-align: left;
+    --lkt-button--text-decoration: none;
+    --lkt-button--width: 100%;
+    --lkt-button--min-width: 150px;
+    --lkt-button--min-height: 35px;
+    --lkt-button--padding: 7px;
+    --lkt-button--gap: 5px;
+    --lkt-button--border-radius: 5px;
+    --lkt-button--border-width: 1px;
+    --lkt-button--border-style: solid;
+    --lkt-button--color: #ffffff;
+    --lkt-button--background: #007ebc;
+    --lkt-button--border-color: #ddd;
+    --lkt-button--shadow: none;
+    --lkt-button--transition: all linear 100ms;
 
-    --lkt-btn--container--display: inline-flex;
-    --lkt-btn--container--position: relative;
-
-    --lkt-btn--arrow--display: flex;
-    --lkt-btn--arrow--align-items: center;
-    --lkt-btn--arrow--justify-content: center;
-
-
-
-    /** Font */
-    --lkt-btn-font-family: system-ui, Helvetica;
-    --lkt-btn-font-size: 17px;
-    --lkt-btn-font-weight: 400;
-    --lkt-btn-line-height: 1;
-    --lkt-btn-text-align: left;
-    --lkt-btn-text-decoration: none;
-    --lkt-btn-text-decoration-hover: none;
-
-    /** Sizing */
-    --lkt-btn-width: 100%;
-    --lkt-btn-min-width: 150px;
-    --lkt-btn-min-height: 35px;
-    --lkt-btn-padding: 7px;
-    --lkt-btn-gap: 5px;
-
-    /** Border */
-    --lkt-btn-border-radius: 5px;
-    --lkt-btn-border-radius-hover: var(--lkt-btn-border-radius);
-    --lkt-btn-border-width: 1px;
-    --lkt-btn-border-width-hover: var(--lkt-btn-border-width);
-    --lkt-btn-border-width-focus: var(--lkt-btn-border-width);
-    --lkt-btn-border-style: solid;
-    --lkt-btn-border-style-focus: var(--lkt-btn-border-style);
-
-    /** Colors */
-    --lkt-btn-color: #ffffff;
-    --lkt-btn-bg: #007ebc;
-    --lkt-btn-border-color: #ddd;
-
-    /** Effects */
-    --lkt-btn-shadow: none;
-    --lkt-btn-transition: all linear 100ms;
-
-    /** State: hover */
-    --lkt-btn-color-hover: #ffffff;
-    --lkt-btn-bg-hover: #007ebc;
-    --lkt-btn-border-color-hover: #ddd;
-
-    /** State: Focus */
-    --lkt-btn-border-color-focus: var(--focus-color);
-    --lkt-btn-shadow-focus: 0 0 0 2px var(--focus-color);
-
-    /** State: Disabled */
-    --lkt-btn-color-disabled: var(--disabled-contrast);
-    --lkt-btn-color-disabled-hover: var(--disabled-contrast);
-    --lkt-btn-bg-disabled: var(--disabled-color);
-    --lkt-btn-bg-disabled-hover: var(--disabled-color);
-    --lkt-btn-border-color-disabled: var(--disabled-color);
-    --lkt-btn-border-color-disabled-hover: var(--disabled-color);
-    --lkt-btn-shadow-disabled: none;
-    --lkt-btn-shadow-disabled-hover: none;
-
-    /** Internal image */
+    /** Element: Internal image */
     --lkt-button--img--max-width: 50px;
     --lkt-button--img--max-height: 50px;
 
-    /** Split Button */
+    /** Element: Split Button */
     --lkt-button--split--arrow-width: 40px;
     --lkt-button--split--arrow-bg: transparent;
 
-    /** Icon dot */
-    --lkt-button--dot--bg: var(--lkt-btn-bg-hover);
-    --lkt-button--dot--color: var(--lkt-btn-color-hover);
+    /** Element: Icon dot */
+    --lkt-button--dot--bg: var(--lkt-button--hover--background);
+    --lkt-button--dot--color: var(--lkt-button--hover--color);
     --lkt-button--dot--font-size: 12px;
     --lkt-button--dot--font-style: normal;
     --lkt-button--dot--width: 16px;
@@ -87,4 +44,39 @@
     --lkt-button--dot--position: absolute;
     --lkt-button--dot--display: block;
     --lkt-button--dot--border-radius: 100%;
+
+    /** Element: Container */
+    --lkt-button--container--display: inline-flex;
+    --lkt-button--container--position: relative;
+
+    /** Element: Arrow */
+    --lkt-button--arrow--display: flex;
+    --lkt-button--arrow--align-items: center;
+    --lkt-button--arrow--justify-content: center;
+
+    /** State: Disabled */
+    --lkt-button--disabled--color: var(--disabled-contrast);
+    --lkt-button--disabled--background: var(--disabled-color);
+    --lkt-button--disabled--border-color: var(--disabled-color);
+    --lkt-button--disabled--shadow: none;
+
+    /** State: Disabled, Event: Hover */
+    --lkt-button--disabled--hover--color: var(--disabled-contrast);
+    --lkt-button--disabled--hover--background: var(--disabled-color);
+    --lkt-button--disabled--hover--border-color: var(--disabled-color);
+    --lkt-button--disabled--hover--shadow: none;
+
+    /** Event: Hover */
+    --lkt-button--hover--text-decoration: none;
+    --lkt-button--hover--border-radius: var(--lkt-button--border-radius);
+    --lkt-button--hover--border-width: var(--lkt-button--border-width);
+    --lkt-button--hover--color: var(--lkt-button--color);
+    --lkt-button--hover--background: var(--lkt-button--background);
+    --lkt-button--hover--border-color: var(--lkt-button--border-color);
+
+    /** Event: Focus */
+    --lkt-button--focus--border-width: var(--lkt-button--border-width);
+    --lkt-button--focus--border-style: var(--lkt-button--border-style);
+    --lkt-button--focus--border-color: var(--lkt-button--color);
+    --lkt-button--focus--shadow: 0 0 0 2px var(--lkt-button--color);
 }

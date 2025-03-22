@@ -11,7 +11,7 @@ const LktButton: Plugin = {
 };
 
 export default LktButton;
-export {setDefaultButtonPalette, debugLktButton} from "./functions/settings-functions";
+export {debugLktButton} from "./functions/settings-functions";
 
 
 export const setDefaultButtonSplitSlot = (component?: string|Component) => {

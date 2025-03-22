@@ -441,7 +441,7 @@
 </script>
 
 <template>
-    <div class="lkt-button-container"
+    <div class="lkt-button"
          ref="container"
          :id="Identifier"
          :class="computedContainerClass"
@@ -451,7 +451,7 @@
         <lkt-anchor
             v-if="computedIsAnchor"
             v-bind="computedAnchor"
-            class="lkt-button"
+            class="lkt-button-main"
             @active="onRouteActive"
         >
             <i v-if="computedIcon" :class="computedIcon" />
@@ -477,7 +477,7 @@
         <component
             v-else
             :is="computedButtonComponent"
-            class="lkt-button"
+            class="lkt-button-main"
             ref="button"
             :class="classes"
             :name="name"
