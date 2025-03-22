@@ -63,7 +63,7 @@
     watch(() => props.openTooltip, v => showTooltip.value = v);
     watch(showTooltip, v => emit('update:openTooltip', v));
 
-    const classes = computed(() => {
+    const computedContainerClass = computed(() => {
             let r = [];
             if (props.class) r.push(props.class);
             if (computedIsSplit.value) r.push('lkt-split-button');
@@ -73,10 +73,6 @@
             if (showTooltip.value) r.push('show-tooltip');
             if (showDropdown.value) r.push('show-split');
             if (isChecked.value) r.push('is-checked');
-            return r.join(' ');
-        }),
-        computedContainerClass = computed(() => {
-            let r = [];
             if (props.containerClass) r.push(props.containerClass);
             return r.join(' ');
         }),
@@ -435,7 +431,7 @@
     });
 
     const computedAnchor = computed(() => {
-        if (computedIsAnchor.value) return new Anchor({ ...props.anchor, ...{ 'class': classes.value } });
+        if (computedIsAnchor.value) return new Anchor({ ...props.anchor, ...{ 'class': computedContainerClass.value } });
         return {};
     });
 </script>
@@ -479,7 +475,6 @@
             :is="computedButtonComponent"
             class="lkt-button-main"
             ref="button"
-            :class="classes"
             :name="name"
             :type="type"
             :disabled="computedIsDisabled"

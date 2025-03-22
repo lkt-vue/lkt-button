@@ -3,7 +3,7 @@ import { Anchor, ButtonConfig, ButtonType, FieldType, LktObject, ModalConfig } f
 declare const slots: SetupContext['slots'];
 declare const Identifier: string;
 declare const isLoading: import("vue").Ref<boolean, boolean>, container: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, button: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, showDropdown: import("vue").Ref<boolean, boolean>, showTooltip: import("vue").Ref<boolean, boolean>, isHovered: import("vue").Ref<boolean, boolean>, isChecked: import("vue").Ref<boolean, boolean>, fileFieldValue: import("vue").Ref<undefined, undefined>, fileFieldRef: import("vue").Ref<ComponentPublicInstance | null, ComponentPublicInstance | null>;
-declare const classes: import("vue").ComputedRef<string>, computedContainerClass: import("vue").ComputedRef<string>, computedText: import("vue").ComputedRef<any>, computedIcon: import("vue").ComputedRef<import("lkt-vue-kernel").ValidScanPropTarget>, computedIconEnd: import("vue").ComputedRef<import("lkt-vue-kernel").ValidScanPropTarget>, hasCustomSplitIconSlot: import("vue").ComputedRef<boolean>, customSplitIconSlot: import("vue").ComputedRef<string | import("vue").Component | undefined>, computedIconDotText: import("vue").ComputedRef<string | number>;
+declare const computedContainerClass: import("vue").ComputedRef<string>, computedText: import("vue").ComputedRef<any>, computedIcon: import("vue").ComputedRef<import("lkt-vue-kernel").ValidScanPropTarget>, computedIconEnd: import("vue").ComputedRef<import("lkt-vue-kernel").ValidScanPropTarget>, hasCustomSplitIconSlot: import("vue").ComputedRef<boolean>, customSplitIconSlot: import("vue").ComputedRef<string | import("vue").Component | undefined>, computedIconDotText: import("vue").ComputedRef<string | number>;
 declare const computedRenderTooltip: import("vue").ComputedRef<boolean>;
 declare const computedRenderSplit: import("vue").ComputedRef<boolean>;
 declare const onFocus: ($event: FocusEvent) => void;
@@ -55,7 +55,6 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     isChecked: typeof isChecked;
     fileFieldValue: typeof fileFieldValue;
     fileFieldRef: typeof fileFieldRef;
-    classes: typeof classes;
     computedContainerClass: typeof computedContainerClass;
     computedText: typeof computedText;
     computedIcon: typeof computedIcon;

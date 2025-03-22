@@ -1,6 +1,7 @@
 .lkt-button {
     display: var(--lkt-button--container--display, inline-flex);
     position: var(--lkt-button--container--position, relative);
+    width: var(--lkt-button--container--width, auto);
 }
 
 .lkt-button-main {

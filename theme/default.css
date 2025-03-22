@@ -1,4 +1,4 @@
-:root {
+.lkt-button {
     --lkt-button--display: flex;
     --lkt-button--align-items: center;
     --lkt-button--justify-content: center;
@@ -48,6 +48,7 @@
     /** Element: Container */
     --lkt-button--container--display: inline-flex;
     --lkt-button--container--position: relative;
+    --lkt-button--container--width: auto;
 
     /** Element: Arrow */
     --lkt-button--arrow--display: flex;
