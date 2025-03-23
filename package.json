@@ -1,6 +1,6 @@
 {
   "name": "lkt-button",
-  "version": "2.0.15",
+  "version": "2.0.16",
   "description": "",
   "keywords": [
     "lkt",
@@ -54,7 +54,7 @@
   "peerDependencies": {
     "lkt-anchor": "^2.0.0",
     "lkt-data-state": "^1.0.11",
-    "lkt-field": "^1.2.7",
+    "lkt-field": "^2.0.0",
     "lkt-http-client": "^1.0.34",
     "lkt-i18n": "^1.1.0",
     "lkt-loader": "^1.2.0",
