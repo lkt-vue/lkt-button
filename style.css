@@ -80,13 +80,8 @@
     justify-content: var(--lkt-button--arrow--justify-content, center);
 }
 
-.lkt-button .lkt-field-switch {
-    --lkt-field-input-height: auto;
+.lkt-button .lkt-field.is-switch {
     margin-left: auto;
-}
-
-.lkt-button .lkt-field-switch label {
-    padding-left: 30px;
 }
 
 .lkt-button .lkt-button-icon-end {
