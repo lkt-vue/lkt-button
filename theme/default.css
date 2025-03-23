@@ -1,49 +1,49 @@
 .lkt-button {
-    --lkt-button--display: flex;
     --lkt-button--align-items: center;
-    --lkt-button--justify-content: center;
+    --lkt-button--background: #007ebc;
+    --lkt-button--border-color: #ddd;
+    --lkt-button--border-radius: 5px;
+    --lkt-button--border-style: solid;
+    --lkt-button--border-width: 1px;
+    --lkt-button--box-shadow: none;
+    --lkt-button--color: #ffffff;
+    --lkt-button--display: flex;
     --lkt-button--font-family: system-ui, Helvetica;
     --lkt-button--font-size: 17px;
     --lkt-button--font-weight: 400;
+    --lkt-button--gap: 5px;
+    --lkt-button--justify-content: center;
     --lkt-button--line-height: 1;
+    --lkt-button--min-height: 35px;
+    --lkt-button--min-width: 150px;
+    --lkt-button--padding: 7px;
     --lkt-button--text-align: left;
     --lkt-button--text-decoration: none;
-    --lkt-button--width: 100%;
-    --lkt-button--min-width: 150px;
-    --lkt-button--min-height: 35px;
-    --lkt-button--padding: 7px;
-    --lkt-button--gap: 5px;
-    --lkt-button--border-radius: 5px;
-    --lkt-button--border-width: 1px;
-    --lkt-button--border-style: solid;
-    --lkt-button--color: #ffffff;
-    --lkt-button--background: #007ebc;
-    --lkt-button--border-color: #ddd;
-    --lkt-button--shadow: none;
     --lkt-button--transition: all linear 100ms;
+    --lkt-button--width: 100%;
 
     /** Element: Internal image */
-    --lkt-button--img--max-width: 50px;
     --lkt-button--img--max-height: 50px;
+    --lkt-button--img--max-width: 50px;
 
     /** Element: Split Button */
+    --lkt-button--split--arrow-background: transparent;
     --lkt-button--split--arrow-width: 40px;
-    --lkt-button--split--arrow-bg: transparent;
 
     /** Element: Icon dot */
-    --lkt-button--dot--bg: var(--lkt-button--hover--background);
+    --lkt-button--dot--background: var(--lkt-button--hover--background);
+    --lkt-button--dot--border-radius: 100%;
     --lkt-button--dot--color: var(--lkt-button--hover--color);
+    --lkt-button--dot--display: block;
     --lkt-button--dot--font-size: 12px;
     --lkt-button--dot--font-style: normal;
-    --lkt-button--dot--width: 16px;
     --lkt-button--dot--height: 16px;
     --lkt-button--dot--line-height: var(--lkt-button--dot--height);
+    --lkt-button--dot--position: absolute;
     --lkt-button--dot--right: 2px;
     --lkt-button--dot--top: 2px;
     --lkt-button--dot--text-align: center;
-    --lkt-button--dot--position: absolute;
-    --lkt-button--dot--display: block;
-    --lkt-button--dot--border-radius: 100%;
+    --lkt-button--dot--width: 16px;
 
     /** Element: Container */
     --lkt-button--container--display: inline-flex;
@@ -51,21 +51,21 @@
     --lkt-button--container--width: auto;
 
     /** Element: Arrow */
-    --lkt-button--arrow--display: flex;
     --lkt-button--arrow--align-items: center;
+    --lkt-button--arrow--display: flex;
     --lkt-button--arrow--justify-content: center;
 
     /** State: Disabled */
-    --lkt-button--disabled--color: var(--disabled-contrast);
-    --lkt-button--disabled--background: var(--disabled-color);
-    --lkt-button--disabled--border-color: var(--disabled-color);
+    --lkt-button--disabled--color: #cccccc;
+    --lkt-button--disabled--background: #a4a4a4;
+    --lkt-button--disabled--border-color: #cccccc;
     --lkt-button--disabled--shadow: none;
 
     /** State: Disabled, Event: Hover */
-    --lkt-button--disabled--hover--color: var(--disabled-contrast);
-    --lkt-button--disabled--hover--background: var(--disabled-color);
-    --lkt-button--disabled--hover--border-color: var(--disabled-color);
-    --lkt-button--disabled--hover--shadow: none;
+    --lkt-button--disabled--hover--color: var(--lkt-button--disabled--color);
+    --lkt-button--disabled--hover--background: var(--lkt-button--disabled--background);
+    --lkt-button--disabled--hover--border-color: var(--lkt-button--disabled--border-color);
+    --lkt-button--disabled--hover--shadow: var(--lkt-button--disabled--shadow);
 
     /** Event: Hover */
     --lkt-button--hover--text-decoration: none;

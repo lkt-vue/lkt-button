@@ -12,7 +12,7 @@
     text-align: var(--lkt-button--text-align);
     color: var(--lkt-button--color);
     background: var(--lkt-button--background);
-    box-shadow: var(--lkt-button--shadow);
+    box-shadow: var(--lkt-button--box-shadow);
     transition: var(--lkt-button--transition);
     font-family: var(--lkt-button--font-family), serif;
     font-size: var(--lkt-button--font-size);
@@ -74,7 +74,7 @@
 .lkt-split-button-arrow {
     width: var(--lkt-button--split--arrow-width);
     height: 100%;
-    background: var(--lkt-button--split--arrow-bg);
+    background: var(--lkt-button--split--arrow-background);
     display: var(--lkt-button--arrow--display, flex);
     align-items: var(--lkt-button--arrow--align-items, center);
     justify-content: var(--lkt-button--arrow--justify-content, center);
@@ -95,7 +95,7 @@
 }
 
 .lkt-button--icon-dot {
-    background: var(--lkt-button--dot--bg);
+    background: var(--lkt-button--dot--background);
     color: var(--lkt-button--dot--color);
     font-size: var(--lkt-button--dot--font-size);
     height: var(--lkt-button--dot--height);
