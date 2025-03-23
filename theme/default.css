@@ -31,9 +31,9 @@
     --lkt-button--split--arrow-width: 40px;
 
     /** Element: Icon dot */
-    --lkt-button--dot--background: var(--lkt-button--hover--background);
+    --lkt-button--dot--background: red;
     --lkt-button--dot--border-radius: 100%;
-    --lkt-button--dot--color: var(--lkt-button--hover--color);
+    --lkt-button--dot--color: #ffffff;
     --lkt-button--dot--display: block;
     --lkt-button--dot--font-size: 12px;
     --lkt-button--dot--font-style: normal;
@@ -59,25 +59,25 @@
     --lkt-button--disabled--color: #cccccc;
     --lkt-button--disabled--background: #a4a4a4;
     --lkt-button--disabled--border-color: #cccccc;
-    --lkt-button--disabled--shadow: none;
+    --lkt-button--disabled--box-shadow: none;
 
     /** State: Disabled, Event: Hover */
     --lkt-button--disabled--hover--color: var(--lkt-button--disabled--color);
     --lkt-button--disabled--hover--background: var(--lkt-button--disabled--background);
     --lkt-button--disabled--hover--border-color: var(--lkt-button--disabled--border-color);
-    --lkt-button--disabled--hover--shadow: var(--lkt-button--disabled--shadow);
+    --lkt-button--disabled--hover--box-shadow: var(--lkt-button--disabled--box-shadow);
 
     /** Event: Hover */
-    --lkt-button--hover--text-decoration: none;
+    --lkt-button--hover--background: var(--lkt-button--background);
+    --lkt-button--hover--border-color: var(--lkt-button--border-color);
     --lkt-button--hover--border-radius: var(--lkt-button--border-radius);
     --lkt-button--hover--border-width: var(--lkt-button--border-width);
     --lkt-button--hover--color: var(--lkt-button--color);
-    --lkt-button--hover--background: var(--lkt-button--background);
-    --lkt-button--hover--border-color: var(--lkt-button--border-color);
+    --lkt-button--hover--text-decoration: none;
 
     /** Event: Focus */
-    --lkt-button--focus--border-width: var(--lkt-button--border-width);
-    --lkt-button--focus--border-style: var(--lkt-button--border-style);
     --lkt-button--focus--border-color: var(--lkt-button--color);
-    --lkt-button--focus--shadow: 0 0 0 2px var(--lkt-button--color);
+    --lkt-button--focus--border-style: var(--lkt-button--border-style);
+    --lkt-button--focus--border-width: var(--lkt-button--border-width);
+    --lkt-button--focus--box-shadow: 0 0 0 2px var(--lkt-button--focus--border-color);
 }

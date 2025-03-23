@@ -49,26 +49,26 @@
     color: var(--lkt-button--disabled--color);
     background: var(--lkt-button--disabled--background);
     border-color: var(--lkt-button--disabled--border-color);
-    box-shadow: var(--lkt-button--disabled--shadow);
+    box-shadow: var(--lkt-button--disabled--box-shadow);
 }
 
 .lkt-button-main:disabled:hover {
     color: var(--lkt-button--disabled--hover--color);
     background: var(--lkt-button--disabled--hover--background);
     border-color: var(--lkt-button--disabled--hover--border-color);
-    box-shadow: var(--lkt-button--disabled--hover--shadow);
+    box-shadow: var(--lkt-button--disabled--hover--box-shadow);
 }
 
 .lkt-button-main:focus {
     outline: 0;
     border: var(--lkt-button--focus--border-width) var(--lkt-button--focus--border-style) var(--lkt-button--focus--border-color);
-    box-shadow: var(--lkt-button--focus--shadow);
+    box-shadow: var(--lkt-button--focus--box-shadow);
 }
 
 .lkt-button-main:active {
     outline: 0;
     border: var(--lkt-button--border-width) var(--lkt-button--border-style) var(--lkt-button--focus--border-color);
-    box-shadow: var(--lkt-button--focus--shadow);
+    box-shadow: var(--lkt-button--focus--box-shadow);
 }
 
 .lkt-split-button-arrow {
