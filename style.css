@@ -1,7 +1,21 @@
 .lkt-button {
+    background: var(--lkt-button--background);
     display: var(--lkt-button--container--display, inline-flex);
     position: var(--lkt-button--container--position, relative);
     width: var(--lkt-button--container--width, auto);
+    color: var(--lkt-button--color);
+    text-decoration: var(--lkt-button--text-decoration);
+    transition: var(--lkt-button--transition);
+    border-radius: var(--lkt-button--border-radius);
+    border-width: var(--lkt-button--border-width);
+    border-style: var(--lkt-button--border-style);
+    border-color: var(--lkt-button--border-color);
+    font-size: var(--lkt-button--font-size);
+    font-weight: var(--lkt-button--font-weight);
+    line-height: var(--lkt-button--line-height);
+    text-align: var(--lkt-button--text-align);
+    font-family: var(--lkt-button--font-family), serif;
+    box-shadow: var(--lkt-button--box-shadow);
 }
 
 .lkt-button-main {
@@ -9,25 +23,19 @@
     align-items: var(--lkt-button--align-items, center);
     justify-content: var(--lkt-button--justify-content, center);
     cursor: default;
-    text-align: var(--lkt-button--text-align);
-    color: var(--lkt-button--color);
-    background: var(--lkt-button--background);
-    box-shadow: var(--lkt-button--box-shadow);
-    transition: var(--lkt-button--transition);
-    font-family: var(--lkt-button--font-family), serif;
-    font-size: var(--lkt-button--font-size);
-    font-weight: var(--lkt-button--font-weight);
-    line-height: var(--lkt-button--line-height);
-    border-radius: var(--lkt-button--border-radius);
-    border-width: var(--lkt-button--border-width);
-    border-style: var(--lkt-button--border-style);
-    border-color: var(--lkt-button--border-color);
     min-width: var(--lkt-button--min-width);
     min-height: var(--lkt-button--min-height);
     width: var(--lkt-button--width, 100%);
-    padding: var(--lkt-button--padding);
     gap: var(--lkt-button--gap);
-    text-decoration: var(--lkt-button--text-decoration);
+    padding: var(--lkt-button--padding);
+
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: inherit;
+    text-align: inherit;
 }
 
 .lkt-button img {
@@ -35,7 +43,7 @@
     max-height: var(--lkt-button--img--max-height);
 }
 
-.lkt-button-main:hover {
+.lkt-button:hover {
     color: var(--lkt-button--hover--color);
     background: var(--lkt-button--hover--background);
     border-radius: var(--lkt-button--hover--border-radius, var(--lkt-button--border-radius));
@@ -44,22 +52,25 @@
     text-decoration: var(--lkt-button--hover--text-decoration);
 }
 
-.lkt-button-main:disabled {
-    cursor: not-allowed;
+.lkt-button.is-disabled {
     color: var(--lkt-button--disabled--color);
     background: var(--lkt-button--disabled--background);
     border-color: var(--lkt-button--disabled--border-color);
     box-shadow: var(--lkt-button--disabled--box-shadow);
 }
 
-.lkt-button-main:disabled:hover {
+.lkt-button.is-disabled .lkt-button-main {
+    cursor: not-allowed;
+}
+
+.lkt-button.is-disabled:hover {
     color: var(--lkt-button--disabled--hover--color);
     background: var(--lkt-button--disabled--hover--background);
     border-color: var(--lkt-button--disabled--hover--border-color);
     box-shadow: var(--lkt-button--disabled--hover--box-shadow);
 }
 
-.lkt-button-main:focus {
+.lkt-button.has-focus {
     outline: 0;
     border: var(--lkt-button--focus--border-width) var(--lkt-button--focus--border-style) var(--lkt-button--focus--border-color);
     box-shadow: var(--lkt-button--focus--box-shadow);
@@ -67,8 +78,8 @@
 
 .lkt-button-main:active {
     outline: 0;
-    border: var(--lkt-button--border-width) var(--lkt-button--border-style) var(--lkt-button--focus--border-color);
-    box-shadow: var(--lkt-button--focus--box-shadow);
+    border: none;
+    box-shadow: none;
 }
 
 .lkt-split-button-arrow {
@@ -82,6 +93,7 @@
 
 .lkt-button .lkt-field.is-switch {
     margin-left: auto;
+    max-width: var(--lkt-field--switch--width);
 }
 
 .lkt-button .lkt-button-icon-end {
@@ -103,4 +115,10 @@
     display: var(--lkt-button--dot--display, block);
     border-radius: var(--lkt-button--dot--border-radius, 100%);
     font-style: var(--lkt-button--dot--font-style, normal);
+}
+
+.lkt-button .lkt-anchor {
+    --lkt-anchor--color: var(--lkt-button--color);
+    --lkt-anchor--hover--color: var(--lkt-button--hover--color);
+    --lkt-anchor--active--color: var(--lkt-button--color);
 }

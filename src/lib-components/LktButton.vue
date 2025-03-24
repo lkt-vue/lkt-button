@@ -55,6 +55,7 @@
         showTooltipOnHoverTimeout = ref(undefined),
         isChecked = ref(props.checked),
         fileFieldValue = ref(undefined),
+        hasFocus = ref(false),
         fileFieldRef = ref(<ComponentPublicInstance | null>null)
     ;
 
@@ -73,6 +74,8 @@
             if (showTooltip.value) r.push('show-tooltip');
             if (showDropdown.value) r.push('show-split');
             if (isChecked.value) r.push('is-checked');
+            if (computedIsDisabled.value) r.push('is-disabled');
+            if (hasFocus.value) r.push('has-focus');
             if (props.containerClass) r.push(props.containerClass);
             return r.join(' ');
         }),
@@ -154,6 +157,7 @@
     });
 
     const onFocus = ($event: FocusEvent) => {
+        hasFocus.value = true;
         if (nextFocusEventless.value) {
             nextFocusEventless.value = false;
             emit('focus');
@@ -162,6 +166,7 @@
         emit('focus', $event);
     };
     const onBlur = ($event: Event) => {
+        hasFocus.value = false;
         emit('blur', $event);
     };
 
