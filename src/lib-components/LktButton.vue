@@ -7,13 +7,14 @@
     import { debug } from '../functions/settings-functions';
     import { useRouter } from 'vue-router';
     import {
-        Anchor,
         BeforeCloseModalData,
         Button,
         ButtonConfig,
         ButtonType,
         extractI18nValue,
-        extractPropValue, FieldConfig, FieldType,
+        extractPropValue,
+        FieldConfig,
+        FieldType,
         getDefaultValues,
         LktObject,
         LktSettings,
@@ -325,10 +326,10 @@
                                 $event.preventDefault();
                                 $event.stopPropagation();
                             }
-                            if (props.anchor.external) {
+                            if (props.anchor?.external) {
 
-                            } else if (typeof props.anchor.to !== 'undefined') {
-                                router.push(props.anchor.to);
+                            } else if (typeof props.anchor?.to !== 'undefined') {
+                                router.push(props.anchor?.to);
                             }
                             return;
                         }
@@ -345,14 +346,14 @@
             return doResourceClick($event);
         }
 
-        if (props.anchor?.to !== '') {
+        if (typeof props.anchor?.to !== 'undefined' && props.anchor?.to !== '') {
             debug('Click -> Is Anchor', props.anchor);
-            if (props.anchor.external) {
-                if (typeof props.anchor.to === 'string') {
+            if (props.anchor?.external) {
+                if (typeof props.anchor?.to === 'string') {
                     window.location.href = props.anchor.to;
                 }
 
-            } else if (typeof props.anchor.to !== 'undefined') {
+            } else {
                 router.push(props.anchor.to);
             }
             return;
@@ -436,7 +437,7 @@
     });
 
     const computedAnchor = computed(() => {
-        if (computedIsAnchor.value) return new Anchor({ ...props.anchor, ...{ 'class': computedContainerClass.value } });
+        if (computedIsAnchor.value) return { ...props.anchor, ...{ 'class': computedContainerClass.value } };
         return {};
     });
 </script>

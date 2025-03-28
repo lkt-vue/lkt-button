@@ -1,5 +1,5 @@
 import { ComponentPublicInstance, SetupContext } from 'vue';
-import { Anchor, ButtonConfig, ButtonType, FieldType, LktObject, ModalConfig } from 'lkt-vue-kernel';
+import { ButtonConfig, ButtonType, FieldType, LktObject, ModalConfig } from 'lkt-vue-kernel';
 declare const slots: SetupContext['slots'];
 declare const Identifier: string;
 declare const isLoading: import("vue").Ref<boolean, boolean>, container: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, button: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, showDropdown: import("vue").Ref<boolean, boolean>, showTooltip: import("vue").Ref<boolean, boolean>, isHovered: import("vue").Ref<boolean, boolean>, isChecked: import("vue").Ref<boolean, boolean>, fileFieldValue: import("vue").Ref<undefined, undefined>, fileFieldRef: import("vue").Ref<ComponentPublicInstance | null, ComponentPublicInstance | null>;
@@ -96,7 +96,7 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     "onUpdate:checked"?: ((...args: any[]) => any) | undefined;
     "onUpdate:openTooltip"?: ((...args: any[]) => any) | undefined;
 }>, {
-    anchor: import("lkt-vue-kernel").AnchorConfig | Anchor;
+    anchor: import("lkt-vue-kernel").AnchorConfig;
     name: string;
     type: ButtonType;
     value: string;
@@ -127,6 +127,8 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     iconOff: string | number;
     iconEndOn: string | number;
     iconEndOff: string | number;
+    anchorOn: import("lkt-vue-kernel").AnchorConfig;
+    anchorOff: import("lkt-vue-kernel").AnchorConfig;
     resourceData: LktObject;
     modalData: Partial<ModalConfig> | Function;
     modalCallbacks: Array<import("lkt-vue-kernel").ModalCallbackConfig>;
@@ -158,7 +160,7 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     "onUpdate:checked"?: ((...args: any[]) => any) | undefined;
     "onUpdate:openTooltip"?: ((...args: any[]) => any) | undefined;
 }>, {
-    anchor: import("lkt-vue-kernel").AnchorConfig | Anchor;
+    anchor: import("lkt-vue-kernel").AnchorConfig;
     name: string;
     type: ButtonType;
     value: string;
@@ -189,6 +191,8 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     iconOff: string | number;
     iconEndOn: string | number;
     iconEndOff: string | number;
+    anchorOn: import("lkt-vue-kernel").AnchorConfig;
+    anchorOff: import("lkt-vue-kernel").AnchorConfig;
     resourceData: LktObject;
     modalData: Partial<ModalConfig> | Function;
     modalCallbacks: Array<import("lkt-vue-kernel").ModalCallbackConfig>;
