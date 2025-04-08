@@ -127,8 +127,6 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     iconOff: string | number;
     iconEndOn: string | number;
     iconEndOff: string | number;
-    anchorOn: import("lkt-vue-kernel").AnchorConfig;
-    anchorOff: import("lkt-vue-kernel").AnchorConfig;
     resourceData: LktObject;
     modalData: Partial<ModalConfig> | Function;
     modalCallbacks: Array<import("lkt-vue-kernel").ModalCallbackConfig>;
@@ -191,8 +189,6 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     iconOff: string | number;
     iconEndOn: string | number;
     iconEndOff: string | number;
-    anchorOn: import("lkt-vue-kernel").AnchorConfig;
-    anchorOff: import("lkt-vue-kernel").AnchorConfig;
     resourceData: LktObject;
     modalData: Partial<ModalConfig> | Function;
     modalCallbacks: Array<import("lkt-vue-kernel").ModalCallbackConfig>;

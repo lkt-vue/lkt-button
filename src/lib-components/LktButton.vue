@@ -116,10 +116,10 @@
             return props.dot;
         });
 
-    const endClickMethod = ($event: MouseEvent | null, httpResponse: HTTPResponse | undefined = undefined) => {
+    const endClickMethod = ($event: MouseEvent | undefined | null, httpResponse: HTTPResponse | undefined = undefined) => {
         debug('endClickMethod', $event, httpResponse);
         doModalCallbackActions();
-        doConfigClick();
+        doConfigClick($event === null ? undefined : $event, httpResponse);
         emit('click', $event, httpResponse);
     };
 
@@ -190,9 +190,12 @@
                 runModalCallback(config);
             });
         },
-        doConfigClick = () => {
+        doConfigClick = ($event: MouseEvent|undefined, response?: HTTPResponse) => {
             debug('doConfigClick: ', props);
-            if (typeof props.events?.click === 'function') props.events.click();
+            if (typeof props.events?.click === 'function') props.events.click({
+                event: $event,
+                httpResponse: response
+            });
         };
 
     const computedIsSplit = computed(() => {
