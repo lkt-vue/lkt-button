@@ -41,8 +41,6 @@
     // Calculated data
     let calculatedModal = extractPropValue(props.modal, props.prop) as ValidModalName;
     let calculatedModalKey = extractPropValue(props.modalKey, props.prop) as ValidModalKey;
-    let calculatedIcon = extractPropValue(props.icon, props.prop);
-    let calculatedIconEnd = extractPropValue(props.iconEnd, props.prop);
 
     const Identifier = 'lkt-button-' + generateRandomString();
 
@@ -88,18 +86,20 @@
             return extractI18nValue(props.text);
         }),
         computedIcon = computed(() => {
+            let cfg = props.icon;
             if (props.type === ButtonType.Switch || props.type === ButtonType.HiddenSwitch) {
-                if (isChecked.value && typeof props.iconOn !== 'undefined') return props.iconOn;
-                if (!isChecked.value && typeof props.iconOff !== 'undefined') return props.iconOff;
+                if (isChecked.value && typeof props.iconOn !== 'undefined') cfg = props.iconOn;
+                else if (!isChecked.value && typeof props.iconOff !== 'undefined') cfg = props.iconOff;
             }
-            return calculatedIcon;
+            return extractPropValue(cfg, props.prop);
         }),
         computedIconEnd = computed(() => {
+            let cfg = props.iconEnd;
             if (props.type === ButtonType.Switch || props.type === ButtonType.HiddenSwitch) {
-                if (isChecked.value && typeof props.iconEndOn !== 'undefined') return props.iconEndOn;
-                if (!isChecked.value && typeof props.iconEndOff !== 'undefined') return props.iconEndOff;
+                if (isChecked.value && typeof props.iconOn !== 'undefined') cfg = props.iconEndOn;
+                else if (!isChecked.value && typeof props.iconOff !== 'undefined') cfg = props.iconEndOff;
             }
-            return calculatedIconEnd;
+            return extractPropValue(cfg, props.prop);
         }),
         computedModalData = computed((): ModalConfig => {
             if (typeof props.modalData === 'function') return props.modalData(props.prop);
@@ -440,7 +440,7 @@
     });
 
     const computedAnchor = computed(() => {
-        if (computedIsAnchor.value) return { ...props.anchor, ...{ 'class': computedContainerClass.value } };
+        if (computedIsAnchor.value) return { ...props.anchor, ...{ 'class': computedContainerClass.value }, prop: props.prop };
         return {};
     });
 </script>
