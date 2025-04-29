@@ -290,7 +290,7 @@
 
         if (props.confirmModal) {
             debug('Click -> has confirm modal', props.confirmModal, props.confirmData);
-            debug('Click -> typeof onConfirm: ', typeof props.confirmData.events?.click);
+            debug('Click -> typeof confirmData.events?.click: ', typeof props.confirmData.events?.click);
 
             let confirmData = { ...props.confirmData };
 
@@ -304,9 +304,9 @@
 
             if (typeof confirmData.confirmButton?.events?.click === 'function') {
                 let externalConfirmAction = confirmData.confirmButton?.events?.click;
-                debug('Click -> Has onConfirm function: ', externalConfirmAction);
+                debug('Click -> Has confirmData.events?.click function: ', externalConfirmAction);
                 confirmData.confirmButton.events.click = () => {
-                    debug('OnConfirm -> Already: ', props);
+                    debug('confirmData.events?.click -> Already: ', props);
                     if (props.resource) {
                         return doResourceClick($event).then(() => {
                             externalConfirmAction();
@@ -316,11 +316,11 @@
                         endClickMethod($event);
                     }
                 };
-                debug('Click -> New onConfirm function created: ', confirmData.confirmButton?.events?.click);
+                debug('Click -> New confirmData.events?.click function created: ', confirmData.confirmButton?.events?.click);
 
             } else {
                 confirmData.confirmButton.events.click = () => {
-                    debug('OnConfirm -> Created: ', props);
+                    debug('confirmData.events?.click -> Created: ', props);
                     if (props.resource) {
                         return doResourceClick($event);
                     } else {
@@ -339,7 +339,7 @@
                         endClickMethod($event);
                     }
                 };
-                debug('Click -> New onConfirm function created: ', confirmData.confirmButton?.events.click);
+                debug('Click -> New confirmData.events?.click function created: ', confirmData.confirmButton?.events.click);
             }
             return openConfirm(props.confirmModal, props.confirmModalKey, confirmData);
         }
