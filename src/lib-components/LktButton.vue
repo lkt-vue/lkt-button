@@ -127,16 +127,32 @@
         debug('Resource Click', props.resource, props.resourceData);
         isLoading.value = true;
         emit('loading');
+        if (typeof props.events?.httpStart === 'function') {
+            debug('Resource Click -> httpStart event');
+            props.events.httpStart();
+        }
         let data = { ...props.resourceData, isChecked: isChecked.value };
         return httpCall(props.resource, data).then((r: any) => {
             isLoading.value = false;
             emit('loaded');
             debug('Resource Click -> Received response', r);
+            if (typeof props.events?.httpEnd === 'function') {
+                debug('Resource Click -> httpEnd event');
+                props.events.httpEnd({
+                    httpResponse: r,
+                });
+            }
             endClickMethod($event, r);
         }).catch((r: any) => {
             isLoading.value = false;
             emit('loaded');
             debug('Resource Click -> Received response error', r);
+            if (typeof props.events?.httpEnd === 'function') {
+                debug('Resource Click -> httpEnd event');
+                props.events.httpEnd({
+                    httpResponse: r,
+                });
+            }
             endClickMethod($event, r);
         });
     };

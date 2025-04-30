@@ -116,7 +116,12 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     confirmModal: string | Function;
     confirmModalKey: string | number | Function;
     confirmData: Partial<ModalConfig>;
-    events: import("lkt-vue-kernel").EventsConfig;
+    events: {
+        click?: (data: import("lkt-vue-kernel").ClickEventArgs) => void | undefined;
+        httpStart?: undefined | Function;
+        httpEnd?: (data: import("lkt-vue-kernel").ClickEventArgs) => void | undefined;
+    };
+    prop: LktObject;
     openTooltip: boolean;
     containerClass: string;
     wrapContent: boolean;
@@ -135,7 +140,6 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     showTooltipOnHoverDelay: number;
     hideTooltipOnLeave: boolean;
     splitClass: string;
-    prop: LktObject;
     clickRef: Element | import("vue").VueElement;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
@@ -178,7 +182,12 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     confirmModal: string | Function;
     confirmModalKey: string | number | Function;
     confirmData: Partial<ModalConfig>;
-    events: import("lkt-vue-kernel").EventsConfig;
+    events: {
+        click?: (data: import("lkt-vue-kernel").ClickEventArgs) => void | undefined;
+        httpStart?: undefined | Function;
+        httpEnd?: (data: import("lkt-vue-kernel").ClickEventArgs) => void | undefined;
+    };
+    prop: LktObject;
     openTooltip: boolean;
     containerClass: string;
     wrapContent: boolean;
@@ -197,7 +206,6 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     showTooltipOnHoverDelay: number;
     hideTooltipOnLeave: boolean;
     splitClass: string;
-    prop: LktObject;
     clickRef: Element | import("vue").VueElement;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 declare const _default: __VLS_WithSlots<typeof __VLS_component, __VLS_Slots>;
