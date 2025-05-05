@@ -39,7 +39,6 @@
         router = useRouter();
 
     // Calculated data
-    let calculatedModal = extractPropValue(props.modal, props.prop) as ValidModalName;
     let calculatedModalKey = extractPropValue(props.modalKey, props.prop) as ValidModalKey;
 
     const Identifier = 'lkt-button-' + generateRandomString();
@@ -100,6 +99,10 @@
                 else if (!isChecked.value && typeof props.iconOff !== 'undefined') cfg = props.iconEndOff;
             }
             return extractPropValue(cfg, props.prop);
+        }),
+        computedModal = computed((): ValidModalName => {
+            if (typeof props.modal === 'function') return props.modal(props.prop) as ValidModalName;
+            return extractPropValue(props.modal, props.prop) as ValidModalName;
         }),
         computedModalData = computed((): ModalConfig => {
             if (typeof props.modalData === 'function') return props.modalData(props.prop);
@@ -267,7 +270,7 @@
             return;
         }
 
-        if (calculatedModal) {
+        if (computedModal.value) {
             let modalData = { ...computedModalData.value };
             debug('Click -> has modal', props.modal, modalData);
             debug('Click -> typeof beforeClose: ', typeof modalData.beforeClose);
@@ -298,8 +301,8 @@
                 debug('Click -> New beforeClose function: ', modalData.beforeClose);
             }
 
-            let modal = calculatedModal;
-            if (typeof calculatedModal === 'function') modal = calculatedModal();
+            let modal = computedModal.value;
+            if (typeof computedModal.value === 'function') modal = computedModal.value();
 
             return openModal(modal, calculatedModalKey, modalData);
         }
