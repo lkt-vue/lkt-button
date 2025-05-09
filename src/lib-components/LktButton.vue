@@ -577,6 +577,11 @@
             :class="splitClass"
         >
             <template #default="{doClose}" v-if="computedRenderSplit">
+                <lkt-button
+                    v-for="splitButton in splitButtons"
+                    v-bind="splitButton"
+                    @click="doClose"
+                />
                 <slot name="split"
                       :do-close="doClose"
                       :do-root-click="doRootClick" />
@@ -590,6 +595,11 @@
             :referrer="container"
         >
             <template #default="{doClose}" v-if="computedRenderTooltip">
+                <lkt-button
+                    v-for="splitButton in splitButtons"
+                    v-bind="splitButton"
+                    @click="doClose"
+                />
                 <slot
                     name="tooltip"
                     :do-close="doClose"

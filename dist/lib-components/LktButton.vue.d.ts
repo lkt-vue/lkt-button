@@ -23,10 +23,10 @@ declare var __VLS_9: {
     text: any;
 }, __VLS_11: {}, __VLS_29: {
     text: any;
-}, __VLS_31: {}, __VLS_63: {
+}, __VLS_31: {}, __VLS_71: {
     doClose: any;
     doRootClick: ($event: MouseEvent) => void | Promise<void>;
-}, __VLS_69: {
+}, __VLS_85: {
     doClose: any;
     doRootClick: ($event: MouseEvent) => void | Promise<void>;
 };
@@ -39,9 +39,9 @@ type __VLS_Slots = __VLS_PrettifyGlobal<__VLS_OmitStringIndex<typeof __VLS_ctx.$
 } & {
     default?: (props: typeof __VLS_31) => any;
 } & {
-    split?: (props: typeof __VLS_63) => any;
+    split?: (props: typeof __VLS_71) => any;
 } & {
-    tooltip?: (props: typeof __VLS_69) => any;
+    tooltip?: (props: typeof __VLS_85) => any;
 }>;
 declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     slots: typeof slots;
@@ -140,6 +140,7 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     showTooltipOnHoverDelay: number;
     hideTooltipOnLeave: boolean;
     splitClass: string;
+    splitButtons: Array<ButtonConfig>;
     clickRef: Element | import("vue").VueElement;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
@@ -206,6 +207,7 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     showTooltipOnHoverDelay: number;
     hideTooltipOnLeave: boolean;
     splitClass: string;
+    splitButtons: Array<ButtonConfig>;
     clickRef: Element | import("vue").VueElement;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 declare const _default: __VLS_WithSlots<typeof __VLS_component, __VLS_Slots>;
