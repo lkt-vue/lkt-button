@@ -126,15 +126,29 @@
         emit('click', $event, httpResponse);
     };
 
+    const computedResourceData = computed(() => {
+
+        if (typeof props.resourceData === 'function') return props.resourceData(props.prop);
+        if (typeof props.resourceData === 'string') return extractPropValue(props.resourceData, props.prop);
+        if (typeof props.resourceData === 'object' && !Array.isArray(props.resourceData)) {
+            let r = {};
+            for (let k in props.resourceData) {
+                r[k] = extractPropValue(props.resourceData[k], props.prop);
+            }
+            return r;
+        }
+        return props.resourceData;
+    })
+
     const doResourceClick = async ($event: MouseEvent | null) => {
-        debug('Resource Click', props.resource, props.resourceData);
+        debug('Resource Click', props.resource, computedResourceData.value);
         isLoading.value = true;
         emit('loading');
         if (typeof props.events?.httpStart === 'function') {
             debug('Resource Click -> httpStart event');
             props.events.httpStart();
         }
-        let data = { ...props.resourceData, isChecked: isChecked.value };
+        let data = { ...computedResourceData.value, isChecked: isChecked.value };
         return httpCall(props.resource, data).then((r: any) => {
             isLoading.value = false;
             emit('loaded');
@@ -459,7 +473,11 @@
     });
 
     const computedAnchor = computed(() => {
-        if (computedIsAnchor.value) return { ...props.anchor, ...{ 'class': computedContainerClass.value }, prop: props.prop };
+        if (computedIsAnchor.value) return {
+            ...props.anchor,
+            ...{ 'class': computedContainerClass.value },
+            prop: props.prop
+        };
         return {};
     });
 </script>
@@ -549,7 +567,7 @@
                 v-bind="<FieldConfig>{
                     fileUploadHttp: {
                         resource: resource,
-                        data: resourceData,
+                        data: computedResourceData,
                     }
                 }"
                 :disabled="disabled"

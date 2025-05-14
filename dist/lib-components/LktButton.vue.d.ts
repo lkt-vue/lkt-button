@@ -4,6 +4,7 @@ declare const slots: SetupContext['slots'];
 declare const Identifier: string;
 declare const isLoading: import("vue").Ref<boolean, boolean>, container: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, button: import("vue").Ref<Element | ComponentPublicInstance | null, Element | ComponentPublicInstance | null>, showDropdown: import("vue").Ref<boolean, boolean>, showTooltip: import("vue").Ref<boolean, boolean>, isHovered: import("vue").Ref<boolean, boolean>, isChecked: import("vue").Ref<boolean, boolean>, fileFieldValue: import("vue").Ref<undefined, undefined>, fileFieldRef: import("vue").Ref<ComponentPublicInstance | null, ComponentPublicInstance | null>;
 declare const computedContainerClass: import("vue").ComputedRef<string>, computedText: import("vue").ComputedRef<any>, computedIcon: import("vue").ComputedRef<import("lkt-vue-kernel").ValidScanPropTarget>, computedIconEnd: import("vue").ComputedRef<import("lkt-vue-kernel").ValidScanPropTarget>, hasCustomSplitIconSlot: import("vue").ComputedRef<boolean>, customSplitIconSlot: import("vue").ComputedRef<string | import("vue").Component | undefined>, computedIconDotText: import("vue").ComputedRef<string | number>;
+declare const computedResourceData: import("vue").ComputedRef<any>;
 declare const computedRenderTooltip: import("vue").ComputedRef<boolean>;
 declare const computedRenderSplit: import("vue").ComputedRef<boolean>;
 declare const onFocus: ($event: FocusEvent) => void;
@@ -62,6 +63,7 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     hasCustomSplitIconSlot: typeof hasCustomSplitIconSlot;
     customSplitIconSlot: typeof customSplitIconSlot;
     computedIconDotText: typeof computedIconDotText;
+    computedResourceData: typeof computedResourceData;
     computedRenderTooltip: typeof computedRenderTooltip;
     computedRenderSplit: typeof computedRenderSplit;
     onFocus: typeof onFocus;
