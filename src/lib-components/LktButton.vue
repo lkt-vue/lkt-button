@@ -451,6 +451,16 @@
         return 'button';
     });
 
+    const computedComponentType = computed(() => {
+        switch (props.type) {
+            case ButtonType.Button:
+            case ButtonType.Submit:
+                return props.type;
+            default:
+                return 'button';
+        }
+    });
+
     const computedIsDisabled = computed(() => {
         if (props.disabled === undefined) return false;
         if (typeof props.disabled === 'function') return props.disabled({
@@ -522,7 +532,7 @@
             class="lkt-button-main"
             ref="button"
             :name="name"
-            :type="type"
+            :type="computedComponentType"
             :disabled="computedIsDisabled"
             :tabindex="tabindex"
             @click="doClick"

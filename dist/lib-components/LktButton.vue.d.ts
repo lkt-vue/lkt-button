@@ -14,6 +14,7 @@ declare const computedIsSplit: import("vue").ComputedRef<boolean>;
 declare const computedIsTooltip: import("vue").ComputedRef<boolean>;
 declare const doClick: ($event: MouseEvent | null) => void | Promise<void>;
 declare const computedButtonComponent: import("vue").ComputedRef<"button" | "div">;
+declare const computedComponentType: import("vue").ComputedRef<"button" | ButtonType.Button | ButtonType.Submit>;
 declare const computedIsDisabled: import("vue").ComputedRef<boolean>;
 declare const doRootClick: ($event: MouseEvent) => void | Promise<void>;
 declare const onRouteActive: (v: any) => any;
@@ -76,6 +77,7 @@ declare const __VLS_self: import("vue").DefineComponent<ButtonConfig, {
     computedIsTooltip: typeof computedIsTooltip;
     doClick: typeof doClick;
     computedButtonComponent: typeof computedButtonComponent;
+    computedComponentType: typeof computedComponentType;
     computedIsDisabled: typeof computedIsDisabled;
     doRootClick: typeof doRootClick;
     onRouteActive: typeof onRouteActive;
