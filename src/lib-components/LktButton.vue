@@ -15,7 +15,7 @@
         extractPropValue,
         FieldConfig,
         FieldType,
-        getDefaultValues,
+        getDefaultValues, IconConfig,
         LktObject,
         LktSettings,
         ModalConfig,
@@ -539,7 +539,7 @@
             @focus="onFocus"
             @blur="onBlur"
         >
-            <i v-if="computedIcon" :class="computedIcon" />
+            <lkt-icon v-if="computedIcon" v-bind="<IconConfig>{icon: computedIcon}"/>
             <i v-if="computedIcon && dot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
             <img v-if="img" :src="img" :alt="computedText" />
 
@@ -584,7 +584,7 @@
                 @click.stop="() => {}"
             />
 
-            <i v-if="computedIconEnd" :class="computedIconEnd" class="lkt-button-icon-end" />
+            <lkt-icon v-if="computedIconEnd" v-bind="<IconConfig>{icon: computedIconEnd, class: 'lkt-button-icon-end'}"/>
 
             <div v-if="computedIsSplit" class="lkt-split-button-arrow">
                 <template v-if="splitIcon">
