@@ -599,8 +599,10 @@
         <lkt-tooltip
             v-if="computedIsSplit && container"
             v-model="showDropdown"
-            v-bind="tooltip"
-            :referrer="container"
+            v-bind="{
+                referrer: container,
+                ...tooltip
+            }"
             class="lkt-split-button-dropdown-content"
             :class="splitClass"
         >
@@ -619,8 +621,10 @@
         <lkt-tooltip
             v-if="computedIsTooltip && container"
             v-model="showTooltip"
-            v-bind="tooltip"
-            :referrer="container"
+            v-bind="{
+                referrer: container,
+                ...tooltip
+            }"
         >
             <template #default="{doClose}" v-if="computedRenderTooltip">
                 <lkt-button

@@ -340,8 +340,10 @@ const gt = (h = !0) => {
           key: 2,
           modelValue: O.value,
           "onUpdate:modelValue": l[2] || (l[2] = (c) => O.value = c)
-        }, t.tooltip, {
+        }, {
           referrer: B.value,
+          ...t.tooltip
+        }, {
           class: ["lkt-split-button-dropdown-content", t.splitClass]
         }), Re({ _: 2 }, [
           ze.value ? {
@@ -355,12 +357,15 @@ const gt = (h = !0) => {
             ]),
             key: "0"
           } : void 0
-        ]), 1040, ["modelValue", "referrer", "class"])) : r("", !0),
+        ]), 1040, ["modelValue", "class"])) : r("", !0),
         le.value && B.value ? (n(), p(j, D({
           key: 3,
           modelValue: m.value,
           "onUpdate:modelValue": l[3] || (l[3] = (c) => m.value = c)
-        }, t.tooltip, { referrer: B.value }), Re({ _: 2 }, [
+        }, {
+          referrer: B.value,
+          ...t.tooltip
+        }), Re({ _: 2 }, [
           Ne.value ? {
             name: "default",
             fn: q(({ doClose: c }) => [
@@ -372,7 +377,7 @@ const gt = (h = !0) => {
             ]),
             key: "0"
           } : void 0
-        ]), 1040, ["modelValue", "referrer"])) : r("", !0)
+        ]), 1040, ["modelValue"])) : r("", !0)
       ], 34);
     };
   }
