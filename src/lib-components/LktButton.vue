@@ -7,6 +7,7 @@
     import { debug } from '../functions/settings-functions';
     import { useRouter } from 'vue-router';
     import {
+        AnchorConfig,
         BeforeCloseModalData,
         Button,
         ButtonConfig,
@@ -482,12 +483,39 @@
             && Object.keys(props.anchor).length > 0;
     });
 
+    const computedIconConfig = computed(():Partial<IconConfig> => {
+        if (computedIcon.value) {
+            return <IconConfig>{
+                icon: computedIcon.value,
+                dot: props.dot ? computedIconDotText.value : false
+            };
+        }
+
+        return {};
+    })
+
     const computedAnchor = computed(() => {
-        if (computedIsAnchor.value) return {
-            ...props.anchor,
-            ...{ 'class': computedContainerClass.value },
-            prop: props.prop
-        };
+        if (computedIsAnchor.value) {
+
+            let cfg:Partial<AnchorConfig> = {};
+
+            if (computedIcon.value) {
+                cfg.icon = computedIconConfig.value;
+            }
+
+            if (computedText.value) {
+                cfg.text = computedText.value;
+            }
+
+            return <AnchorConfig>{
+                ...props.anchor,
+                ...{ 'class': computedContainerClass.value },
+                ...cfg,
+                prop: props.prop
+            };
+        }
+
+
         return {};
     });
 </script>
@@ -506,8 +534,6 @@
             class="lkt-button-main"
             @active="onRouteActive"
         >
-            <i v-if="computedIcon" :class="computedIcon" />
-            <i v-if="computedIcon && dot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
             <img v-if="img" :src="img" :alt="computedText" />
 
             <template v-if="slots.text">
@@ -515,9 +541,6 @@
                     name="text"
                     :text="computedText"
                 />
-            </template>
-            <template v-else-if="computedText">
-                {{ computedText }}
             </template>
 
             <template v-if="slots.default">
@@ -539,8 +562,7 @@
             @focus="onFocus"
             @blur="onBlur"
         >
-            <lkt-icon v-if="computedIcon" v-bind="<IconConfig>{icon: computedIcon}"/>
-            <i v-if="computedIcon && dot" class="lkt-button--icon-dot">{{ computedIconDotText }}</i>
+            <lkt-icon v-if="computedIcon" v-bind="computedIconConfig"/>
             <img v-if="img" :src="img" :alt="computedText" />
 
             <template v-if="slots.text">
