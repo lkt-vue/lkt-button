@@ -484,10 +484,32 @@
     });
 
     const computedIconConfig = computed(():Partial<IconConfig> => {
-        if (computedIcon.value) {
+        if (typeof computedIcon.value === 'string') {
             return <IconConfig>{
                 icon: computedIcon.value,
                 dot: props.dot ? computedIconDotText.value : false
+            };
+        }
+
+        if (typeof computedIcon.value === 'object') {
+            return <IconConfig>computedIcon.value;
+        }
+
+        return {};
+    })
+
+    const computedIconEndConfig = computed(():Partial<IconConfig> => {
+        if (typeof computedIconEnd.value === 'string') {
+            return <IconConfig>{
+                icon: computedIconEnd.value,
+                class: 'lkt-button-icon-end'
+            };
+        }
+
+        if (typeof computedIconEnd.value === 'object') {
+            return <IconConfig>{
+                ...computedIconEnd.value,
+                class: 'lkt-button-icon-end'
             };
         }
 
@@ -606,7 +628,7 @@
                 @click.stop="() => {}"
             />
 
-            <lkt-icon v-if="computedIconEnd" v-bind="<IconConfig>{icon: computedIconEnd, class: 'lkt-button-icon-end'}"/>
+            <lkt-icon v-if="computedIconEnd" v-bind="computedIconEndConfig"/>
 
             <div v-if="computedIsSplit" class="lkt-split-button-arrow">
                 <template v-if="splitIcon">
