@@ -16,7 +16,7 @@
         extractPropValue,
         FieldConfig,
         FieldType,
-        getDefaultValues, IconConfig,
+        getDefaultValues, IconConfig, IconPosition,
         LktObject,
         LktSettings,
         ModalConfig,
@@ -94,6 +94,10 @@
             return extractPropValue(cfg, props.prop);
         }),
         computedIconEnd = computed(() => {
+            if (typeof computedIcon.value === 'object' && computedIcon.value.position === IconPosition.End) {
+                return computedIcon.value;
+            }
+
             let cfg = props.iconEnd;
             if (props.type === ButtonType.Switch || props.type === ButtonType.HiddenSwitch) {
                 if (isChecked.value && typeof props.iconOn !== 'undefined') cfg = props.iconEndOn;
@@ -491,7 +495,7 @@
             };
         }
 
-        if (typeof computedIcon.value === 'object') {
+        if (typeof computedIcon.value === 'object' && computedIcon.value.position !== IconPosition.End) {
             return <IconConfig>computedIcon.value;
         }
 
@@ -499,16 +503,24 @@
     })
 
     const computedIconEndConfig = computed(():Partial<IconConfig> => {
-        if (typeof computedIconEnd.value === 'string') {
+        console.log('de iconos va la cosa: ', computedIcon.value, computedIconEnd.value)
+        if (typeof computedIconEnd.value === 'string' && computedIconEnd.value !== '') {
             return <IconConfig>{
                 icon: computedIconEnd.value,
                 class: 'lkt-button-icon-end'
             };
         }
 
-        if (typeof computedIconEnd.value === 'object') {
+        if (typeof computedIconEnd.value === 'object' && Object.keys(computedIconEnd.value).length > 0) {
             return <IconConfig>{
                 ...computedIconEnd.value,
+                class: 'lkt-button-icon-end'
+            };
+        }
+
+        if (typeof computedIcon.value === 'object' && computedIcon.value.position === IconPosition.End) {
+            return <IconConfig>{
+                ...computedIcon.value,
                 class: 'lkt-button-icon-end'
             };
         }

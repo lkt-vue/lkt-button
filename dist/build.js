@@ -1,23 +1,23 @@
-import { defineComponent as Ye, mergeDefaults as Ze, useSlots as $e, ref as s, watch as V, computed as n, resolveComponent as M, createElementBlock as S, openBlock as a, normalizeClass as Se, createBlock as p, createCommentVNode as c, mergeProps as D, withCtx as G, renderSlot as L, unref as J, resolveDynamicComponent as De, withDirectives as et, normalizeProps as we, Fragment as ne, createTextVNode as tt, toDisplayString as ot, withModifiers as Be, vShow as lt, createSlots as Te, renderList as Oe } from "vue";
-import { generateRandomString as nt } from "lkt-string-tools";
-import { httpCall as it } from "lkt-http-client";
-import { openModal as ut, openConfirm as at, runModalCallback as rt } from "lkt-modal";
-import { useRouter as ct } from "vue-router";
-import { extractPropValue as A, ButtonType as o, extractI18nValue as ie, FieldType as Re, getDefaultValues as st, Button as ft, LktSettings as Ee } from "lkt-vue-kernel";
+import { defineComponent as Ze, mergeDefaults as $e, useSlots as et, ref as s, watch as M, computed as n, resolveComponent as L, createElementBlock as w, openBlock as a, normalizeClass as De, createBlock as d, createCommentVNode as c, mergeProps as B, withCtx as G, renderSlot as A, unref as J, resolveDynamicComponent as we, withDirectives as tt, normalizeProps as Be, Fragment as ne, createTextVNode as ot, toDisplayString as lt, withModifiers as Te, vShow as nt, createSlots as Oe, renderList as Ee } from "vue";
+import { generateRandomString as it } from "lkt-string-tools";
+import { httpCall as ut } from "lkt-http-client";
+import { openModal as at, openConfirm as rt, runModalCallback as ct } from "lkt-modal";
+import { useRouter as st } from "vue-router";
+import { extractPropValue as H, ButtonType as o, extractI18nValue as ie, IconPosition as ue, FieldType as Re, getDefaultValues as ft, Button as pt, LktSettings as Ie } from "lkt-vue-kernel";
 const Q = class Q {
 };
 Q.debugEnabled = !1, Q.defaultSplitIcon = void 0;
-let T = Q;
-const St = (y = !0) => {
-  T.debugEnabled = y;
-}, i = (...y) => {
-  T.debugEnabled && console.info("[LktButton] ", ...y);
-}, pt = ["src", "alt"], dt = ["src", "alt"], vt = {
+let E = Q;
+const Dt = (h = !0) => {
+  E.debugEnabled = h;
+}, i = (...h) => {
+  E.debugEnabled && console.info("[LktButton] ", ...h);
+}, dt = ["src", "alt"], vt = ["src", "alt"], mt = {
   key: 9,
   class: "lkt-split-button-arrow"
-}, mt = /* @__PURE__ */ Ye({
+}, kt = /* @__PURE__ */ Ze({
   __name: "LktButton",
-  props: /* @__PURE__ */ Ze({
+  props: /* @__PURE__ */ $e({
     type: {},
     name: {},
     value: {},
@@ -60,7 +60,7 @@ const St = (y = !0) => {
     prop: {},
     clickRef: {},
     events: {}
-  }, st(ft)),
+  }, ft(pt)),
   emits: [
     "click",
     "focus",
@@ -70,72 +70,74 @@ const St = (y = !0) => {
     "update:checked",
     "update:openTooltip"
   ],
-  setup(y, { expose: Ie, emit: Fe }) {
-    const e = y, h = Fe, _ = $e(), ue = ct();
-    let Ve = A(e.modalKey, e.prop);
-    const Me = "lkt-button-" + nt(), w = s(e.loading), B = s(null), W = s(null), O = s(!1), v = s(e.openTooltip), ae = s(!1), R = s(!1), E = s(void 0), f = s(e.checked), re = s(void 0), X = s(!1), Y = s(null), Z = s(!1);
-    V(() => e.openTooltip, (t) => v.value = t), V(v, (t) => h("update:openTooltip", t));
-    const ce = n(() => {
+  setup(h, { expose: Fe, emit: Ve }) {
+    const e = h, b = Ve, _ = et(), ae = st();
+    let Me = H(e.modalKey, e.prop);
+    const Le = "lkt-button-" + it(), T = s(e.loading), O = s(null), W = s(null), R = s(!1), m = s(e.openTooltip), re = s(!1), I = s(!1), F = s(void 0), f = s(e.checked), ce = s(void 0), X = s(!1), Y = s(null), Z = s(!1);
+    M(() => e.openTooltip, (t) => m.value = t), M(m, (t) => b("update:openTooltip", t));
+    const se = n(() => {
       let t = [];
-      return e.class && t.push(e.class), N.value && t.push("lkt-split-button"), t.push(`lkt-button--${e.type}`), w.value && t.push("is-loading"), ae.value && t.push("is-active-route"), v.value && t.push("show-tooltip"), O.value && t.push("show-split"), f.value && t.push("is-checked"), fe.value && t.push("is-disabled"), X.value && t.push("has-focus"), e.containerClass && t.push(e.containerClass), t.join(" ");
-    }), g = n(() => {
+      return e.class && t.push(e.class), U.value && t.push("lkt-split-button"), t.push(`lkt-button--${e.type}`), T.value && t.push("is-loading"), re.value && t.push("is-active-route"), m.value && t.push("show-tooltip"), R.value && t.push("show-split"), f.value && t.push("is-checked"), pe.value && t.push("is-disabled"), X.value && t.push("has-focus"), e.containerClass && t.push(e.containerClass), t.join(" ");
+    }), S = n(() => {
       if (e.type === o.Switch || e.type === o.HiddenSwitch) {
         if (f.value && typeof e.textOn < "u") return ie(e.textOn);
         if (!f.value && typeof e.textOff < "u") return ie(e.textOff);
       }
       return ie(e.text);
-    }), I = n(() => {
+    }), p = n(() => {
       let t = e.icon;
-      return (e.type === o.Switch || e.type === o.HiddenSwitch) && (f.value && typeof e.iconOn < "u" ? t = e.iconOn : !f.value && typeof e.iconOff < "u" && (t = e.iconOff)), A(t, e.prop);
-    }), H = n(() => {
+      return (e.type === o.Switch || e.type === o.HiddenSwitch) && (f.value && typeof e.iconOn < "u" ? t = e.iconOn : !f.value && typeof e.iconOff < "u" && (t = e.iconOff)), H(t, e.prop);
+    }), D = n(() => {
+      if (typeof p.value == "object" && p.value.position === ue.End)
+        return p.value;
       let t = e.iconEnd;
-      return (e.type === o.Switch || e.type === o.HiddenSwitch) && (f.value && typeof e.iconOn < "u" ? t = e.iconEndOn : !f.value && typeof e.iconOff < "u" && (t = e.iconEndOff)), A(t, e.prop);
-    }), q = n(() => typeof e.modal == "function" ? e.modal(e.prop) : A(e.modal, e.prop)), x = n(() => typeof e.modalData == "function" ? e.modalData(e.prop) : e.modalData), Le = n(() => typeof T.defaultSplitIcon < "u"), Ae = n(() => T.defaultSplitIcon), He = n(() => typeof e.dot == "boolean" ? "" : e.dot), C = (t, l = void 0) => {
-      i("endClickMethod", t, l), _e(), qe(t === null ? void 0 : t, l), h("click", t, l);
+      return (e.type === o.Switch || e.type === o.HiddenSwitch) && (f.value && typeof e.iconOn < "u" ? t = e.iconEndOn : !f.value && typeof e.iconOff < "u" && (t = e.iconEndOff)), H(t, e.prop);
+    }), q = n(() => typeof e.modal == "function" ? e.modal(e.prop) : H(e.modal, e.prop)), j = n(() => typeof e.modalData == "function" ? e.modalData(e.prop) : e.modalData), Ae = n(() => typeof E.defaultSplitIcon < "u"), He = n(() => E.defaultSplitIcon), je = n(() => typeof e.dot == "boolean" ? "" : e.dot), C = (t, l = void 0) => {
+      i("endClickMethod", t, l), qe(), Ge(t === null ? void 0 : t, l), b("click", t, l);
     }, $ = n(() => {
       if (typeof e.resourceData == "function") return e.resourceData(e.prop);
-      if (typeof e.resourceData == "string") return A(e.resourceData, e.prop);
+      if (typeof e.resourceData == "string") return H(e.resourceData, e.prop);
       if (typeof e.resourceData == "object" && !Array.isArray(e.resourceData)) {
         let t = {};
         for (let l in e.resourceData)
-          t[l] = A(e.resourceData[l], e.prop);
+          t[l] = H(e.resourceData[l], e.prop);
         return t;
       }
       return e.resourceData;
-    }), U = async (t) => {
-      var m;
-      i("Resource Click", e.resource, $.value), w.value = !0, h("loading"), typeof ((m = e.events) == null ? void 0 : m.httpStart) == "function" && (i("Resource Click -> httpStart event"), e.events.httpStart());
+    }), x = async (t) => {
+      var k;
+      i("Resource Click", e.resource, $.value), T.value = !0, b("loading"), typeof ((k = e.events) == null ? void 0 : k.httpStart) == "function" && (i("Resource Click -> httpStart event"), e.events.httpStart());
       let l = { ...$.value, isChecked: f.value };
-      return it(e.resource, l).then((d) => {
-        var k;
-        w.value = !1, h("loaded"), i("Resource Click -> Received response", d), typeof ((k = e.events) == null ? void 0 : k.httpEnd) == "function" && (i("Resource Click -> httpEnd event"), e.events.httpEnd({
-          httpResponse: d
-        })), C(t, d);
-      }).catch((d) => {
-        var k;
-        w.value = !1, h("loaded"), i("Resource Click -> Received response error", d), typeof ((k = e.events) == null ? void 0 : k.httpEnd) == "function" && (i("Resource Click -> httpEnd event"), e.events.httpEnd({
-          httpResponse: d
-        })), C(t, d);
+      return ut(e.resource, l).then((v) => {
+        var y;
+        T.value = !1, b("loaded"), i("Resource Click -> Received response", v), typeof ((y = e.events) == null ? void 0 : y.httpEnd) == "function" && (i("Resource Click -> httpEnd event"), e.events.httpEnd({
+          httpResponse: v
+        })), C(t, v);
+      }).catch((v) => {
+        var y;
+        T.value = !1, b("loaded"), i("Resource Click -> Received response error", v), typeof ((y = e.events) == null ? void 0 : y.httpEnd) == "function" && (i("Resource Click -> httpEnd event"), e.events.httpEnd({
+          httpResponse: v
+        })), C(t, v);
       });
-    }, se = s(!1), xe = n(() => B.value ? e.type === o.TooltipLazy ? se.value : e.type === o.TooltipEver ? v.value : e.type === o.Tooltip : !1), Ue = s(!1), Ne = n(() => B.value ? e.type === o.SplitLazy ? Ue.value : e.type === o.SplitEver ? O.value : e.type === o.Split : !1), je = (t) => {
+    }, fe = s(!1), xe = n(() => O.value ? e.type === o.TooltipLazy ? fe.value : e.type === o.TooltipEver ? m.value : e.type === o.Tooltip : !1), Ue = s(!1), Ne = n(() => O.value ? e.type === o.SplitLazy ? Ue.value : e.type === o.SplitEver ? R.value : e.type === o.Split : !1), ze = (t) => {
       if (X.value = !0, Z.value) {
-        Z.value = !1, h("focus");
+        Z.value = !1, b("focus");
         return;
       }
-      h("focus", t);
-    }, ze = (t) => {
-      X.value = !1, h("blur", t);
-    }, ee = n(() => e.type === o.Switch || e.type === o.HiddenSwitch), Ke = n(() => e.type === o.Switch), te = n(() => e.type === o.FileUpload || e.type === o.ImageUpload), Pe = n(() => e.type === o.ImageUpload ? Re.Image : Re.File), _e = () => {
+      b("focus", t);
+    }, Ke = (t) => {
+      X.value = !1, b("blur", t);
+    }, ee = n(() => e.type === o.Switch || e.type === o.HiddenSwitch), Pe = n(() => e.type === o.Switch), te = n(() => e.type === o.FileUpload || e.type === o.ImageUpload), _e = n(() => e.type === o.ImageUpload ? Re.Image : Re.File), qe = () => {
       e.modalCallbacks.forEach((t) => {
-        rt(t);
+        ct(t);
       });
-    }, qe = (t, l) => {
-      var m;
-      i("doConfigClick: ", e), typeof ((m = e.events) == null ? void 0 : m.click) == "function" && e.events.click({
+    }, Ge = (t, l) => {
+      var k;
+      i("doConfigClick: ", e), typeof ((k = e.events) == null ? void 0 : k.click) == "function" && e.events.click({
         event: t,
         httpResponse: l
       });
-    }, N = n(() => [
+    }, U = n(() => [
       o.Split,
       o.SplitLazy,
       o.SplitEver
@@ -144,56 +146,56 @@ const St = (y = !0) => {
       o.TooltipLazy,
       o.TooltipEver
     ].includes(e.type)), le = (t) => {
-      var l, m, d, k, j, z, K, r, F, me, ke, ye, he, Ce;
-      if (i("Click", e, t), t && (ee.value ? (l = t.target) != null && l.closest(".lkt-field.is-switch") || (f.value = !f.value) : te.value ? Y.value && ((m = Y.value) == null || m.click()) : oe.value ? (v.value = !v.value, v.value && (se.value = !0)) : N.value && (O.value = !O.value)), typeof e.clickRef < "u" && (e.clickRef instanceof Element || e.clickRef && e.clickRef && typeof e.clickRef == "function") && e.clickRef.click(), N.value || oe.value || te.value) {
+      var l, k, v, y, N, z, K, r, V, ke, ye, he, be, Ce;
+      if (i("Click", e, t), t && (ee.value ? (l = t.target) != null && l.closest(".lkt-field.is-switch") || (f.value = !f.value) : te.value ? Y.value && ((k = Y.value) == null || k.click()) : oe.value ? (m.value = !m.value, m.value && (fe.value = !0)) : U.value && (R.value = !R.value)), typeof e.clickRef < "u" && (e.clickRef instanceof Element || e.clickRef && e.clickRef && typeof e.clickRef == "function") && e.clickRef.click(), U.value || oe.value || te.value) {
         C(t);
         return;
       }
       if (q.value) {
-        let u = { ...x.value };
+        let u = { ...j.value };
         i("Click -> has modal", e.modal, u), i("Click -> typeof beforeClose: ", typeof u.beforeClose), typeof u.beforeClose == "function" ? (u.beforeClose = (P) => {
           if (e.resource)
-            return U(t).then(() => {
-              typeof x.value.beforeClose == "function" && x.value.beforeClose(P);
+            return x(t).then(() => {
+              typeof j.value.beforeClose == "function" && j.value.beforeClose(P);
             });
-          typeof x.value.beforeClose == "function" && x.value.beforeClose(P), C(t);
+          typeof j.value.beforeClose == "function" && j.value.beforeClose(P), C(t);
         }, i("Click -> New beforeClose function: ", u.beforeClose)) : (u.beforeClose = () => {
           if (e.resource)
-            return U(t);
+            return x(t);
           C(t);
         }, i("Click -> New beforeClose function: ", u.beforeClose));
-        let b = q.value;
-        return typeof q.value == "function" && (b = q.value()), ut(b, Ve, u);
+        let g = q.value;
+        return typeof q.value == "function" && (g = q.value()), at(g, Me, u);
       }
       if (e.confirmModal) {
-        i("Click -> has confirm modal", e.confirmModal, e.confirmData), i("Click -> typeof confirmData.events?.click: ", typeof ((d = e.confirmData.events) == null ? void 0 : d.click));
+        i("Click -> has confirm modal", e.confirmModal, e.confirmData), i("Click -> typeof confirmData.events?.click: ", typeof ((v = e.confirmData.events) == null ? void 0 : v.click));
         let u = { ...e.confirmData };
-        if (u.confirmButton ? u.confirmButton = { ...Ee.defaultConfirmButton, ...u.confirmButton } : u.confirmButton = { ...Ee.defaultConfirmButton }, u.confirmButton.events || (u.confirmButton.events = {}), typeof ((j = (k = u.confirmButton) == null ? void 0 : k.events) == null ? void 0 : j.click) == "function") {
-          let b = (K = (z = u.confirmButton) == null ? void 0 : z.events) == null ? void 0 : K.click;
-          i("Click -> Has confirmData.events?.click function: ", b), u.confirmButton.events.click = () => {
+        if (u.confirmButton ? u.confirmButton = { ...Ie.defaultConfirmButton, ...u.confirmButton } : u.confirmButton = { ...Ie.defaultConfirmButton }, u.confirmButton.events || (u.confirmButton.events = {}), typeof ((N = (y = u.confirmButton) == null ? void 0 : y.events) == null ? void 0 : N.click) == "function") {
+          let g = (K = (z = u.confirmButton) == null ? void 0 : z.events) == null ? void 0 : K.click;
+          i("Click -> Has confirmData.events?.click function: ", g), u.confirmButton.events.click = () => {
             if (i("confirmData.events?.click -> Already: ", e), e.resource)
-              return U(t).then(() => {
-                b();
+              return x(t).then(() => {
+                g();
               });
-            b(), C(t);
-          }, i("Click -> New confirmData.events?.click function created: ", (F = (r = u.confirmButton) == null ? void 0 : r.events) == null ? void 0 : F.click);
+            g(), C(t);
+          }, i("Click -> New confirmData.events?.click function created: ", (V = (r = u.confirmButton) == null ? void 0 : r.events) == null ? void 0 : V.click);
         } else
           u.confirmButton.events.click = () => {
-            var b, P, be, ge;
+            var g, P, ge, Se;
             if (i("confirmData.events?.click -> Created: ", e), e.resource)
-              return U(t);
-            if (((b = e.anchor) == null ? void 0 : b.to) !== "") {
-              t && (t.preventDefault(), t.stopPropagation()), (P = e.anchor) != null && P.external || typeof ((be = e.anchor) == null ? void 0 : be.to) < "u" && ue.push((ge = e.anchor) == null ? void 0 : ge.to);
+              return x(t);
+            if (((g = e.anchor) == null ? void 0 : g.to) !== "") {
+              t && (t.preventDefault(), t.stopPropagation()), (P = e.anchor) != null && P.external || typeof ((ge = e.anchor) == null ? void 0 : ge.to) < "u" && ae.push((Se = e.anchor) == null ? void 0 : Se.to);
               return;
             }
             C(t);
-          }, i("Click -> New confirmData.events?.click function created: ", (me = u.confirmButton) == null ? void 0 : me.events.click);
-        return at(e.confirmModal, e.confirmModalKey, u);
+          }, i("Click -> New confirmData.events?.click function created: ", (ke = u.confirmButton) == null ? void 0 : ke.events.click);
+        return rt(e.confirmModal, e.confirmModalKey, u);
       }
       if (e.resource)
-        return i("Click -> has resource"), U(t);
-      if (typeof ((ke = e.anchor) == null ? void 0 : ke.to) < "u" && ((ye = e.anchor) == null ? void 0 : ye.to) !== "") {
-        i("Click -> Is Anchor", e.anchor), (he = e.anchor) != null && he.external ? typeof ((Ce = e.anchor) == null ? void 0 : Ce.to) == "string" && (window.location.href = e.anchor.to) : ue.push(e.anchor.to);
+        return i("Click -> has resource"), x(t);
+      if (typeof ((ye = e.anchor) == null ? void 0 : ye.to) < "u" && ((he = e.anchor) == null ? void 0 : he.to) !== "") {
+        i("Click -> Is Anchor", e.anchor), (be = e.anchor) != null && be.external ? typeof ((Ce = e.anchor) == null ? void 0 : Ce.to) == "string" && (window.location.href = e.anchor.to) : ae.push(e.anchor.to);
         return;
       }
       if (ee.value) {
@@ -202,17 +204,17 @@ const St = (y = !0) => {
       }
       i("Click -> Emit", e), C(t);
     };
-    V(() => e.loading, () => w.value = e.loading), V(() => e.checked, () => f.value = e.checked), V(f, (t) => h("update:checked", t)), V(R, (t) => {
-      R.value && e.showTooltipOnHover ? (E.value !== void 0 && clearTimeout(E.value), E.value = setTimeout(() => {
-        v.value = !0, clearTimeout(E.value);
-      }, e.showTooltipOnHoverDelay)) : !R.value && e.hideTooltipOnLeave ? (v.value = !1, clearTimeout(E.value)) : R.value || clearTimeout(E.value);
-    }), Ie({
+    M(() => e.loading, () => T.value = e.loading), M(() => e.checked, () => f.value = e.checked), M(f, (t) => b("update:checked", t)), M(I, (t) => {
+      I.value && e.showTooltipOnHover ? (F.value !== void 0 && clearTimeout(F.value), F.value = setTimeout(() => {
+        m.value = !0, clearTimeout(F.value);
+      }, e.showTooltipOnHoverDelay)) : !I.value && e.hideTooltipOnLeave ? (m.value = !1, clearTimeout(F.value)) : I.value || clearTimeout(F.value);
+    }), Fe({
       click: () => le(null),
       focus: (t) => {
         W.value && (t && (Z.value = !0), W.value.focus());
       }
     });
-    const Ge = n(() => e.type === o.Content ? "div" : "button"), Je = n(() => {
+    const Je = n(() => e.type === o.Content ? "div" : "button"), Qe = n(() => {
       switch (e.type) {
         case o.Button:
         case o.Submit:
@@ -220,23 +222,26 @@ const St = (y = !0) => {
         default:
           return "button";
       }
-    }), fe = n(() => e.disabled === void 0 ? !1 : typeof e.disabled == "function" ? e.disabled({
+    }), pe = n(() => e.disabled === void 0 ? !1 : typeof e.disabled == "function" ? e.disabled({
       prop: e.prop
-    }) : typeof e.disabled == "boolean" ? e.disabled : !1), pe = (t) => le(t), Qe = (t) => ae.value = t, de = n(() => e.type === o.Anchor && typeof e.anchor == "object" && Object.keys(e.anchor).length > 0), ve = n(() => typeof I.value == "string" ? {
-      icon: I.value,
-      dot: e.dot ? He.value : !1
-    } : typeof I.value == "object" ? I.value : {}), We = n(() => typeof H.value == "string" ? {
-      icon: H.value,
+    }) : typeof e.disabled == "boolean" ? e.disabled : !1), de = (t) => le(t), We = (t) => re.value = t, ve = n(() => e.type === o.Anchor && typeof e.anchor == "object" && Object.keys(e.anchor).length > 0), me = n(() => typeof p.value == "string" ? {
+      icon: p.value,
+      dot: e.dot ? je.value : !1
+    } : typeof p.value == "object" && p.value.position !== ue.End ? p.value : {}), Xe = n(() => (console.log("de iconos va la cosa: ", p.value, D.value), typeof D.value == "string" && D.value !== "" ? {
+      icon: D.value,
       class: "lkt-button-icon-end"
-    } : typeof H.value == "object" ? {
-      ...H.value,
+    } : typeof D.value == "object" && Object.keys(D.value).length > 0 ? {
+      ...D.value,
       class: "lkt-button-icon-end"
-    } : {}), Xe = n(() => {
-      if (de.value) {
+    } : typeof p.value == "object" && p.value.position === ue.End ? {
+      ...p.value,
+      class: "lkt-button-icon-end"
+    } : {})), Ye = n(() => {
+      if (ve.value) {
         let t = {};
-        return I.value && (t.icon = ve.value), g.value && (t.text = g.value), {
+        return p.value && (t.icon = me.value), S.value && (t.text = S.value), {
           ...e.anchor,
-          class: ce.value,
+          class: se.value,
           ...t,
           prop: e.prop
         };
@@ -244,79 +249,79 @@ const St = (y = !0) => {
       return {};
     });
     return (t, l) => {
-      const m = M("lkt-spinner"), d = M("lkt-anchor"), k = M("lkt-icon"), j = M("lkt-field"), z = M("lkt-button", !0), K = M("lkt-tooltip");
-      return a(), S("div", {
-        class: Se(["lkt-button", ce.value]),
+      const k = L("lkt-spinner"), v = L("lkt-anchor"), y = L("lkt-icon"), N = L("lkt-field"), z = L("lkt-button", !0), K = L("lkt-tooltip");
+      return a(), w("div", {
+        class: De(["lkt-button", se.value]),
         ref_key: "container",
-        ref: B,
-        id: Me,
-        onMousemove: l[4] || (l[4] = (r) => R.value = !0),
-        onMouseleave: l[5] || (l[5] = (r) => R.value = !1)
+        ref: O,
+        id: Le,
+        onMousemove: l[4] || (l[4] = (r) => I.value = !0),
+        onMouseleave: l[5] || (l[5] = (r) => I.value = !1)
       }, [
-        de.value ? (a(), p(d, D({ key: 0 }, Xe.value, {
+        ve.value ? (a(), d(v, B({ key: 0 }, Ye.value, {
           class: "lkt-button-main",
-          onActive: Qe
+          onActive: We
         }), {
           default: G(() => [
-            t.img ? (a(), S("img", {
+            t.img ? (a(), w("img", {
               key: 0,
               src: t.img,
-              alt: g.value
-            }, null, 8, pt)) : c("", !0),
-            J(_).text ? L(t.$slots, "text", {
+              alt: S.value
+            }, null, 8, dt)) : c("", !0),
+            J(_).text ? A(t.$slots, "text", {
               key: 1,
-              text: g.value
+              text: S.value
             }) : c("", !0),
-            J(_).default ? L(t.$slots, "default", { key: 2 }) : c("", !0),
-            w.value ? (a(), p(m, { key: 3 })) : c("", !0)
+            J(_).default ? A(t.$slots, "default", { key: 2 }) : c("", !0),
+            T.value ? (a(), d(k, { key: 3 })) : c("", !0)
           ]),
           _: 3
-        }, 16)) : (a(), p(De(Ge.value), {
+        }, 16)) : (a(), d(we(Je.value), {
           key: 1,
           class: "lkt-button-main",
           ref_key: "button",
           ref: W,
           name: t.name,
-          type: Je.value,
-          disabled: fe.value,
+          type: Qe.value,
+          disabled: pe.value,
           tabindex: t.tabindex,
           onClick: le,
-          onFocus: je,
-          onBlur: ze
+          onFocus: ze,
+          onBlur: Ke
         }, {
           default: G(() => [
-            I.value ? (a(), p(k, we(D({ key: 0 }, ve.value)), null, 16)) : c("", !0),
-            t.img ? (a(), S("img", {
+            p.value ? (a(), d(y, Be(B({ key: 0 }, me.value)), null, 16)) : c("", !0),
+            t.img ? (a(), w("img", {
               key: 1,
               src: t.img,
-              alt: g.value
-            }, null, 8, dt)) : c("", !0),
-            J(_).text ? L(t.$slots, "text", {
+              alt: S.value
+            }, null, 8, vt)) : c("", !0),
+            J(_).text ? A(t.$slots, "text", {
               key: 2,
-              text: g.value
-            }) : g.value ? (a(), S(ne, { key: 3 }, [
-              tt(ot(g.value), 1)
+              text: S.value
+            }) : S.value ? (a(), w(ne, { key: 3 }, [
+              ot(lt(S.value), 1)
             ], 64)) : c("", !0),
-            J(_).default ? L(t.$slots, "default", { key: 4 }) : c("", !0),
-            w.value ? (a(), p(m, { key: 5 })) : c("", !0),
-            ee.value ? et((a(), p(j, {
+            J(_).default ? A(t.$slots, "default", { key: 4 }) : c("", !0),
+            T.value ? (a(), d(k, { key: 5 })) : c("", !0),
+            ee.value ? tt((a(), d(N, {
               key: 6,
               type: "switch",
               modelValue: f.value,
               "onUpdate:modelValue": l[0] || (l[0] = (r) => f.value = r),
               disabled: t.disabled,
-              onClick: Be(() => {
+              onClick: Te(() => {
               }, ["stop"])
             }, null, 8, ["modelValue", "disabled"])), [
-              [lt, Ke.value]
+              [nt, Pe.value]
             ]) : c("", !0),
-            te.value ? (a(), p(j, D({
+            te.value ? (a(), d(N, B({
               key: 7,
               ref_key: "fileFieldRef",
               ref: Y,
-              type: Pe.value,
-              modelValue: re.value,
-              "onUpdate:modelValue": l[1] || (l[1] = (r) => re.value = r),
+              type: _e.value,
+              modelValue: ce.value,
+              "onUpdate:modelValue": l[1] || (l[1] = (r) => ce.value = r),
               hidden: ""
             }, {
               fileUploadHttp: {
@@ -325,56 +330,56 @@ const St = (y = !0) => {
               }
             }, {
               disabled: t.disabled,
-              onClick: Be(() => {
+              onClick: Te(() => {
               }, ["stop"])
             }), null, 16, ["type", "modelValue", "disabled"])) : c("", !0),
-            H.value ? (a(), p(k, we(D({ key: 8 }, We.value)), null, 16)) : c("", !0),
-            N.value ? (a(), S("div", vt, [
-              t.splitIcon ? (a(), S("i", {
+            D.value ? (a(), d(y, Be(B({ key: 8 }, Xe.value)), null, 16)) : c("", !0),
+            U.value ? (a(), w("div", mt, [
+              t.splitIcon ? (a(), w("i", {
                 key: 0,
-                class: Se(t.splitIcon)
-              }, null, 2)) : Le.value ? (a(), p(De(Ae.value), { key: 1 })) : c("", !0)
+                class: De(t.splitIcon)
+              }, null, 2)) : Ae.value ? (a(), d(we(He.value), { key: 1 })) : c("", !0)
             ])) : c("", !0)
           ]),
           _: 3
         }, 40, ["name", "type", "disabled", "tabindex"])),
-        N.value && B.value ? (a(), p(K, D({
+        U.value && O.value ? (a(), d(K, B({
           key: 2,
-          modelValue: O.value,
-          "onUpdate:modelValue": l[2] || (l[2] = (r) => O.value = r)
+          modelValue: R.value,
+          "onUpdate:modelValue": l[2] || (l[2] = (r) => R.value = r)
         }, {
-          referrer: B.value,
+          referrer: O.value,
           ...t.tooltip
         }, {
           class: ["lkt-split-button-dropdown-content", t.splitClass]
-        }), Te({ _: 2 }, [
+        }), Oe({ _: 2 }, [
           Ne.value ? {
             name: "default",
             fn: G(({ doClose: r }) => [
-              (a(!0), S(ne, null, Oe(t.splitButtons, (F) => (a(), p(z, D({ ref_for: !0 }, F, { onClick: r }), null, 16, ["onClick"]))), 256)),
-              L(t.$slots, "split", {
+              (a(!0), w(ne, null, Ee(t.splitButtons, (V) => (a(), d(z, B({ ref_for: !0 }, V, { onClick: r }), null, 16, ["onClick"]))), 256)),
+              A(t.$slots, "split", {
                 doClose: r,
-                doRootClick: pe
+                doRootClick: de
               })
             ]),
             key: "0"
           } : void 0
         ]), 1040, ["modelValue", "class"])) : c("", !0),
-        oe.value && B.value ? (a(), p(K, D({
+        oe.value && O.value ? (a(), d(K, B({
           key: 3,
-          modelValue: v.value,
-          "onUpdate:modelValue": l[3] || (l[3] = (r) => v.value = r)
+          modelValue: m.value,
+          "onUpdate:modelValue": l[3] || (l[3] = (r) => m.value = r)
         }, {
-          referrer: B.value,
+          referrer: O.value,
           ...t.tooltip
-        }), Te({ _: 2 }, [
+        }), Oe({ _: 2 }, [
           xe.value ? {
             name: "default",
             fn: G(({ doClose: r }) => [
-              (a(!0), S(ne, null, Oe(t.splitButtons, (F) => (a(), p(z, D({ ref_for: !0 }, F, { onClick: r }), null, 16, ["onClick"]))), 256)),
-              L(t.$slots, "tooltip", {
+              (a(!0), w(ne, null, Ee(t.splitButtons, (V) => (a(), d(z, B({ ref_for: !0 }, V, { onClick: r }), null, 16, ["onClick"]))), 256)),
+              A(t.$slots, "tooltip", {
                 doClose: r,
-                doRootClick: pe
+                doRootClick: de
               })
             ]),
             key: "0"
@@ -383,15 +388,15 @@ const St = (y = !0) => {
       ], 34);
     };
   }
-}), Dt = {
-  install: (y) => {
-    y.component("lkt-button") === void 0 && y.component("lkt-button", mt);
+}), wt = {
+  install: (h) => {
+    h.component("lkt-button") === void 0 && h.component("lkt-button", kt);
   }
-}, wt = (y) => {
-  T.defaultSplitIcon = y;
+}, Bt = (h) => {
+  E.defaultSplitIcon = h;
 };
 export {
-  St as debugLktButton,
-  Dt as default,
-  wt as setDefaultButtonSplitSlot
+  Dt as debugLktButton,
+  wt as default,
+  Bt as setDefaultButtonSplitSlot
 };
