@@ -30,21 +30,6 @@
     --lkt-button--split--arrow-background: transparent;
     --lkt-button--split--arrow-width: 40px;
 
-    /** Element: Icon dot */
-    --lkt-button--dot--background: red;
-    --lkt-button--dot--border-radius: 100%;
-    --lkt-button--dot--color: #ffffff;
-    --lkt-button--dot--display: block;
-    --lkt-button--dot--font-size: 12px;
-    --lkt-button--dot--font-style: normal;
-    --lkt-button--dot--height: 16px;
-    --lkt-button--dot--line-height: var(--lkt-button--dot--height);
-    --lkt-button--dot--position: absolute;
-    --lkt-button--dot--right: 2px;
-    --lkt-button--dot--top: 2px;
-    --lkt-button--dot--text-align: center;
-    --lkt-button--dot--width: 16px;
-
     /** Element: Container */
     --lkt-button--container--display: inline-flex;
     --lkt-button--container--position: relative;
@@ -56,16 +41,16 @@
     --lkt-button--arrow--justify-content: center;
 
     /** State: Disabled */
-    --lkt-button--disabled--color: #cccccc;
     --lkt-button--disabled--background: #a4a4a4;
     --lkt-button--disabled--border-color: #cccccc;
     --lkt-button--disabled--box-shadow: none;
+    --lkt-button--disabled--color: #cccccc;
 
     /** State: Disabled, Event: Hover */
-    --lkt-button--disabled--hover--color: var(--lkt-button--disabled--color);
     --lkt-button--disabled--hover--background: var(--lkt-button--disabled--background);
     --lkt-button--disabled--hover--border-color: var(--lkt-button--disabled--border-color);
     --lkt-button--disabled--hover--box-shadow: var(--lkt-button--disabled--box-shadow);
+    --lkt-button--disabled--hover--color: var(--lkt-button--disabled--color);
 
     /** Event: Hover */
     --lkt-button--hover--background: var(--lkt-button--background);

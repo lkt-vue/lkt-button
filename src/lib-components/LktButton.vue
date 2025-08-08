@@ -545,7 +545,8 @@
                 ...props.anchor,
                 ...{ 'class': computedContainerClass.value },
                 ...cfg,
-                prop: props.prop
+                prop: props.prop,
+                disabled: props.anchor.disabled ?? props.disabled
             };
         }
 

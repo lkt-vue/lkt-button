@@ -38,11 +38,6 @@
     text-align: inherit;
 }
 
-.lkt-button img {
-    max-width: var(--lkt-button--img--max-width);
-    max-height: var(--lkt-button--img--max-height);
-}
-
 .lkt-button:hover {
     color: var(--lkt-button--hover--color);
     background: var(--lkt-button--hover--background);
@@ -59,15 +54,15 @@
     box-shadow: var(--lkt-button--disabled--box-shadow);
 }
 
-.lkt-button.is-disabled .lkt-button-main {
-    cursor: not-allowed;
-}
-
 .lkt-button.is-disabled:hover {
     color: var(--lkt-button--disabled--hover--color);
     background: var(--lkt-button--disabled--hover--background);
     border-color: var(--lkt-button--disabled--hover--border-color);
     box-shadow: var(--lkt-button--disabled--hover--box-shadow);
+}
+
+.lkt-button.is-disabled .lkt-button-main {
+    cursor: not-allowed;
 }
 
 .lkt-button.has-focus {
@@ -101,24 +96,48 @@
     display: inline-block;
 }
 
-.lkt-button--icon-dot {
-    background: var(--lkt-button--dot--background);
-    color: var(--lkt-button--dot--color);
-    font-size: var(--lkt-button--dot--font-size);
-    height: var(--lkt-button--dot--height);
-    right: var(--lkt-button--dot--right);
-    top: var(--lkt-button--dot--top);
-    width: var(--lkt-button--dot--width);
-    line-height: var(--lkt-button--dot--line-height);
-    text-align: var(--lkt-button--dot--text-align);
-    position: var(--lkt-button--dot--position, absolute);
-    display: var(--lkt-button--dot--display, block);
-    border-radius: var(--lkt-button--dot--border-radius, 100%);
-    font-style: var(--lkt-button--dot--font-style, normal);
+/**
+ * SubComponent integration: Image
+ */
+.lkt-button img {
+    max-width: var(--lkt-button--img--max-width);
+    max-height: var(--lkt-button--img--max-height);
 }
 
+/**
+ * SubComponent integration: Anchor
+ */
 .lkt-button .lkt-anchor {
     --lkt-anchor--color: var(--lkt-button--color);
     --lkt-anchor--hover--color: var(--lkt-button--hover--color);
     --lkt-anchor--active--color: var(--lkt-button--color);
+    --lkt-anchor--disabled--color: var(--lkt-button--disabled--color);
+    --lkt-anchor--disabled--hover--color: var(--lkt-button--disabled--hover--color);
+
+    --lkt-anchor--font-size: var(--lkt-button--font-size);
+    --lkt-anchor--width: 100%;
+}
+
+/**
+ * SubComponent integration: Icon
+ */
+.lkt-button .lkt-icon {
+    --lkt-icon--color: var(--lkt-button--color);
+    --lkt-icon--icon--color: var(--lkt-button--color);
+    --lkt-icon--icon--font-size: var(--lkt-button--font-size);
+}
+
+.lkt-button:hover .lkt-icon {
+    --lkt-icon--color: var(--lkt-button--hover--color);
+    --lkt-icon--icon--color: var(--lkt-button--hover--color);
+}
+
+.lkt-button.is-disabled .lkt-icon {
+    --lkt-icon--color: var(--lkt-button--disabled--color);
+    --lkt-icon--icon--color: var(--lkt-button--disabled--color);
+}
+
+.lkt-button.is-disabled:hover .lkt-icon {
+    --lkt-icon--color: var(--lkt-button--disabled--hover--color);
+    --lkt-icon--icon--color: var(--lkt-button--disabled--hover--color);
 }

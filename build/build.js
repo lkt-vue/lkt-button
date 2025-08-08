@@ -243,7 +243,8 @@ const Dt = (h = !0) => {
           ...e.anchor,
           class: se.value,
           ...t,
-          prop: e.prop
+          prop: e.prop,
+          disabled: e.anchor.disabled ?? e.disabled
         };
       }
       return {};
