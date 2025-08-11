@@ -16,12 +16,14 @@
     text-align: var(--lkt-button--text-align);
     font-family: var(--lkt-button--font-family), serif;
     box-shadow: var(--lkt-button--box-shadow);
+    letter-spacing: var(--lkt-button--letter-spacing);
 }
 
 .lkt-button-main {
     display: var(--lkt-button--display, flex);
     align-items: var(--lkt-button--align-items, center);
     justify-content: var(--lkt-button--justify-content, center);
+    flex-direction: var(--lkt-button--flex-direction, row);
     cursor: default;
     min-width: var(--lkt-button--min-width);
     min-height: var(--lkt-button--min-height);

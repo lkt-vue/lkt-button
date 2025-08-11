@@ -8,11 +8,13 @@
     --lkt-button--box-shadow: none;
     --lkt-button--color: #ffffff;
     --lkt-button--display: flex;
+    --lkt-button--flex-direction: row;
     --lkt-button--font-family: system-ui, Helvetica;
     --lkt-button--font-size: 17px;
     --lkt-button--font-weight: 400;
     --lkt-button--gap: 5px;
     --lkt-button--justify-content: center;
+    --lkt-button--letter-spacing: initial;
     --lkt-button--line-height: 1;
     --lkt-button--min-height: 35px;
     --lkt-button--min-width: 150px;
