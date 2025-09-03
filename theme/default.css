@@ -63,6 +63,7 @@
     --lkt-button--hover--text-decoration: none;
 
     /** Event: Focus */
+    --lkt-button--focus--background: var(--lkt-button--background);
     --lkt-button--focus--border-color: var(--lkt-button--color);
     --lkt-button--focus--border-style: var(--lkt-button--border-style);
     --lkt-button--focus--border-width: var(--lkt-button--border-width);

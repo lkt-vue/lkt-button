@@ -71,6 +71,7 @@
     outline: 0;
     border: var(--lkt-button--focus--border-width) var(--lkt-button--focus--border-style) var(--lkt-button--focus--border-color);
     box-shadow: var(--lkt-button--focus--box-shadow);
+    background: var(--lkt-button--focus--background);
 }
 
 .lkt-button-main:active {

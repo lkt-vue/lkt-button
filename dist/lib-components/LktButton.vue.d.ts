@@ -1,4 +1,4 @@
-import { AnchorConfig, ButtonConfig, ButtonType, LktObject, ModalConfig } from 'lkt-vue-kernel';
+import { AnchorConfig, ButtonConfig, ButtonType, IconConfig, LktObject, ModalConfig } from 'lkt-vue-kernel';
 declare var __VLS_9: {
     text: any;
 }, __VLS_11: {}, __VLS_33: {
@@ -53,7 +53,7 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     disabled: boolean | import("lkt-vue-kernel").IsDisabledChecker;
     class: string;
     dot: import("lkt-vue-kernel").ValidIconDot;
-    icon: string;
+    icon: IconConfig | string;
     tooltip: import("lkt-vue-kernel").TooltipConfig;
     tabindex: string | number;
     resource: string;
@@ -73,13 +73,13 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     openTooltip: boolean;
     containerClass: string;
     wrapContent: boolean;
-    iconEnd: string;
+    iconEnd: IconConfig | string;
     textOn: string | number;
     textOff: string | number;
-    iconOn: string | number;
-    iconOff: string | number;
-    iconEndOn: string | number;
-    iconEndOff: string | number;
+    iconOn: string | number | IconConfig;
+    iconOff: string | number | IconConfig;
+    iconEndOn: string | number | IconConfig;
+    iconEndOff: string | number | IconConfig;
     resourceData: LktObject;
     modalCallbacks: Array<import("lkt-vue-kernel").ModalCallbackConfig>;
     splitIcon: string;
