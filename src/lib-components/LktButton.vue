@@ -606,9 +606,9 @@
                     :text="computedText"
                 />
             </template>
-            <template v-else-if="computedText">
+            <span v-else-if="computedText" class="lkt-button--label">
                 {{ computedText }}
-            </template>
+            </span>
 
             <template v-if="slots.default">
                 <slot />
