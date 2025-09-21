@@ -556,7 +556,18 @@
 </script>
 
 <template>
-    <div class="lkt-button"
+    <div v-if="type === ButtonType.InvisibleWrapper"
+         @click="doClick"
+         @focus="onFocus"
+         @blur="onBlur"
+         @mousemove="isHovered = true"
+         @mouseleave="isHovered = false"
+    >
+        <slot />
+    </div>
+    <div
+        v-else
+        class="lkt-button"
          ref="container"
          :id="Identifier"
          :class="computedContainerClass"
