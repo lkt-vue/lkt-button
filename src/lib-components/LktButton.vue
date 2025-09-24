@@ -16,9 +16,12 @@
         extractPropValue,
         FieldConfig,
         FieldType,
-        getDefaultValues, IconConfig, IconPosition,
+        getDefaultValues,
+        IconConfig,
+        IconPosition,
         LktObject,
         LktSettings,
+        MenuController,
         ModalConfig,
         ValidModalKey,
         ValidModalName,
@@ -76,6 +79,10 @@
             if (computedIsDisabled.value) r.push('is-disabled');
             if (hasFocus.value) r.push('has-focus');
             if (props.containerClass) r.push(props.containerClass);
+            if (props.type === ButtonType.Menu) {
+                r.push(`menu-target--${props.menuKey}`);
+                if (MenuController.getMenuStatus(props.menuKey)) r.push('menu-opened');
+            }
             return r.join(' ');
         }),
         computedText = computed(() => {
@@ -271,6 +278,9 @@
 
             } else if (computedIsSplit.value) {
                 showDropdown.value = !showDropdown.value;
+
+            } else if (props.type === ButtonType.Menu) {
+                MenuController.toggleMenu(props.menuKey);
             }
         }
 

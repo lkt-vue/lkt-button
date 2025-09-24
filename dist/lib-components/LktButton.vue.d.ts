@@ -84,6 +84,7 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     iconEndOff: string | number | IconConfig;
     resourceData: LktObject;
     modalCallbacks: Array<import("lkt-vue-kernel").ModalCallbackConfig>;
+    menuKey: string | number | Function;
     splitIcon: string;
     showTooltipOnHover: boolean;
     showTooltipOnHoverDelay: number;
