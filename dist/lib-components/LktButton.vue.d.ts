@@ -1,29 +1,29 @@
 import { AnchorConfig, ButtonConfig, ButtonType, IconConfig, LktObject, ModalConfig } from 'lkt-vue-kernel';
-declare var __VLS_1: {}, __VLS_11: {
+declare var __VLS_1: {}, __VLS_15: {
     text: any;
-}, __VLS_13: {}, __VLS_35: {
+}, __VLS_17: {}, __VLS_39: {
     text: any;
-}, __VLS_37: {}, __VLS_81: {
+}, __VLS_41: {}, __VLS_85: {
     doClose: any;
     doRootClick: ($event: MouseEvent) => void | Promise<void>;
-}, __VLS_95: {
+}, __VLS_99: {
     doClose: any;
     doRootClick: ($event: MouseEvent) => void | Promise<void>;
 };
 type __VLS_Slots = {} & {
     default?: (props: typeof __VLS_1) => any;
 } & {
-    text?: (props: typeof __VLS_11) => any;
+    text?: (props: typeof __VLS_15) => any;
 } & {
-    default?: (props: typeof __VLS_13) => any;
+    default?: (props: typeof __VLS_17) => any;
 } & {
-    text?: (props: typeof __VLS_35) => any;
+    text?: (props: typeof __VLS_39) => any;
 } & {
-    default?: (props: typeof __VLS_37) => any;
+    default?: (props: typeof __VLS_41) => any;
 } & {
-    split?: (props: typeof __VLS_81) => any;
+    split?: (props: typeof __VLS_85) => any;
 } & {
-    tooltip?: (props: typeof __VLS_95) => any;
+    tooltip?: (props: typeof __VLS_99) => any;
 };
 declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     click: () => void | Promise<void>;
@@ -74,7 +74,7 @@ declare const __VLS_component: import("vue").DefineComponent<ButtonConfig, {
     confirmData: Partial<ModalConfig>;
     openTooltip: boolean;
     containerClass: string;
-    wrapContent: boolean;
+    wrapButton: boolean;
     iconEnd: IconConfig | string;
     textOn: string | number;
     textOff: string | number;

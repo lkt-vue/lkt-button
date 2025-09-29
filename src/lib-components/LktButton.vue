@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import { ComponentPublicInstance, computed, ref, SetupContext, useSlots, watch } from 'vue';
     import { Settings } from '../settings/Settings';
-    import { generateRandomString } from 'lkt-string-tools';
+    import { generateRandomString, ucfirst } from 'lkt-string-tools';
     import { httpCall, HTTPResponse } from 'lkt-http-client';
     import { openConfirm, openModal, runModalCallback } from 'lkt-modal';
     import { debug } from '../functions/settings-functions';
@@ -281,6 +281,10 @@
 
             } else if (props.type === ButtonType.Menu) {
                 MenuController.toggleMenu(props.menuKey);
+
+            } else if (props.type === ButtonType.Tab) {
+                // endClickMethod($event);
+                // return;
             }
         }
 
@@ -407,6 +411,7 @@
             } else {
                 router.push(props.anchor.to);
             }
+            endClickMethod($event);
             return;
         }
 
@@ -513,7 +518,6 @@
     })
 
     const computedIconEndConfig = computed(():Partial<IconConfig> => {
-        console.log('de iconos va la cosa: ', computedIcon.value, computedIconEnd.value)
         if (typeof computedIconEnd.value === 'string' && computedIconEnd.value !== '') {
             return <IconConfig>{
                 icon: computedIconEnd.value,
@@ -563,6 +567,20 @@
 
         return {};
     });
+
+    const computedRole = computed(() => {
+        if (props.type === ButtonType.Tab) return 'tab';
+        return undefined;
+    });
+
+    const computedAccessibility = computed(() => {
+        let r: LktObject = {};
+        if (typeof props.aria !== 'object') return r;
+        Object.keys(props.aria).forEach((attr) => {
+            r[`aria${ucfirst(attr)}`] = props.aria[attr];
+        })
+        return r;
+    })
 </script>
 
 <template>
@@ -575,6 +593,16 @@
     >
         <slot />
     </div>
+    <template v-else-if="wrapButton">
+        <div>
+            <lkt-button
+                v-bind="<ButtonConfig>{
+                ...props,
+                wrapButton: false,
+            }"
+            />
+        </div>
+    </template>
     <div
         v-else
         class="lkt-button"
@@ -614,6 +642,8 @@
             :type="computedComponentType"
             :disabled="computedIsDisabled"
             :tabindex="tabindex"
+            :role="computedRole"
+            v-bind="computedAccessibility"
             @click="doClick"
             @focus="onFocus"
             @blur="onBlur"
