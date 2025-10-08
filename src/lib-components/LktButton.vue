@@ -69,6 +69,11 @@
     const computedContainerClass = computed(() => {
             let r = [];
             if (props.class) r.push(props.class);
+            if (props.containerClass) r.push(props.containerClass);
+
+            if (props.type === ButtonType.InvisibleWrapper) return r.join(' ')
+
+
             if (computedIsSplit.value) r.push('lkt-split-button');
             r.push(`lkt-button--${props.type}`);
             if (isLoading.value) r.push('is-loading');
@@ -78,7 +83,6 @@
             if (isChecked.value) r.push('is-checked');
             if (computedIsDisabled.value) r.push('is-disabled');
             if (hasFocus.value) r.push('has-focus');
-            if (props.containerClass) r.push(props.containerClass);
             if (props.type === ButtonType.Menu) {
                 r.push(`menu-target--${props.menuKey}`);
                 if (MenuController.getMenuStatus(props.menuKey)) r.push('menu-opened');
@@ -557,7 +561,6 @@
 
             return <AnchorConfig>{
                 ...props.anchor,
-                ...{ 'class': computedContainerClass.value },
                 ...cfg,
                 prop: props.prop,
                 disabled: props.anchor.disabled ?? props.disabled
@@ -590,6 +593,7 @@
          @blur="onBlur"
          @mousemove="isHovered = true"
          @mouseleave="isHovered = false"
+         :class="computedContainerClass"
     >
         <slot />
     </div>
@@ -603,9 +607,8 @@
             />
         </div>
     </template>
-    <div
-        v-else
-        class="lkt-button"
+    <div v-else-if="type === ButtonType.Anchor"
+         class="lkt-button"
          ref="container"
          :id="Identifier"
          :class="computedContainerClass"
@@ -632,9 +635,17 @@
             </template>
             <lkt-spinner v-if="isLoading" />
         </lkt-anchor>
-
+    </div>
+    <div
+        v-else
+        class="lkt-button"
+         ref="container"
+         :id="Identifier"
+         :class="computedContainerClass"
+         @mousemove="isHovered = true"
+         @mouseleave="isHovered = false"
+    >
         <component
-            v-else
             :is="computedButtonComponent"
             class="lkt-button-main"
             ref="button"
