@@ -245,6 +245,39 @@
                 event: $event,
                 httpResponse: response
             });
+
+            if (response?.success) {
+                if (typeof props.hooks.onSuccessReload !== 'undefined') {
+                    let reload = props.hooks.onSuccessReload;
+                    if (typeof reload === 'function') {
+                        reload = reload({
+                            event: $event,
+                            httpResponse: response
+                        });
+                    }
+
+                    if (reload) {
+                        window.location.reload();
+                    }
+                }
+                else if (typeof props.hooks.onSuccessRedirectTo !== 'undefined') {
+                    let to = props.hooks.onSuccessRedirectTo;
+                    if (typeof to === 'function') {
+                        to = to({
+                            event: $event,
+                            httpResponse: response
+                        });
+                    }
+
+                    if (typeof to === 'object' || typeof to === 'string') {
+                        if (props.hooks.redirectType === 'push') {
+                            router.push(to);
+                        } else {
+                            router.replace(to);
+                        }
+                    }
+                }
+            }
         };
 
     const computedIsSplit = computed(() => {
@@ -267,6 +300,10 @@
 
         debug('Click', props, $event);
         if ($event) {
+
+            if (props.preventDefault) $event.preventDefault();
+            if (props.stopPropagation) $event.stopPropagation();
+
             if (canRenderSwitch.value) {
                 //@ts-ignore
                 let fieldContainer = $event.target?.closest('.lkt-field.is-switch');
