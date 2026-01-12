@@ -1,6 +1,6 @@
-declare function It(n?: boolean): void;
-declare namespace Mt {
-    function install(n: any): void;
+declare function xt(i?: boolean): void;
+declare namespace Ft {
+    function install(i: any): void;
 }
-declare function xt(n: any): void;
-export { It as debugLktButton, Mt as default, xt as setDefaultButtonSplitSlot };
+declare function Vt(i: any): void;
+export { xt as debugLktButton, Ft as default, Vt as setDefaultButtonSplitSlot };

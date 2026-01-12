@@ -22,7 +22,7 @@
         LktObject,
         LktSettings,
         MenuController,
-        ModalConfig,
+        ModalConfig, refreshAppI18n, refreshAppSetup,
         ValidModalKey,
         ValidModalName,
     } from 'lkt-vue-kernel';
@@ -247,6 +247,33 @@
             });
 
             if (response?.success) {
+                if (typeof props.hooks.onSuccessRefreshI18n !== 'undefined') {
+                    let reload = props.hooks.onSuccessRefreshI18n;
+                    if (typeof reload === 'function') {
+                        reload = reload({
+                            event: $event,
+                            httpResponse: response
+                        });
+                    }
+
+                    if (reload) {
+                        refreshAppI18n();
+                    }
+                }
+                if (typeof props.hooks.onSuccessRefreshSetup !== 'undefined') {
+                    let reload = props.hooks.onSuccessRefreshSetup;
+                    if (typeof reload === 'function') {
+                        reload = reload({
+                            event: $event,
+                            httpResponse: response
+                        });
+                    }
+
+                    if (reload) {
+                        refreshAppSetup();
+                    }
+                }
+
                 if (typeof props.hooks.onSuccessReload !== 'undefined') {
                     let reload = props.hooks.onSuccessReload;
                     if (typeof reload === 'function') {
