@@ -11,7 +11,7 @@
         BeforeCloseModalData,
         Button,
         ButtonConfig,
-        ButtonType,
+        ButtonType, dispatchHttpNotifications,
         extractI18nValue,
         extractPropValue,
         FieldConfig,
@@ -245,6 +245,10 @@
                 event: $event,
                 httpResponse: response
             });
+
+            if (props.dispatchHttpNotifications && response?.notifications && Array.isArray(response?.notifications)) {
+                dispatchHttpNotifications(response.notifications);
+            }
 
             if (response?.success) {
                 if (typeof props.hooks.onSuccessRefreshI18n !== 'undefined') {
