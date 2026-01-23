@@ -291,20 +291,38 @@
                         window.location.reload();
                     }
                 }
-                else if (typeof props.hooks.onSuccessRedirectTo !== 'undefined') {
-                    let to = props.hooks.onSuccessRedirectTo;
-                    if (typeof to === 'function') {
-                        to = to({
-                            event: $event,
-                            httpResponse: response
-                        });
+                else {
+                    let onSuccessRedirectTo = undefined;
+                    let onSuccessRedirectBack = undefined;
+                    if (typeof props.hooks.onSuccessRedirectTo !== 'undefined') {
+                        onSuccessRedirectTo = props.hooks.onSuccessRedirectTo;
+                        if (typeof onSuccessRedirectTo === 'function') {
+                            onSuccessRedirectTo = onSuccessRedirectTo({
+                                event: $event,
+                                httpResponse: response
+                            });
+                        }
                     }
 
-                    if (typeof to === 'object' || typeof to === 'string') {
+                    if (typeof props.hooks.onSuccessRedirectBack !== 'undefined') {
+                        onSuccessRedirectBack = props.hooks.onSuccessRedirectBack;
+                        if (typeof onSuccessRedirectBack === 'function') {
+                            onSuccessRedirectBack = onSuccessRedirectBack({
+                                event: $event,
+                                httpResponse: response
+                            });
+                        }
+                    }
+
+
+
+                    if (typeof onSuccessRedirectBack === 'boolean' && onSuccessRedirectBack === true) {
+                        router.back();
+                    } else if (typeof onSuccessRedirectTo === 'object' || typeof onSuccessRedirectTo === 'string') {
                         if (props.hooks.redirectType === 'push') {
-                            router.push(to);
+                            router.push(onSuccessRedirectTo);
                         } else {
-                            router.replace(to);
+                            router.replace(onSuccessRedirectTo);
                         }
                     }
                 }

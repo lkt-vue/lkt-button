@@ -38,6 +38,7 @@
     min-width: var(--lkt-button--min-width);
     min-height: var(--lkt-button--min-height);
     width: var(--lkt-button--width, 100%);
+    height: var(--lkt-button--height, initial);
     gap: var(--lkt-button--gap);
     padding: var(--lkt-button--padding);
 
