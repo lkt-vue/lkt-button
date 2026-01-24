@@ -145,7 +145,7 @@ const Ft = (i = !0) => {
       if (r("doConfigClick: ", e), typeof ((k = e.events) == null ? void 0 : k.click) == "function" && e.events.click({
         event: t,
         httpResponse: o
-      }), e.dispatchHttpNotifications && (o != null && o.notifications) && Array.isArray(o == null ? void 0 : o.notifications) && ht(o.notifications), o != null && o.success) {
+      }), e.dispatchHttpNotifications && (o != null && o.notifications) && Array.isArray(o == null ? void 0 : o.notifications) && ht(o.notifications), typeof o > "u" || o != null && o.success) {
         if (typeof e.hooks.onSuccessRefreshI18n < "u") {
           let l = e.hooks.onSuccessRefreshI18n;
           typeof l == "function" && (l = l({

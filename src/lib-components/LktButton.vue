@@ -250,7 +250,7 @@
                 dispatchHttpNotifications(response.notifications);
             }
 
-            if (response?.success) {
+            if (typeof response === 'undefined' || response?.success) {
                 if (typeof props.hooks.onSuccessRefreshI18n !== 'undefined') {
                     let reload = props.hooks.onSuccessRefreshI18n;
                     if (typeof reload === 'function') {
