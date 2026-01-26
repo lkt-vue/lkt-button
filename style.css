@@ -132,6 +132,8 @@
 
     --lkt-anchor--font-size: var(--lkt-button--font-size);
     --lkt-anchor--width: 100%;
+    --lkt-anchor--flex-direction: var(--lkt-button--flex-direction);
+    --lkt-anchor--gap: var(--lkt-button--gap);
 }
 
 /**
